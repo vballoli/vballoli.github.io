@@ -47,24 +47,51 @@ $type-size-8                : 0.625em;  // ~10px
    Colors
    ========================================================================== */
 
-$gray                       : #7a8288;
-$dark-gray                  : mix(#000, $gray, 40%);
-$darker-gray                : mix(#000, $gray, 60%);
-$light-gray                 : mix(#fff, $gray, 50%);
-$lighter-gray               : mix(#fff, $gray, 90%);
+// $gray                       : #7a8288;
+// $dark-gray                  : mix(#000, $gray, 40%);
+// $darker-gray                : mix(#000, $gray, 60%);
+// $light-gray                 : mix(#fff, $gray, 50%);
+// $lighter-gray               : mix(#fff, $gray, 90%);
 
-$body-color                 : #fff;
-$background-color           : #fff;
-$code-background-color      : #fafafa;
-$code-background-color-dark : $light-gray;
-$text-color                 : $dark-gray;
-$border-color               : $lighter-gray;
+// $body-color                 : #fff;
+// $background-color           : #fff;
+// $code-background-color      : #fafafa;
+// $code-background-color-dark : $light-gray;
+// $text-color                 : $dark-gray;
+// $border-color               : $lighter-gray;
 
-$primary-color              : #7a8288;
-$success-color              : #62c462;
-$warning-color              : #f89406;
-$danger-color               : #ee5f5b;
-$info-color                 : #52adc8;
+// $primary-color              : #7a8288;
+// $success-color              : #62c462;
+// $warning-color              : #f89406;
+// $danger-color               : #ee5f5b;
+// $info-color                 : #52adc8;
+
+/* Colors */
+$gray                       : #1976d2 !default;
+$dark-gray                  : mix(#000, $gray, 40%) !default;
+$darker-gray                : mix(#000, $gray, 60%) !default;
+$light-gray                 : mix(#fff, $gray, 50%) !default;
+$lighter-gray               : mix(#fff, $gray, 90%) !default;
+
+$body-color                 : #fff !default;
+$background-color           : #f0fff0 !default;
+$code-background-color      : $lighter-gray !default;
+$code-background-color-dark : $light-gray !default;
+$text-color                 : $dark-gray !default;
+$border-color               : $lighter-gray !default;
+
+$primary-color              : $gray !default;
+$success-color              : #27ae60 !default;
+$warning-color              : #e67e22 !default;
+$danger-color               : #c0392b !default;
+$info-color                 : #03a9f4 !default;
+
+/* links */
+$link-color                 : $info-color !default;
+$link-color-hover           : mix(#000, $link-color, 25%) !default;
+$link-color-visited         : mix(#fff, $link-color, 25%) !default;
+$masthead-link-color        : $primary-color !default;
+$masthead-link-color-hover  : mix(#000, $primary-color, 25%) !default;
 
 /* brands */
 $behance-color              : #1769FF;
@@ -89,12 +116,12 @@ $youtube-color              : #bb0000;
 $xing-color                 : #006567;
 
 
-/* links */
-$link-color                 : $info-color;
-$link-color-hover           : mix(#000, $link-color, 25%);
-$link-color-visited         : mix(#fff, $link-color, 25%);
-$masthead-link-color        : $primary-color;
-$masthead-link-color-hover  : mix(#000, $primary-color, 25%);
+// /* links */
+// $link-color                 : $info-color;
+// $link-color-hover           : mix(#000, $link-color, 25%);
+// $link-color-visited         : mix(#fff, $link-color, 25%);
+// $masthead-link-color        : $primary-color;
+// $masthead-link-color-hover  : mix(#000, $primary-color, 25%);
 
 
 /*
