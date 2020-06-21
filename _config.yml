@@ -8,6 +8,7 @@
 # Site Settings
 locale                   : "en-US"
 title                    : "Vaibhav Balloli"
+subtitle                 : "Student|Researcher|Developer"
 title_separator          : "-"
 name                     : "Vaibhav Balloli"
 description              : "Personal website"
