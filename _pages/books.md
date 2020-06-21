@@ -1,9 +1,11 @@
 ---
-permalink: /books
+permalink: /books/
 title: "Books"
 excerpt: "Books"
 author_profile: true
-
+redirect_from: 
+  - /books
+  - /books.html
 ---
 A list of books I'm currently reading, have read in the past on my new kindle and hopefully a few reviews on noteworthy ones.
 
