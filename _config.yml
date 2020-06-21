@@ -116,7 +116,7 @@ author:
   xing             :
   youtube          :
   wikipedia        :
-  cv               : "{{ url }}{{ base_url }}/files/Vaibhav_Balloli_CV.pdf"
+  cv               : "https://vballoli.github.io/profile/files/Vaibhav_Balloli_CV.pdf"
 
 
 # Reading Files
