@@ -8,4 +8,4 @@ date: 2019-03-23
 location: "Chennai, India"
 ---
 
-Presented the paper titled *Video Streaming using Scalable Video Coding over Opportunistic Networks*. 
+Presented the camera-ready accepted paper titled *Video Streaming using Scalable Video Coding over Opportunistic Networks*. 
