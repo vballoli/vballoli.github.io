@@ -14,3 +14,10 @@ main:
 
   - title: "Books"
     url: /books/
+
+  - title: "Paper Summaries"
+    url : https://vballoli.github.io/research-papers
+
+  - title: "RL"
+    url: https://vballoli.github.io/rl-journey/
+
