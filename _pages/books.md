@@ -11,11 +11,13 @@ A list of books I'm currently reading, have read in the past on my new kindle an
 
 # 2020
 
-1. __Atomic Habits__ - James Clear
-2. <p>The Subtle Art of Not Giving a f**k - Mark Manson</p>
-3. __The Code of the Extraordinary Mind__ - Vishen Lakhani
+1. __Atomic Habits - James Clear__
+2. <p><b>The Subtle Art of Not Giving a f**k - Mark Manson</b></p>
+3. __The Code of the Extraordinary Mind - Vishen Lakhani__
 4. The Unfair Advantage - Ash Ali, Hasan Kubba
-5. __Make Time__  - Jake Knapp, John Zeratsky
+5. __Make Time  - Jake Knapp, John Zeratsky__
+6. A Game of Thrones - George R. R. Martin
+7. __The Ultimate Hitchhiker’s Guide to the Galaxy - Douglas Adams__
 
 # 2019
 
