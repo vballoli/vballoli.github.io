@@ -13,8 +13,8 @@ title_separator          : "-"
 name                     : "Vaibhav Balloli"
 description              : "Personal website"
 url                      : https://vballoli.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-baseurl                  : "/profile" # the subpath of your site, e.g. "/blog"
-repository               : "vballoli/profile"
+baseurl                  : "" # the subpath of your site, e.g. "/blog"
+repository               : "vballoli/vballoli.github.io"
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
 breadcrumbs              : true # true, false (default)
 words_per_minute         : 160
@@ -116,7 +116,7 @@ author:
   xing             :
   youtube          :
   wikipedia        :
-  cv               : "https://vballoli.github.io/profile/files/Vaibhav_Balloli_CV.pdf"
+  cv               : "https://vballoli.github.io/files/Vaibhav_Balloli_CV.pdf"
 
 
 # Reading Files
