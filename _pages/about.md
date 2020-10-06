@@ -7,6 +7,7 @@ redirect_from:
   - /about/
   - /about.html
 ---
+<meta name="google-site-verification" content="7NsifbLkAAEoVzb5GhBMklfiBv0iMh78Llht-xBDsm0" />
 Hi there 👋 !!! I'm Vaibhav Balloli, researcher at IST, Austria.
 
 My academic interests include Machine Learning, Reinforcement Learning, Systems and Networks, Computer Architecture and their intersections. I play guitar, read fiction, listen to podcasts(special mention: [Lex Fridman AI podcasts](https://www.youtube.com/playlist?list=PLrAXtmErZgOdP_8GztsuKi9nrraNbKKp4)), spend time on Twitter and YouTube following and reading about various researchers and their research projects, mostly in the field of Deep Learning(special mention: [MSR](https://www.youtube.com/user/MicrosoftResearch), [Yannic Kilcher](https://www.youtube.com/channel/UCZHmQk67mSJgfCCTn7xBfew), [Henry AI Labs](https://www.youtube.com/channel/UCHB9VepY6kYvZjj0Bgxnpbw), [ML Street Talk](https://www.youtube.com/channel/UCMLtBahI5DMrt0NPvDSoIRQ), [Allen Institute of AI](https://www.youtube.com/channel/UCEqgmyWChwvt6MFGGlmUQCQ) and many more. I often write articles on my [personal blog](https://vballoli.github.io/blog) about various things and enjoy talking about movies, TV series, Machine Learning and Hardware.
