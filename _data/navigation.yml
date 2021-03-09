@@ -10,7 +10,7 @@ main:
     url: /projects/
         
   - title: "Blog"
-    url: /blog/
+    url: https://vballoli.substack.com
 
   - title: "Books"
     url: /books/
