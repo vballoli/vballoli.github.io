@@ -9,6 +9,11 @@ redirect_from:
 ---
 A list of books I'm currently reading, have read in the past on my new kindle and hopefully a few reviews on noteworthy ones.
 
+# 2021
+
+1. __Deep Work - Cal Newport__
+2. Thinking, Fast and Slow - Daniel Kahneman
+
 # 2020
 
 1. __Atomic Habits - James Clear__
