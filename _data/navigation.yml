@@ -15,9 +15,6 @@ main:
   - title: "Books"
     url: /books/
 
-  - title: "Paper Summaries"
-    url : https://vballoli.github.io/research-papers
-
-  - title: "RL"
-    url: https://vballoli.github.io/rl-journey/
+  - title: "Goodreads"
+    url : https://www.goodreads.com/user/show/118430197-vaibhav-balloli
 
