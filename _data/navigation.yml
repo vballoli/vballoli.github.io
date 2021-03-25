@@ -6,8 +6,8 @@ main:
   - title: "Talks"
     url: /talks/       
     
-  - title: "Projects"
-    url: /projects/
+  - title: "Fun stuff"
+    url: https://tourdeml.github.io
         
   - title: "Blog"
     url: https://vballoli.substack.com
