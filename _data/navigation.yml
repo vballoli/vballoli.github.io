@@ -4,17 +4,16 @@ main:
     url: /publications/
 
   - title: "Talks"
-    url: /talks/       
-    
-  - title: "Fun stuff"
-    url: https://tourdeml.github.io
+    url: /talks/ 
         
-  - title: "Blog"
-    url: https://vballoli.substack.com
+  - title: "Personal Blog"
+    url: https://vballoli.com
+
+  - title: "Scientific Blog(VLog)"
+    url: https://vballoli.github.io/VLog
 
   - title: "Books"
     url: /books/
 
-  - title: "Goodreads"
-    url : https://www.goodreads.com/user/show/118430197-vaibhav-balloli
-
+  - title: "Fun stuff(experimental)"
+    url: https://tourdeml.github.io
