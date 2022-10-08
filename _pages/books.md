@@ -9,10 +9,16 @@ redirect_from:
 ---
 A list of books I'm currently reading, have read in the past on my new kindle and hopefully a few reviews on noteworthy ones.
 
+# 2022
+
+1. The Alignment Problem - Brian Christian
+2. **Space Odessey**
+
 # 2021
 
 1. __Deep Work - Cal Newport__
 2. Thinking, Fast and Slow - Daniel Kahneman
+3. The Scout Mindset - Julia Galef
 
 # 2020
 
