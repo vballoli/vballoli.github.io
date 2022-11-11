@@ -12,7 +12,7 @@ Hi there 👋 !!! I'm Vaibhav Balloli, Research Fellow at Microsoft Research, Be
 
 At Microsoft Research, I'm currently working on Reinforcement Learning and Stochastic Optimization in the context of Energy providers as a part of [Project Vasudha](https://www.microsoft.com/en-us/research/project/vasudha/) for Sustainability. More specifically, my research delves into:
 
-**I’m currently looking for Ph.D opportunities to pursue research in the intersection of Computer Vision and Reinforcement Learning, specifically into topcics like Representation Learning, Multi-task Learning and Efficient adaptation. Please shoot me an email @ [balloli.vb@gmail.com](mailto:balloli.vb@gmail.com) if you feel I'm a good fit in your or your colleague's group.**
+**I’m currently looking for Ph.D opportunities to pursue research in AI for Social Good, specifically looking into the intersection of Multi-modality, Reinforcement Learning systems. Please shoot me an email @ [balloli.vb@gmail.com](mailto:balloli.vb@gmail.com) if you feel I'm a good fit in your or your colleague's group.**
 {: .notice}
 
 1. Scaling different RL algorithms and stochastic optimization methods to cover various energy-optimzation scenarios, like cost savings, profitability and  carbon emission savings (used as solutions for partners with Microsoft to employ algorithms that are cost effective and efficient). To this end, we author a framework called [EnCortex](../_publications/2022-09-21-encortex.md) that focuses on composing various industrial-scenarios to employ stochastic optimization and RL-based algorithms. 
