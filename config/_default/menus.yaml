@@ -1,0 +1,23 @@
+main:
+  - name: Home
+    url: '#about'
+    weight: 10
+  - name: Research Blog
+    url: 'https://research-blog.vballoli.com'
+    weight: 20
+  - name: Blog
+    url: 'https://vballoli.com'
+    weight: 30
+  - name: Publications
+    url: '#featured'
+    weight: 50
+  - name: Contact
+    url: '#contact'
+    weight: 60
+  - name: Books
+    url: 'https://vballoli.com/books'
+    weight: 70
+  - name: CV
+    url: uploads/Vaibhav_Balloli_CV.pdf
+    weight: 80
+

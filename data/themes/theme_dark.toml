@@ -1,0 +1,17 @@
+# Theme metadata
+name = "Dark Theme"
+
+[dark]
+  # Primary
+  # primary = "rgb(0, 136, 204)"
+  primary = "#4caf50"
+
+  # Menu
+  menu_primary = "rgb(33, 37, 41)"
+  menu_text = "#fff"
+  menu_text_active = "#1b5e20"
+  menu_title = "#fff"
+
+  # Home sections
+  home_section_odd = "rgb(29, 33, 39)"
+  home_section_even = "rgb(29, 33, 39)"
