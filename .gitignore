@@ -1,2 +1,15 @@
-_site/
+# IDEs
+.idea/
 
+# Hugo
+resources/
+public/
+jsconfig.json
+node_modules/
+go.sum
+.hugo_build.lock
+
+*.zip
+*.exe
+.vscode/
+hugo_extended_0.109.0_windows-amd64/
