@@ -14,6 +14,14 @@ external_link:
 image: 
 
 links: 
+  - icon: chart-simple
+    icon_pack: fas
+    name: Dashboard
+    url: 'https://hams-dashboard.westus3.cloudapp.azure.com/'
+  - icon: github
+    icon_pack: fab
+    name: Code
+    url: 'https://github.com/microsoft/HAMS'
 url_code: 'https://github.com/microsoft/HAMS'
 url_pdf: ''
 url_slides: ''

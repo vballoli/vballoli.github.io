@@ -62,8 +62,8 @@ sections:
               Projects:
 
               * [HAMS](https://www.microsoft.com/en-us/research/project/hams/) - Automated License Testing (AI for Social Good)
-              * [Vasudha](https://www.microsoft.com/en-us/research/project/vasudha/) - `EnCortex` package that provides optimization and decision making for improving sustainability of energy producers. (Currently integrated as a product at Microsoft)
-              * VeLLM - Improving multilingual capabilities  of Black-box LLMs and subsequently building ShikshaGPT.
+              * [Vasudha](https://www.microsoft.com/en-us/research/project/vasudha/) - `EnCortex` package that provides optimization and decision making for improving sustainability of energy producers. (Currently integrated as a product at Energy & Mobility, Microsoft as a product)
+              * VeLLM - Improving multilingual capabilities of Black-box LLMs and subsequently building ShikshaGPT.
     design:
       columns: '2'
   - block: portfolio
