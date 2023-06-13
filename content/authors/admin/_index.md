@@ -56,7 +56,7 @@ social:
       header: true
   - icon: graduation-cap # Alternatively, use `google-scholar` icon from `ai` icon pack
     icon_pack: fas
-    link: https://scholar.google.com/citations?user=-6i7e7sAAAAJ
+    link: https://www.semanticscholar.org/author/Vaibhav-Balloli/1564592237
     display:
       header: true
   - icon: github
