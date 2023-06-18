@@ -18,17 +18,15 @@ sections:
       text:
   - block: markdown
     content:
-      title: News
-      subtitle: 
-      # Path to the logo images within the `assets/media/` folder
+      title: "Recent News "
+      subtitle: "[All news>>](/news)"
+      filters:
+        folders:
+          - home
       text: |2-
-        * May 2023: Breaking Language Barriers with a LEAP: Learning Strategies for Polyglot LLMs pre-print
-        * September 2022: EnCortex: A General, Extensible and Scalable Framework for Decision Management in New-age Energy Systems under review.
-        * August 2022: Chanakya: Learning Tradeoffs for Adaptive Streaming Perception under review
-        * July 2022: Extending stint at Microsoft Research as [Research Fellow](https://www.microsoft.com/en-us/research/academic-program/research-fellows-program-at-microsoft-research-india/).
-        * July 2021: Joining Microsoft Research as [SCAI Research Fellow](https://www.microsoft.com/en-us/research/collaboration/scai/).
+        {{< readfile "/content/newslist.dat" 5 >}} 
     design:
-      columns: '1'
+      columns: '2'
   - block: experience
     content:
       title: Experience
