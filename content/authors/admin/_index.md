@@ -33,7 +33,7 @@ interests:
 # Education to show in About widget
 education:
   courses:
-    - course: Incoming Ph.D. student
+    - course: Ph.D. student
       institution: University of Michigan
       year: 2023
     - course: B.E. in Electronics and Communication Engineering
@@ -84,4 +84,4 @@ highlight_name: true
 summary: 10
 ---
 
-👋 Hi, I'm Vaibhav Balloli, a Research Fellow at Microsoft Research, India. I'm also an incoming graduate student at [Realize Lab](https://sites.google.com/view/realize-lab) with [Prof. Elizabeth Bondi-Kelly](https://sites.google.com/view/elizabethbondi) at the University of Michigan. I'm broadly interested in the intersection of sequential decision making and it's applications in AI for Social Good. At Microsoft Research India, I've worked on [HAMS](https://www.microsoft.com/en-us/research/project/hams/), [Project Vasudha](https://www.microsoft.com/en-us/research/project/vasudha/) and Project VeLLM. I'm a proponent of Open Source and also pretty active in developing in and contributing to Open Source, so do checkout my work on my [GitHub](https://github.com/vballoli).
+👋 Hi, I'm Vaibhav Balloli, a Ph.D. student at [Realize Lab](https://sites.google.com/view/realize-lab) with [Prof. Elizabeth Bondi-Kelly](https://sites.google.com/view/elizabethbondi) at the University of Michigan, Ann Arbor. I'm broadly interested in the intersection of sequential decision making and multi-agent systems with applications that focus on benefitting the society. Previously, I was a Research Fellow at Microsoft Research India, I've worked on [HAMS](https://www.microsoft.com/en-us/research/project/hams/), [Project Vasudha](https://www.microsoft.com/en-us/research/project/vasudha/) and Project VeLLM. I'm a proponent of Open Source and also pretty active in developing in and contributing to Open Source, so do checkout my work on my [GitHub](https://github.com/vballoli).
