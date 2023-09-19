@@ -14,12 +14,12 @@ status:
 superuser: true
 
 # Role/position/tagline
-role: Research Fellow
+role: Ph.D. student
 
 # Organizations/Affiliations to show in About widget
 organizations:
-  - name: Microsoft Research
-    url: https://www.stanford.edu/
+  - name: University of Michigan
+    url: https://cse.engin.umich.edu/
 
 # Short bio (displayed in user profile at end of posts)
 bio: My research interests include Multi Agent Systems, Reinforcement Learning and AI for Social Good.
