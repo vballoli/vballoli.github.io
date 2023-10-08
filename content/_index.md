@@ -47,7 +47,7 @@ sections:
           date_start: '2023-08-28'
           date_end: ''
           description: |2-
-            Graduate student at the CSE Department at [Realize Lab](https://sites.google.com/view/realize-lab/home?authuser=0).
+            Graduate student at the CSE Department at [Realaize Lab](https://sites.google.com/view/realize-lab/home?authuser=0).
               
         - title: Research Fellow
           company: Microsoft Research
