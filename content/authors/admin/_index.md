@@ -69,6 +69,11 @@ social:
     link: https://www.linkedin.com/in/vaibhavballoli
     display:
       header: true
+  - icon: square fa-solid
+    icon_pack: fab
+    link: https://bsky.app/profile/vballoli.bsky.social
+    display:
+      header: true
   # Link to a PDF of your resume/CV.
   # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.yaml`,
   # and uncomment the lines below.
