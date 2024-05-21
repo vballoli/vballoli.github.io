@@ -60,39 +60,10 @@ sections:
               Projects:
 
               * [HAMS](https://www.microsoft.com/en-us/research/project/hams/) - Automated License Testing (AI for Social Good)
-              * [Vasudha](https://www.microsoft.com/en-us/research/project/vasudha/) - `EnCortex` package that provides optimization and decision making for improving sustainability of energy producers. (Currently integrated as a product at Energy & Mobility, Microsoft as a product)
+              * [Vasudha](https://www.microsoft.com/en-us/research/project/vasudha/) - `EnCortex` package that provides optimization and decision making for improving sustainability of energy producers. (Currently integrated as a product at Energy & Mobility, Microsoft)
               * VeLLM - Improving multilingual capabilities of Black-box LLMs.
     design:
       columns: '2'
-  - block: portfolio
-    id: projects
-    content:
-      title: Projects
-      filters:
-        folders:
-          - project
-      # Default filter index (e.g. 0 corresponds to the first `filter_button` instance below).
-      default_button_index: 0
-      # Filter toolbar (optional).
-      # Add or remove as many filters (`filter_button` instances) as you like.
-      # To show all items, set `tag` to "*".
-      # To filter by a specific tag, set `tag` to an existing tag name.
-      # To remove the toolbar, delete the entire `filter_button` block.
-      buttons:
-        - name: All
-          tag: '*'
-        - name: Deep Learning
-          tag: Deep Learning
-        - name: Reinforcement Learning
-          tag: Reinforcement Learning
-        - name: Others
-          tag: other
-    design:
-      # Choose how many columns the section has. Valid values: '1' or '2'.
-      columns: '1'
-      view: showcase
-      # For Showcase view, flip alternate rows?
-      flip_alt_rows: true
   - block: collection
     id: featured
     content:
@@ -103,7 +74,7 @@ sections:
         featured_only: true
     design:
       columns: '2'
-      view: card
+      view: citation
   - block: collection
     content:
       title: Recent Publications
@@ -127,6 +98,39 @@ sections:
           - event
     design:
       columns: '2'
+  - block: portfolio
+    id: projects
+    content:
+      title: Projects
+      filters:
+        folders:
+          - project
+        kinds:
+          - page
+      # Default filter index (e.g. 0 corresponds to the first `filter_button` instance below).
+      default_button_index: 0
+      # Filter toolbar (optional).
+      # Add or remove as many filters (`filter_button` instances) as you like.
+      # To show all items, set `tag` to "*".
+      # To filter by a specific tag, set `tag` to an existing tag name.
+      # To remove the toolbar, delete the entire `filter_button` block.
+      buttons:
+        - name: All
+          tag: '*'
+        - name: Deep Learning
+          tag: Deep Learning
+        - name: Reinforcement Learning
+          tag: Reinforcement Learning
+        - name: Others
+          tag: other
+
+      
+    design:
+      # Choose how many columns the section has. Valid values: '1' or '2'.
+      columns: '1'
+      view: masonry
+      # For Showcase view, flip alternate rows?
+      flip_alt_rows: true
   - block: contact
     id: contact
     content:
