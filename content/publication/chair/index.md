@@ -25,8 +25,8 @@ publishDate: '2024-05-16T00:00:00Z'
 publication_types: ['1']
 
 # Publication name and optional abbreviated publication name.
-publication: IJCAI'24 Human-Centered Artificial Intelligence Track (**<5 \% Acceptance Rate**)
-publication_short: IJCAI'24
+publication: IJCAI 2024 Human-Centered Artificial Intelligence Track (**<5 \% Acceptance Rate**)
+publication_short: IJCAI 2024
 
 abstract: Image retrieval plays a pivotal role in wildlife conservation, specifically in state-of-the-art platforms like ElephantBook for finding individual animals. Although deep learning techniques for image retrieval have advanced significantly, their imperfect real-world performance often necessitates including human expertise. Human-in-the-loop approaches typically rely on humans completing the task independently and then combining their opinions with an AI model in various ways, as these models offer very little interpretability or correctability. To allow humans to intervene in the AI model instead, thereby saving human time and effort, we adapt the Concept Bottleneck Model (CBM) and propose CHAIR. CHAIR (a) enables humans to correct intermediate concepts, which helps improve embeddings generated, and (b) allows for flexible levels of intervention that accommodate varying levels of human expertise for better retrieval. To show the efficacy of CHAIR, we demonstrate that our method performs better than similar models on image retrieval metrics without any external intervention. Furthermore, we also showcase how human intervention helps further improve retrieval performance, thereby achieving human-AI complementarity.
 

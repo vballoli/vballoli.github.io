@@ -27,7 +27,7 @@ bio: My research interests include Multi Agent Systems, Reinforcement Learning a
 # Interests to show in About widget
 interests:
   - Multi Agent Systems
-  - Sequential Decision Making
+  - Human-Centered AI
   - AI for Social Good
 
 # Education to show in About widget
@@ -89,4 +89,4 @@ highlight_name: true
 summary: 10
 ---
 
-👋 Hi, I'm Vaibhav Balloli, a Ph.D. student at [Realaize Lab](https://sites.google.com/view/realize-lab) with [Prof. Elizabeth Bondi-Kelly](https://sites.google.com/view/elizabethbondi) at the University of Michigan, Ann Arbor. I'm broadly interested in the intersection of sequential decision making and multi-agent systems with applications that focus on benefitting the society. Previously, I was a Research Fellow at Microsoft Research India, I've worked on [HAMS](https://www.microsoft.com/en-us/research/project/hams/), [Project Vasudha](https://www.microsoft.com/en-us/research/project/vasudha/) and [Project VeLLM](https://www.microsoft.com/en-us/research/project/project-vellm/). I'm a proponent of Open Source and also pretty active in developing in and contributing to Open Source, so do checkout my work on my [GitHub](https://github.com/vballoli).
+👋 Hi, I'm Vaibhav Balloli, a Ph.D. candidate at [Realaize Lab](https://sites.google.com/view/realize-lab) with [Prof. Elizabeth Bondi-Kelly](https://sites.google.com/view/elizabethbondi) at the University of Michigan, Ann Arbor. I'm broadly interested in the intersection of sequential decision making and multi-agent systems with applications that focus on benefitting the society. Previously, I was a Research Fellow at Microsoft Research India, I've worked on [HAMS](https://www.microsoft.com/en-us/research/project/hams/), [Project Vasudha](https://www.microsoft.com/en-us/research/project/vasudha/) and [Project VeLLM](https://www.microsoft.com/en-us/research/project/project-vellm/). I'm a proponent of Open Source and also pretty active in developing in and contributing to Open Source, so do checkout my work on my [GitHub](https://github.com/vballoli).
