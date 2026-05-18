@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vaibhav Balloli</title>
+  <meta name="description"
+    content="Vaibhav Balloli — CS PhD at University of Michigan. Building safe and reliable interactive agentic systems.">
+  <meta name="author" content="Vaibhav Balloli">
+  <link rel="canonical" href="https://profile.vballoli.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Vaibhav Balloli — AI Researcher">
+  <meta property="og:description"
+    content="CS PhD at University of Michigan. Building safe and reliable interactive agentic systems.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://profile.vballoli.com/">
+  <meta property="og:image" content="https://profile.vballoli.com/tn/images/profile.png">
+  <meta property="og:site_name" content="Vaibhav Balloli">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vaibhav Balloli — AI Researcher">
+  <meta name="twitter:description"
+    content="CS PhD at University of Michigan. Building safe and reliable interactive agentic systems.">
+  <meta name="twitter:image" content="https://profile.vballoli.com/tn/images/profile.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Hero links: single row on desktop */
+    @media (min-width: 769px) {
+      .hero__links {
+        flex-wrap: nowrap;
+        white-space: nowrap;
+      }
+      .hero__links a {
+        flex-shrink: 0;
+      }
+    }
+
+    /* ============================================
+       Left-rail nav (desktop only)
+       ============================================ */
+    .rail {
+      position: fixed;
+      top: 50%;
+      left: 1.75rem;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.55rem;
+    }
+
+    .rail__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.35rem 0.5rem 0.35rem 0.25rem;
+      border-radius: 9999px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease, background 0.2s ease;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      line-height: 1;
+    }
+
+    .rail__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border-medium);
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .rail__label {
+      max-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: max-width 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                  opacity 0.2s ease,
+                  transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .rail:hover .rail__label,
+    .rail__item--active .rail__label {
+      max-width: 120px;
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .rail__item:hover {
+      color: var(--text-primary);
+    }
+
+    .rail__item:hover .rail__dot {
+      background: var(--text-secondary);
+      transform: scale(1.2);
+    }
+
+    .rail__item--active {
+      color: var(--accent);
+    }
+
+    .rail__item--active .rail__dot {
+      background: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-light);
+      transform: scale(1.1);
+    }
+
+    .rail__sep {
+      width: 1px;
+      height: 18px;
+      background: var(--border-subtle);
+      margin: 0.35rem 0 0.35rem 2px;
+    }
+
+    .rail__icon {
+      width: 26px;
+      height: 26px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 50%;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .rail__icon:hover {
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+    }
+
+    /* Theme toggle icon visibility — match existing tokens */
+    .rail__icon.theme-toggle .theme-icon { display: none; font-size: 0.95rem; }
+    :root[data-theme="light"]  .rail__icon.theme-toggle .theme-icon--light,
+    :root[data-theme="dark"]   .rail__icon.theme-toggle .theme-icon--dark,
+    :root[data-theme="system"] .rail__icon.theme-toggle .theme-icon--system { display: inline; }
+
+    @media (max-width: 1100px) {
+      .rail { display: none; }
+    }
+
+    /* ============================================
+       Ledger-style paper list — overrides
+       Scoped redesign: strip card chrome, promote
+       venue to a left margin, inline text-links.
+       ============================================ */
+
+    /* Container: kill the card box, use single hairline rules */
+    .paper-list { margin-top: 0.5rem; }
+
+    .paper {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      grid-template-rows: auto auto;
+      column-gap: 1.75rem;
+      row-gap: 1rem;
+      padding: 1.75rem 0;
+      border-top: 1px solid var(--border-subtle);
+      transition: opacity 0.3s ease, max-height 0.4s ease, padding 0.3s ease;
+      max-height: 1000px;
+      overflow: hidden;
+    }
+
+    .paper__meta { grid-column: 1; grid-row: 1; }
+    .paper__body { display: contents; }
+    .paper__thumb {
+      grid-column: 1;
+      grid-row: 2;
+      width: 100%;
+      height: auto;
+      align-self: start;
+    }
+    .paper__text { grid-column: 2; grid-row: 1 / span 2; min-width: 0; }
+
+    .paper:last-child { border-bottom: 1px solid var(--border-subtle); }
+
+    .paper--hidden {
+      opacity: 0;
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      border-color: transparent;
+      pointer-events: none;
+    }
+
+    /* Left margin: venue stack */
+    .paper__meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      padding-top: 0.25rem;
+      font-family: var(--font-mono);
+    }
+
+    .paper__venue {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      line-height: 1.25;
+    }
+
+    .paper__venue + .paper__venue {
+      padding-top: 0.7rem;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    .paper__venue-acronym {
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .paper__year {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
+    .paper__venue-kind {
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-style: italic;
+      margin-top: 0.15rem;
+    }
+
+    .paper__badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.35rem;
+    }
+
+    .paper__badge {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      padding: 0.25rem 0.45rem;
+      border-radius: 4px;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+
+    .paper__badge--accent {
+      background: var(--accent-light);
+      color: var(--accent);
+      border-color: transparent;
+    }
+
+    .paper__badge--highlight {
+      background: transparent;
+      color: var(--cornell-red);
+      border-color: var(--cornell-red);
+    }
+
+    /* Thumb visuals (placement handled by grid above) */
+    .paper__thumb {
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .paper__thumb img,
+    .paper__thumb video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .paper__title {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 0.35rem;
+    }
+
+    .paper--featured .paper__title { font-size: 1.18rem; }
+
+    .paper__authors {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 0.55rem;
+    }
+
+    .paper__authors strong { color: var(--text-primary); font-weight: 600; }
+
+    .paper__desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 0.7rem;
+    }
+
+    /* Inline text-links — no pills, no uppercase, no borders */
+    .paper__actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0 0.55rem;
+      font-size: 0.83rem;
+    }
+
+    .paper__actions a,
+    .paper__actions button {
+      color: var(--accent);
+      font-weight: 500;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+      font-size: inherit;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+
+    .paper__actions a:hover,
+    .paper__actions button:hover { color: var(--accent-hover); }
+
+    .paper__actions > * + *::before {
+      content: '·';
+      color: var(--text-muted);
+      margin-right: 0.55rem;
+      pointer-events: none;
+    }
+
+    .paper__actions button[data-copied]::after {
+      content: ' ✓';
+      color: var(--text-muted);
+    }
+
+    /* Bibtex disclosure */
+    .paper__bibtex {
+      margin-top: 0.7rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      border-radius: var(--radius-sm);
+      padding: 0.8rem 0.95rem;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .paper__bibtex[hidden] { display: none; }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .paper {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        row-gap: 0.6rem;
+        padding: 1.4rem 0;
+      }
+      .paper__meta {
+        grid-column: 1; grid-row: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.8rem;
+        padding-top: 0;
+        align-items: center;
+      }
+      .paper__thumb {
+        grid-column: 1; grid-row: auto;
+        max-width: 120px;
+        width: 100%;
+        justify-self: start;
+      }
+      .paper__text { grid-column: 1; grid-row: auto; }
+      .paper__venue {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 0.35rem;
+      }
+      .paper__venue + .paper__venue {
+        padding-top: 0;
+        border-top: none;
+        padding-left: 0.7rem;
+        border-left: 1px dashed var(--border-subtle);
+      }
+      .paper__venue-acronym { font-size: 0.9rem; }
+      .paper__venue-kind { margin-top: 0; }
+      .paper__badges { margin-top: 0; width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Controls (theme + section dropdown) -->
+  <div class="top-controls" id="top-controls">
+    <button class="top-btn theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Theme: system">
+      <span class="theme-icon theme-icon--light">☀</span>
+      <span class="theme-icon theme-icon--dark">☾</span>
+      <span class="theme-icon theme-icon--system">◐</span>
+    </button>
+    <button class="top-btn nav-toggle" id="nav-toggle" aria-label="Navigate sections">⋯</button>
+
+    <div class="nav-dropdown" id="nav-dropdown">
+      <a class="nav-dropdown__link" href="#top" data-section="top">Home</a>
+      <a class="nav-dropdown__link" href="#news" data-section="news">News</a>
+      <a class="nav-dropdown__link" href="#research" data-section="research">Research</a>
+      <div class="nav-dropdown__divider"></div>
+      <button class="nav-dropdown__hint" id="cmd-k-hint">Search… <kbd>⌘K</kbd></button>
+    </div>
+  </div>
+
+  <!-- Hidden stub so main.js (which queries this ID without null-check) doesn't throw -->
+  <nav id="section-indicator" hidden aria-hidden="true"></nav>
+
+  <!-- Side Rail Nav -->
+  <nav class="rail" id="side-rail" aria-label="Section navigation">
+    <a class="rail__item rail__item--active" href="#top" data-section="top">
+      <span class="rail__dot" aria-hidden="true"></span>
+      <span class="rail__label">Home</span>
+    </a>
+    <a class="rail__item" href="#news" data-section="news">
+      <span class="rail__dot" aria-hidden="true"></span>
+      <span class="rail__label">News</span>
+    </a>
+    <a class="rail__item" href="#research" data-section="research">
+      <span class="rail__dot" aria-hidden="true"></span>
+      <span class="rail__label">Research</span>
+    </a>
+  </nav>
+
+  <!-- Command Palette -->
+  <div class="cmd-palette-overlay" id="cmd-overlay">
+    <div class="cmd-palette" id="cmd-palette">
+      <div class="cmd-palette__input-wrap">
+        <span class="cmd-palette__icon">🔍</span>
+        <input class="cmd-palette__input" id="cmd-input" type="text" placeholder="Search papers, tags, sections…"
+          autocomplete="off">
+        <span class="cmd-palette__kbd">ESC</span>
+      </div>
+      <div class="cmd-palette__results" id="cmd-results"></div>
+    </div>
+  </div>
+
+  <main class="container">
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero__inner">
+        <div class="hero__text">
+          <h1 class="hero__name">Vaibhav Balloli</h1>
+          <div class="hero__bio">
+            <p>👋 Hi, I'm an AI researcher and a Computer Science Ph.D. candidate at the
+              <a href="https://cse.engin.umich.edu/">University of Michigan</a>.
+              I design and deploy interactive AI systems that help solve specific societal challenges across healthcare, wildlife conservation, road safety, and education. My research focuses on topics around LLMs, Reinforcement Learning, Representation Learning, and human-AI interaction.
+            </p>
+            
+            <p>
+              Previously, I have worked at Microsoft Research: once as a summer intern working on improving interactivity of LLM agents and then as a Research Fellow for two years working on 
+              scaling <a href="https://www.microsoft.com/en-us/research/project/hams/">HAMS</a>,
+              <a href="https://www.microsoft.com/en-us/research/project/vasudha/">Vasudha</a>, and improving multilingual capabilities of LLMs at
+              <a href="https://www.microsoft.com/en-us/research/project/project-vellm/">VeLLM</a>.
+            </p>
+          </div>
+
+          <div class="hero__links">
+            <a class="hero__link--primary" target="_blank" href="uploads/Vaibhav_Balloli_CV.pdf">📄 CV</a>
+            <a target="_blank" href="mailto:balloli.vb@gmail.com">Email</a>
+            <a target="_blank" href="https://github.com/vballoli">GitHub</a>
+            <a target="_blank" href="https://scholar.google.com/citations?user=-6i7e7sAAAAJ&hl=en">Google Scholar</a>
+            <a target="_blank" href="https://www.linkedin.com/in/vaibhavballoli">LinkedIn</a>
+            <a target="_blank" href="https://twitter.com/v_balloli">Twitter</a>
+          </div>
+        </div>
+
+        <div class="hero__photo">
+          <img alt="Vaibhav Balloli" src="tn/images/profile.jpeg">
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWS -->
+    <section class="section news" id="news">
+      <h2 class="section-title">News</h2>
+      <ul class="news__list" id="news-list">
+        <li class="news__item"><span class="news__date">Loading…</span></li>
+      </ul>
+      <button class="news__view-all" id="news-view-all" type="button" hidden>View all news</button>
+    </section>
+
+    <!-- RESEARCH -->
+    <section class="section" id="research">
+      <h2 class="section-title">Research</h2>
+      <p class="research__intro">
+        I work on human-centered AI — designing systems that collaborate with people, surface the right uncertainty,
+        and remain reliable when deployed. My current focus is multilingual LLMs, agent reasoning, and human-AI
+        collaboration for high-stakes domains like healthcare and conservation.
+      </p>
+
+      <!-- Filter -->
+      <div id="pill-anchor" class="pill-anchor"></div>
+      <div class="filter-pill filter-pill--inline" id="filter-pill">
+        <div class="filter-pill__search-wrap">
+          <span class="filter-pill__search-icon">🔍</span>
+          <input class="filter-pill__input" id="filter-pill-input" type="text" placeholder="Ctrl-K to search papers.."
+            autocomplete="off">
+        </div>
+        <div class="filter-pill__divider"></div>
+        <div class="filter-pill__tags" id="research-filters">
+          <button class="filter-tag filter-tag--active" data-filter="featured">Featured</button>
+          <button class="filter-tag" data-filter="all">All</button>
+          <button class="filter-tag" data-filter="llms">LLMs</button>
+          <button class="filter-tag" data-filter="evals">Evals</button>
+          <button class="filter-tag" data-filter="vision">Vision</button>
+          <button class="filter-tag" data-filter="healthcare">Healthcare</button>
+          <button class="filter-tag" data-filter="social-impact">Social Impact</button>
+        </div>
+      </div>
+
+      <div class="paper-list" id="paper-list">
+
+        <!-- KDD Reliance-->
+        <article class="paper paper--featured" data-tags="featured,llms,evals,healthcare,social-impact">
+          <div class="paper__meta">
+            <div class="paper__venue">
+              <span class="paper__venue-acronym">KDD</span>
+              <span class="paper__year">2026</span>
+              <span class="paper__venue-kind">Datasets and Benchmarks Track</span>
+            </div>
+          </div>
+          <div class="paper__body">
+            <div class="paper__thumb">
+              <img alt="" src="tn/images/reliance.png">
+            </div>
+            <div class="paper__text">
+              <h3 class="paper__title">RELIANCE: Curating and Evaluating Reproductive Health Information on Social Media</h3>
+              <p class="paper__authors"><strong>Vaibhav Balloli</strong>, Laura Peyton Ellis, Vishala Mishra, Alice M Chi, Alex Friedman Peahl, Elizabeth Bondi-Kelly</p>
+              <p class="paper__desc">Devise data curation multi-modal agents to collect and curate reproductive health information from TikTok and work with clinicians to evaluate the accuracy of the content and how LLMs perform in evaluating the content for accuracy and harms.</p>
+              <div class="paper__actions">
+                <a href="https://realize-lab.github.io/RELIANCE" target="_blank">Project</a>
+                <button type="button" data-copy-bibtex>Copy BibTeX</button>
+              </div>
+              <pre class="paper__bibtex" hidden>@inproceedings{
+balloli2026reliance,
+title={{RELIANCE}: Curating and Evaluating Reproductive Health Information on Social Media},
+author={Vaibhav Balloli and Laura Peyton Ellis and Vishala Mishra and Alice M Chi and Alex Friedman Peahl and Elizabeth Bondi-Kelly},
+booktitle={KDD 2026 Datasets and Benchmarks Track (Cycle 2)},
+year={2026},
+url={https://openreview.net/forum?id=tzjulgs9sD}
+}</pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Interactive Health -->
+        <article class="paper paper--featured" data-tags="featured,llms,evals,healthcare,social-impact">
+          <div class="paper__meta">
+            <div class="paper__venue">
+              <span class="paper__venue-acronym">Interactive Health</span>
+              <span class="paper__year">2026</span>
+            </div>
+          </div>
+          <div class="paper__body">
+            <div class="paper__thumb">
+              <img alt="" src="tn/images/facct.png">
+            </div>
+            <div class="paper__text">
+              <h3 class="paper__title">PATHFinder Agents for Tailored Prenatal Care</h3>
+              <p class="paper__authors"><strong>Vaibhav Balloli</strong>, Carissa Samuel, Samia Abdelnabi, Alex Peahl, Elizabeth Bondi-Kelly</p>
+              <p class="paper__desc">Interactive LLM agents to interact with pregnant people, provide personalized prenatal care information, plan, and resources to patients, assist clinicians.</p>
+              <div class="paper__actions">
+                <a href="https://realize-lab.github.io/PATHFinder" target="_blank">Project</a>
+                <button type="button" data-copy-bibtex>Copy BibTeX</button>
+              </div>
+              <pre class="paper__bibtex" hidden>@inproceedings{
+balloli2026pathfinder,
+title={PATHFinder Agents for Tailored Prenatal Care},
+author={Balloli, Vaibhav and Samuel, Carissa and Abdelnabi, Samia and Peahl, Alex and Bondi-Kelly, Elizabeth},
+booktitle={ACM Interactive Health},
+year={2026},
+}</pre>
+            </div>
+          </div>
+        </article>
+
+        <article class="paper" data-tags="healthcare">
+          <div class="paper__meta">
+            <div class="paper__venue">
+              <span class="paper__venue-acronym">FAccT</span>
+              <span class="paper__year">2026</span>
+            </div>
+          </div>
+          <div class="paper__body">
+            <div class="paper__thumb">
+              <img alt="" src="tn/images/facct.png">
+            </div>
+            <div class="paper__text">
+              <h3 class="paper__title">"Where is this coming from?" Uncovering Trustworthiness Ideals in AI-powered Peripartum Information Seeking</h3>
+              <p class="paper__authors"><strong>Vaibhav Balloli</strong>, Julia Erickson, Xinyi Li, Erin MacMurray van Liemt, Alex Friedman Peahl, Elizabeth Bondi-Kelly</p>
+              <p class="paper__desc">Conduct focus-groups to understand the role of AI-enabled information provision in the current health ecosystem and the trustworthiness and governance expectations of stakeholders.</p>
+              <div class="paper__actions">
+                <a href="https://realize-lab.github.io/MATERNAL" target="_blank">Project</a>
+                <button type="button" data-copy-bibtex>Copy BibTeX</button>
+              </div>
+              <pre class="paper__bibtex" hidden>@inproceedings{
+balloli2026maternal,
+title={''Where is this coming from?'' Uncovering Trustworthiness Ideals in {AI}-powered Peripartum Information Seeking},
+author={Balloli, Vaibhav and Erickson, Julia and Li, Xinyi and MacMurray van Liemt, Erin and Friedman Peahl, Alex and Bondi-Kelly, Elizabeth},
+booktitle={The Ninth Annual ACM Conference on Fairness, Accountability, and Transparency},
+year={2026},
+}</pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- SEEK-CBM -->
+        <article class="paper" data-tags="vision,social-impact">
+          <div class="paper__meta">
+            <div class="paper__venue">
+              <span class="paper__venue-acronym">CV4Animals @ CVPR 2026</span>
+              <span class="paper__year">2026</span>
+            </div>
+          </div>
+          <div class="paper__body">
+            <div class="paper__thumb">
+              <img alt="" src="tn/images/seekcbm.png">
+            </div>
+            <div class="paper__text">
+              <h3 class="paper__title">SEEK-CBM: Editiable and interpretable Retrieval for Elephant Re-Identification</h3>
+              <p class="paper__authors">Antoine Salaün, <strong>Vaibhav Balloli</strong>, Timm Haucke, Elizabeth Bondi-Kelly, Sara Beery</p>
+              <p class="paper__desc">SEEK-CBM upgrades CHAIR to modern vision architectures and self-supervised techniques to achieve a 497% improvement in performance.  </p>
+              <div class="paper__actions">
+                <a href="https://realize-lab.github.io/CHAIR" target="_blank">Project</a>
+                <a href="https://github.com/realize-lab/CHAIR" target="_blank">Code</a>
+                <button type="button" data-copy-bibtex>Copy BibTeX</button>
+              </div>
+              <pre class="paper__bibtex" hidden>@inproceedings{
+seekcbm2026salaun,
+title={{SEEK}-{CBM}: Editiable and interpretable Retrieval for Elephant Re-Identification},
+author={Salaün, Antoine and Balloli, Vaibhav and Haucke, Timm and Bondi-Kelly, Elizabeth and Beery, Sara},
+booktitle={6th Workshop on CV4Animals: Computer Vision for Animal Behavior Tracking and Modeling, in conjunction with CVPR 2026},
+year={2026}
+}</pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- LEAP -->
+        <article class="paper paper--featured" data-tags="featured,llms">
+          <div class="paper__meta">
+            <div class="paper__venue">
+              <span class="paper__venue-acronym">COLING</span>
+              <span class="paper__year">2025</span>
+            </div>
+            <div class="paper__badges">
+              <span class="paper__badge paper__badge--highlight">Oral</span>
+            </div>
+          </div>
+          <div class="paper__body">
+            <div class="paper__thumb">
+              <img alt="" src="tn/images/leap.png">
+            </div>
+            <div class="paper__text">
+              <h3 class="paper__title">Bridging the Gap: Dynamic Learning Strategies for Improving Multilingual Performance in LLMs</h3>
+              <p class="paper__authors">Somnath Kumar*, <strong>Vaibhav Balloli*</strong>, Mercy Ranjit, Tanuja Ganu, Kabir Ahuja, Sunayna Sitaraman, Kalika Bali</p>
+              <p class="paper__desc">A dynamic strategy that selects, per query at run-time, the optimal prompt, LLM, and embedding model to maximize multilingual QA performance — improving non-Latin and low-resource language coverage without any extra training.</p>
+              <div class="paper__actions">
+                <a href="https://arxiv.org/abs/2405.18359" target="_blank">Paper</a>
+                <button type="button" data-copy-bibtex>Copy BibTeX</button>
+              </div>
+              <pre class="paper__bibtex" hidden>@inproceedings{kumar2025leap,
+  title     = {Bridging the Gap: Dynamic Learning Strategies for Improving Multilingual Performance in LLMs},
+  author    = {Kumar, Somnath and Balloli, Vaibhav and Ranjit, Mercy and Ganu, Tanuja and Ahuja, Kabir and Sitaraman, Sunayna and Bali, Kalika},
+  booktitle = {Proceedings of the International Conference on Computational Linguistics (COLING)},
+  year      = {2025},
+  note      = {Oral}
+}</pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- CHAIR -->
+        <article class="paper paper--featured" data-tags="featured,vision,social-impact">
+          <div class="paper__meta">
+            <div class="paper__venue">
+              <span class="paper__venue-acronym">IJCAI</span>
+              <span class="paper__year">2024</span>
+              <span class="paper__venue-kind">Human-Centered AI track</span>
+            </div>
+            <div class="paper__badges">
+              <span class="paper__badge paper__badge--highlight">&lt;5% accept</span>
+            </div>
+          </div>
+          <div class="paper__body">
+            <div class="paper__thumb">
+              <img alt="" src="tn/images/CHAIR.png">
+            </div>
+            <div class="paper__text">
+              <h3 class="paper__title">Are They the Same Picture? Adapting Concept Bottleneck Models for Human-AI Collaboration in Image Retrieval</h3>
+              <p class="paper__authors"><strong>Vaibhav Balloli</strong>, Sara Beery, Elizabeth Bondi-Kelly</p>
+              <p class="paper__desc">CHAIR adapts Concept Bottleneck Models so experts can intervene on intermediate concepts during image retrieval — a setting that matters for wildlife re-identification platforms like ElephantBook. Flexible levels of intervention let domain experts spend effort where it's most useful, achieving genuine human-AI complementarity.</p>
+              <div class="paper__actions">
+                <a href="https://realize-lab.github.io/CHAIR" target="_blank">Project</a>
+                <a href="https://github.com/realize-lab/CHAIR" target="_blank">Code</a>
+                <button type="button" data-copy-bibtex>Copy BibTeX</button>
+              </div>
+              <pre class="paper__bibtex" hidden>@inproceedings{balloli2024chair,
+  title     = {Are They the Same Picture? Adapting Concept Bottleneck Models for Human-AI Collaboration in Image Retrieval},
+  author    = {Balloli, Vaibhav and Beery, Sara and Bondi-Kelly, Elizabeth},
+  booktitle = {Proceedings of the International Joint Conference on Artificial Intelligence (IJCAI)},
+  year      = {2024}
+}</pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Chanakya -->
+        <article class="paper paper--featured" data-tags="featured,vision">
+          <div class="paper__meta">
+            <div class="paper__venue">
+              <span class="paper__venue-acronym">NeurIPS</span>
+              <span class="paper__year">2023</span>
+            </div>
+            <!-- Example: additional workshop appearance. Remove or edit as needed.
+            <div class="paper__venue">
+              <span class="paper__venue-acronym">ML4Sys</span>
+              <span class="paper__year">2023</span>
+              <span class="paper__venue-kind">Workshop</span>
+            </div>
+            -->
+          </div>
+          <div class="paper__body">
+            <div class="paper__thumb">
+              <img alt="" src="tn/images/chanakya.png">
+            </div>
+            <div class="paper__text">
+              <h3 class="paper__title">Chanakya: Learning Runtime Decisions for Adaptive Real-Time Perception</h3>
+              <p class="paper__authors">Anurag Ghosh, <strong>Vaibhav Balloli</strong>, Akshay Nambi, Aditya Singh, Tanuja Ganu</p>
+              <p class="paper__desc">A learned approximate-execution framework for streaming perception. Chanakya jointly considers scene content and system contention to pick run-time decisions (resolution, model, compute) that balance accuracy and latency — beating static and dynamic baselines on both server GPUs and edge devices.</p>
+              <div class="paper__actions">
+                <a href="https://openreview.net/pdf?id=VpCjozUOM2" target="_blank">Paper</a>
+                <a href="https://github.com/microsoft/Chanakya" target="_blank">Code</a>
+                <a href="https://aka.ms/chanakya" target="_blank">Project</a>
+                <button type="button" data-copy-bibtex>Copy BibTeX</button>
+              </div>
+              <pre class="paper__bibtex" hidden>@inproceedings{ghosh2023chanakya,
+  title     = {Chanakya: Learning Runtime Decisions for Adaptive Real-Time Perception},
+  author    = {Ghosh, Anurag and Balloli, Vaibhav and Nambi, Akshay and Singh, Aditya and Ganu, Tanuja},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2023}
+}</pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- WiSPNet
+        <article class="paper" data-tags="systems">
+          <div class="paper__meta">
+            <div class="paper__venue">
+              <span class="paper__venue-acronym">WiSPNET</span>
+              <span class="paper__year">2019</span>
+            </div>
+          </div>
+          <div class="paper__body">
+            <div class="paper__thumb">
+              <img alt="" src="tn/images/profile.jpeg">
+            </div>
+            <div class="paper__text">
+              <h3 class="paper__title">Video Streaming using Scalable Video Coding over Opportunistic Networks</h3>
+              <p class="paper__authors">Abhishek Thakur, <strong>Vaibhav Balloli</strong>, Arnav Dhamija</p>
+              <p class="paper__desc">An adaptive video-transfer algorithm over opportunistic networks that uses Scalable Video Coding to deliver at least a minimum-quality stream and upgrades when resources allow, with an Android proof-of-concept.</p>
+              <div class="paper__actions">
+                <a href="https://doi.org/10.1109/WiSPNET45539.2019.9032752" target="_blank">Paper</a>
+                <a href="https://github.com/vballoli/VectorsAndroid" target="_blank">Code</a>
+                <button type="button" data-copy-bibtex>Copy BibTeX</button>
+              </div>
+              <pre class="paper__bibtex" hidden>@inproceedings{thakur2019video,
+  title     = {Video Streaming using Scalable Video Coding over Opportunistic Networks},
+  author    = {Thakur, Abhishek and Balloli, Vaibhav and Dhamija, Arnav},
+  booktitle = {International Conference on Wireless Communications, Signal Processing and Networking (WiSPNET)},
+  year      = {2019},
+  doi       = {10.1109/WiSPNET45539.2019.9032752}
+}</pre>
+            </div>
+          </div>
+        </article> -->
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__ack">Co-crafted by <span id="footer-anurag" style="cursor: pointer;">Vaibhav</span> &amp; <a
+          href="https://claude.ai" target="_blank" style="color: inherit; text-decoration: underline;">Claude</a>;  inspired by <a href="https://anuragxel.github.io/" target="_blank" style="color: inherit; text-decoration: underline;">Anurag</a></p>
+    </div>
+  </footer>
+
+
+  <!-- News Drawer -->
+  <div class="news-drawer-overlay" id="news-drawer-overlay"></div>
+  <aside class="news-drawer" id="news-drawer" aria-label="All news" aria-hidden="true">
+    <header class="news-drawer__header">
+      <h3 class="news-drawer__title">All News</h3>
+      <button class="news-drawer__close" id="news-drawer-close" aria-label="Close">&times;</button>
+    </header>
+    <div class="news-drawer__body" id="news-drawer-body"></div>
+  </aside>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="main.js" defer></script>
+
+  <!-- Side-rail scroll-spy -->
+  <script>
+    (function () {
+      const items = Array.from(document.querySelectorAll('.rail__item'));
+      if (!items.length) return;
+      const sections = items
+        .map(a => ({ item: a, el: document.getElementById(a.dataset.section) }))
+        .filter(s => s.el);
+
+      const setActive = (id) => {
+        items.forEach(a => a.classList.toggle('rail__item--active', a.dataset.section === id));
+      };
+
+      const io = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      }, { rootMargin: '-40% 0px -50% 0px', threshold: [0, 0.25, 0.5, 1] });
+
+      sections.forEach(s => io.observe(s.el));
+    })();
+  </script>
+
+  <!-- Filter + search for .paper ledger -->
+  <script>
+    (function () {
+      const pill = document.getElementById('filter-pill');
+      const tags = document.getElementById('research-filters');
+      const input = document.getElementById('filter-pill-input');
+      const papers = Array.from(document.querySelectorAll('.paper-list .paper'));
+      if (!pill || !papers.length) return;
+
+      let activeFilter = 'featured';
+      let query = '';
+
+      const apply = () => {
+        const q = query.trim().toLowerCase();
+        papers.forEach(p => {
+          const paperTags = (p.dataset.tags || '').split(',').map(s => s.trim());
+          const tagOk = activeFilter === 'all' || paperTags.includes(activeFilter);
+          const text = q ? p.textContent.toLowerCase() : '';
+          const searchOk = !q || text.includes(q);
+          p.classList.toggle('paper--hidden', !(tagOk && searchOk));
+        });
+      };
+
+      tags?.addEventListener('click', e => {
+        const btn = e.target.closest('.filter-tag');
+        if (!btn) return;
+        tags.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('filter-tag--active'));
+        btn.classList.add('filter-tag--active');
+        activeFilter = btn.dataset.filter;
+        apply();
+      });
+
+      input?.addEventListener('input', e => {
+        query = e.target.value;
+        pill.classList.toggle('filter-pill--searching', !!query);
+        apply();
+      });
+
+      apply();
+    })();
+  </script>
+
+  <!-- BibTeX copy: delegated handler, shift-click reveals inline -->
+  <script>
+    (function () {
+      const list = document.getElementById('paper-list');
+      if (!list) return;
+
+      list.addEventListener('click', async (e) => {
+        const btn = e.target.closest('[data-copy-bibtex]');
+        if (!btn) return;
+
+        const bib = btn.closest('.paper__text')?.querySelector('.paper__bibtex');
+        if (!bib) return;
+
+        // Shift-click toggles the inline view instead of copying
+        if (e.shiftKey) {
+          bib.hidden = !bib.hidden;
+          return;
+        }
+
+        const text = bib.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+        } catch {
+          // Fallback: select text so user can copy manually
+          bib.hidden = false;
+          const range = document.createRange();
+          range.selectNodeContents(bib);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+        }
+
+        const original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.dataset.copied = 'true';
+        setTimeout(() => {
+          btn.textContent = original;
+          delete btn.dataset.copied;
+        }, 1500);
+      });
+    })();
+  </script>
+
+  <!-- Easter Egg Popup -->
+  <div class="easter-egg-overlay" id="easter-egg-overlay">
+    <div class="easter-egg-popup" id="easter-egg-popup">
+      <button class="easter-egg-close" id="easter-egg-close">&times;</button>
+      <iframe id="easter-egg-iframe" width="560" height="315" frameborder="0" allow="autoplay; encrypted-media"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+
+</body>
+
+</html>
