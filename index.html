@@ -374,6 +374,112 @@
 
     .paper__bibtex[hidden] { display: none; }
 
+    /* BibTeX copy toast */
+    .bibtex-toast {
+      position: fixed;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      z-index: 200;
+      width: min(440px, calc(100vw - 2.5rem));
+      max-height: min(60vh, 480px);
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-primary, #fff);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md, 10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.08);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bibtex-toast--visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .bibtex-toast__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-secondary);
+    }
+
+    .bibtex-toast__title {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--text-primary);
+    }
+
+    .bibtex-toast__check {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .bibtex-toast__close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.05rem;
+      line-height: 1;
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .bibtex-toast__close:hover {
+      color: var(--text-primary);
+      background: var(--bg-primary);
+    }
+
+    .bibtex-toast__body {
+      margin: 0;
+      padding: 0.8rem 0.95rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      white-space: pre;
+      overflow: auto;
+      flex: 1 1 auto;
+      tab-size: 2;
+    }
+
+    .bibtex-toast__progress {
+      height: 2px;
+      background: var(--accent);
+      width: 100%;
+      transform-origin: left center;
+      transform: scaleX(1);
+    }
+
+    .bibtex-toast--counting .bibtex-toast__progress {
+      transform: scaleX(0);
+      transition: transform linear;
+    }
+
+    @media (max-width: 640px) {
+      .bibtex-toast {
+        right: 0.75rem;
+        left: 0.75rem;
+        bottom: 0.75rem;
+        width: auto;
+      }
+    }
+
     /* Mobile */
     @media (max-width: 640px) {
       .paper {
@@ -903,11 +1009,100 @@ year={2026}
     })();
   </script>
 
-  <!-- BibTeX copy: delegated handler, shift-click reveals inline -->
+  <!-- BibTeX copy: delegated handler, shift-click reveals inline, shows themed toast -->
   <script>
     (function () {
       const list = document.getElementById('paper-list');
       if (!list) return;
+
+      const TOAST_MS = 4000;
+      let toastEl = null;
+      let hideTimer = null;
+      let removeTimer = null;
+
+      const formatBibtex = (raw) => {
+        // Normalize: trim, collapse leading whitespace on each line so indentation is consistent.
+        const lines = raw.replace(/\r\n/g, '\n').split('\n').map(l => l.replace(/\s+$/, ''));
+        // Strip a common leading-space prefix (handles HTML indentation leaking into <pre>)
+        const nonEmpty = lines.filter(l => l.trim().length);
+        const minIndent = nonEmpty.reduce((m, l) => {
+          const lead = l.match(/^[ \t]*/)[0].length;
+          return Math.min(m, lead);
+        }, Infinity);
+        const dedented = lines.map(l => l.slice(Math.min(minIndent, l.match(/^[ \t]*/)[0].length)));
+        return dedented.join('\n').trim();
+      };
+
+      const ensureToast = () => {
+        if (toastEl) return toastEl;
+        toastEl = document.createElement('div');
+        toastEl.className = 'bibtex-toast';
+        toastEl.setAttribute('role', 'status');
+        toastEl.setAttribute('aria-live', 'polite');
+        toastEl.innerHTML = `
+          <div class="bibtex-toast__header">
+            <span class="bibtex-toast__title">
+              <span class="bibtex-toast__check" aria-hidden="true">✓</span>
+              <span>Copied BibTeX to clipboard</span>
+            </span>
+            <button class="bibtex-toast__close" type="button" aria-label="Dismiss">×</button>
+          </div>
+          <pre class="bibtex-toast__body"></pre>
+          <div class="bibtex-toast__progress" aria-hidden="true"></div>
+        `;
+        document.body.appendChild(toastEl);
+        toastEl.querySelector('.bibtex-toast__close').addEventListener('click', hideToast);
+        // Pause auto-hide on hover
+        toastEl.addEventListener('mouseenter', () => {
+          clearTimeout(hideTimer);
+          clearTimeout(removeTimer);
+          const bar = toastEl.querySelector('.bibtex-toast__progress');
+          toastEl.classList.remove('bibtex-toast--counting');
+          bar.style.transition = 'none';
+          bar.style.transform = 'scaleX(1)';
+        });
+        toastEl.addEventListener('mouseleave', () => scheduleHide());
+        return toastEl;
+      };
+
+      const scheduleHide = () => {
+        const el = toastEl;
+        if (!el) return;
+        clearTimeout(hideTimer);
+        const bar = el.querySelector('.bibtex-toast__progress');
+        // Restart progress animation
+        bar.style.transition = 'none';
+        bar.style.transform = 'scaleX(1)';
+        // Force reflow so the next transition takes effect
+        void bar.offsetWidth;
+        bar.style.transition = `transform ${TOAST_MS}ms linear`;
+        el.classList.add('bibtex-toast--counting');
+        bar.style.transform = 'scaleX(0)';
+        hideTimer = setTimeout(hideToast, TOAST_MS);
+      };
+
+      const hideToast = () => {
+        if (!toastEl) return;
+        toastEl.classList.remove('bibtex-toast--visible');
+        toastEl.classList.remove('bibtex-toast--counting');
+        clearTimeout(removeTimer);
+        removeTimer = setTimeout(() => {
+          if (toastEl) {
+            toastEl.remove();
+            toastEl = null;
+          }
+        }, 220);
+      };
+
+      const showToast = (bibtex) => {
+        const el = ensureToast();
+        el.querySelector('.bibtex-toast__body').textContent = bibtex;
+        // Trigger enter transition
+        requestAnimationFrame(() => {
+          el.classList.add('bibtex-toast--visible');
+          scheduleHide();
+        });
+      };
 
       list.addEventListener('click', async (e) => {
         const btn = e.target.closest('[data-copy-bibtex]');
@@ -922,10 +1117,12 @@ year={2026}
           return;
         }
 
-        const text = bib.textContent.trim();
+        const text = formatBibtex(bib.textContent);
+        let copied = true;
         try {
           await navigator.clipboard.writeText(text);
         } catch {
+          copied = false;
           // Fallback: select text so user can copy manually
           bib.hidden = false;
           const range = document.createRange();
@@ -933,6 +1130,12 @@ year={2026}
           const sel = window.getSelection();
           sel.removeAllRanges();
           sel.addRange(range);
+        }
+
+        showToast(text);
+        if (toastEl && !copied) {
+          toastEl.querySelector('.bibtex-toast__title span:last-child').textContent =
+            'Select & copy (clipboard unavailable)';
         }
 
         const original = btn.textContent;
