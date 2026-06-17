@@ -1,0 +1,31 @@
+---
+permalink: /llms.txt
+eleventyExcludeFromCollections: true
+---
+# {{ site.name }}
+
+> {{ site.description }}
+
+{{ site.name }} is a {{ site.jobTitle }} at {{ site.affiliation }}, building safe and reliable interactive AI systems for high-stakes societal domains including healthcare, wildlife conservation, road safety, and education. Research areas: {{ site.knowsAbout | join(", ") }}. Previously a Research Fellow and intern at Microsoft Research (HAMS, Vasudha, VeLLM).
+
+This file follows the llms.txt convention (https://llmstxt.org) to give language models a concise, accurate map of the site.
+
+## Publications
+{%- for paper in collections.papers %}
+- [{{ paper.data.title | safe }}]({{ paper.data.links[0].href if paper.data.links and paper.data.links.length else site.url }}): {% for v in paper.data.venues %}{{ v.acronym | safe }} {{ v.year }}{% if not loop.last %}, {% endif %}{% endfor %}{% if paper.data.badges and paper.data.badges.length %} ({% for b in paper.data.badges %}{{ b.label | safe }}{% if not loop.last %}, {% endif %}{% endfor %}){% endif %}. Authors: {% for a in paper.data.authors %}{{ a.name | safe }}{% if not loop.last %}, {% endif %}{% endfor %}.
+{%- endfor %}
+
+## Links
+- [Homepage]({{ site.url }}/): About, news, publications, and reading list
+- [Curriculum Vitae]({{ site.url }}/uploads/Vaibhav_Balloli_CV.pdf): Full CV (PDF)
+- [GitHub](https://github.com/vballoli): Code and open-source projects
+- [Google Scholar](https://scholar.google.com/citations?user=-6i7e7sAAAAJ&hl=en): Publication list and citations
+- [LinkedIn](https://www.linkedin.com/in/vaibhavballoli): Professional profile
+- [Twitter / X](https://twitter.com/v_balloli): Updates
+- [Email](mailto:{{ site.email }}): Contact
+
+## About
+- Name: {{ site.name }}
+- Role: {{ site.jobTitle }}, {{ site.affiliation }}
+- Research: {{ site.knowsAbout | join(", ") }}
+- Previously: Microsoft Research (Research Fellow; Research Intern)

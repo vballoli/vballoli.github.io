@@ -1,0 +1,10 @@
+{
+  "links": [
+    { "label": "CV", "icon": "📄", "href": "/uploads/Vaibhav_Balloli_CV.pdf", "primary": true, "external": true },
+    { "label": "Email", "href": "mailto:balloli.vb@gmail.com" },
+    { "label": "GitHub", "href": "https://github.com/vballoli" },
+    { "label": "Google Scholar", "href": "https://scholar.google.com/citations?user=-6i7e7sAAAAJ&hl=en" },
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/vaibhavballoli" },
+    { "label": "Twitter", "href": "https://twitter.com/v_balloli" }
+  ]
+}

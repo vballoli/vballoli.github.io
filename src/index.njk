@@ -1,0 +1,396 @@
+---
+layout: base.njk
+permalink: /
+---
+
+<!-- Top Controls (theme + section dropdown) -->
+<div class="top-controls" id="top-controls">
+  <button class="top-btn theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Theme: system">
+    <span class="theme-icon theme-icon--light">☀</span>
+    <span class="theme-icon theme-icon--dark">☾</span>
+    <span class="theme-icon theme-icon--sepia">◑</span>
+    <span class="theme-icon theme-icon--system">◐</span>
+  </button>
+  <button class="top-btn nav-toggle" id="nav-toggle" aria-label="Navigate sections">⋯</button>
+
+  <div class="nav-dropdown" id="nav-dropdown">
+    <a class="nav-dropdown__link" href="#top" data-section="top">Home</a>
+    <a class="nav-dropdown__link" href="#news" data-section="news">News</a>
+    <a class="nav-dropdown__link" href="#research" data-section="research">Research</a>
+    <a class="nav-dropdown__link" href="#reading" data-section="reading">Reading</a>
+    <div class="nav-dropdown__divider"></div>
+    <button class="nav-dropdown__hint" id="cmd-k-hint">Search… <kbd>⌘K</kbd></button>
+  </div>
+</div>
+
+<!-- Hidden stub so main.js (which queries this ID without null-check) doesn't throw -->
+<nav id="section-indicator" hidden aria-hidden="true"></nav>
+
+<!-- Command Palette -->
+<div class="cmd-palette-overlay" id="cmd-overlay">
+  <div class="cmd-palette" id="cmd-palette">
+    <div class="cmd-palette__input-wrap">
+      <span class="cmd-palette__icon">🔍</span>
+      <input class="cmd-palette__input" id="cmd-input" type="text" placeholder="Search papers, tags, sections…"
+        autocomplete="off">
+      <span class="cmd-palette__kbd">ESC</span>
+    </div>
+    <div class="cmd-palette__results" id="cmd-results"></div>
+  </div>
+</div>
+
+<main class="container">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero__inner">
+      <div class="hero__text">
+        <h1 class="hero__name">{{ site.name }}</h1>
+        <div class="hero__bio">
+          <p>👋 Hi, I'm an AI researcher and a Computer Science Ph.D. candidate at the
+            <a href="https://cse.engin.umich.edu/">University of Michigan</a>.
+            I design and deploy interactive AI systems that help solve specific societal challenges across healthcare, wildlife conservation, road safety, and education. My research focuses on topics around LLMs, Reinforcement Learning, Representation Learning, and human-AI interaction.
+          </p>
+
+          <p>
+            Previously, I have worked at Microsoft Research: once as a summer intern working on improving interactivity of LLM agents and then as a Research Fellow for two years working on
+            scaling <a href="https://www.microsoft.com/en-us/research/project/hams/">HAMS</a>,
+            <a href="https://www.microsoft.com/en-us/research/project/vasudha/">Vasudha</a>, and improving multilingual capabilities of LLMs at
+            <a href="https://www.microsoft.com/en-us/research/project/project-vellm/">VeLLM</a>.
+          </p>
+        </div>
+
+        <div class="hero__links">
+          {%- for link in profile.links %}
+          <a {% if link.primary %}class="hero__link--primary"{% endif %} {% if link.external or link.href[0] != '#' %}target="_blank" rel="noopener"{% endif %} href="{{ link.href }}">{% if link.icon %}{{ link.icon }} {% endif %}{{ link.label }}</a>
+          {%- endfor %}
+        </div>
+      </div>
+
+      <div class="hero__photo">
+        <img alt="Vaibhav Balloli" src="/tn/images/profile.png" width="220" height="220">
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="section news" id="news">
+    <h2 class="section-title">News</h2>
+    <ul class="news__list" id="news-list">
+      <li class="news__item"><span class="news__date">Loading…</span></li>
+    </ul>
+    <button class="news__view-all" id="news-view-all" type="button" hidden>View all news</button>
+  </section>
+
+  <!-- RESEARCH -->
+  <section class="section" id="research">
+    <h2 class="section-title">Research</h2>
+    <p class="research__intro">
+      I work on human-centered AI — designing systems that collaborate with people, surface the right uncertainty,
+      and remain reliable when deployed. My current focus is multilingual LLMs, agent reasoning, and human-AI
+      collaboration for high-stakes domains like healthcare and conservation.
+    </p>
+
+    <!-- Filter -->
+    <div id="pill-anchor" class="pill-anchor"></div>
+    <div class="filter-pill filter-pill--inline" id="filter-pill">
+      <div class="filter-pill__search-wrap">
+        <span class="filter-pill__search-icon">🔍</span>
+        <input class="filter-pill__input" id="filter-pill-input" type="text" placeholder="Ctrl-K to search papers.."
+          autocomplete="off">
+      </div>
+      <div class="filter-pill__divider"></div>
+      <div class="filter-pill__tags" id="research-filters">
+        <button class="filter-tag filter-tag--active" data-filter="featured">Featured</button>
+        <button class="filter-tag" data-filter="all">All</button>
+        <button class="filter-tag" data-filter="llms">LLMs</button>
+        <button class="filter-tag" data-filter="evals">Evals</button>
+        <button class="filter-tag" data-filter="vision">Vision</button>
+        <button class="filter-tag" data-filter="healthcare">Healthcare</button>
+        <button class="filter-tag" data-filter="social-impact">Social Impact</button>
+      </div>
+    </div>
+
+    <div class="paper-list" id="paper-list">
+      {%- for paper in collections.papers %}
+      <article class="paper{% if paper.data.featured %} paper--featured{% endif %}" data-tags="{% if paper.data.featured %}featured,{% endif %}{{ paper.data.topics | join(',') }}">
+        <div class="paper__meta">
+          {%- for v in paper.data.venues %}
+          <div class="paper__venue">
+            <span class="paper__venue-acronym">{{ v.acronym }}</span>
+            <span class="paper__year">{{ v.year }}</span>
+            {%- if v.kind %}<span class="paper__venue-kind">{{ v.kind }}</span>{% endif %}
+          </div>
+          {%- endfor %}
+          {%- if paper.data.badges and paper.data.badges.length %}
+          <div class="paper__badges">
+            {%- for b in paper.data.badges %}
+            <span class="paper__badge paper__badge--{{ b.type }}">{{ b.label }}</span>
+            {%- endfor %}
+          </div>
+          {%- endif %}
+        </div>
+        <div class="paper__body">
+          {%- if paper.data.thumb %}
+          <div class="paper__thumb">
+            <img alt="" src="{{ paper.data.thumb }}" loading="lazy">
+          </div>
+          {%- endif %}
+          <div class="paper__text">
+            <h3 class="paper__title">{{ paper.data.title }}</h3>
+            <p class="paper__authors">{% for a in paper.data.authors %}{% if a.me %}<strong>{{ a.name }}</strong>{% else %}{{ a.name }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+            <div class="paper__desc">{{ paper.templateContent | safe }}</div>
+            <div class="paper__actions">
+              {%- for l in paper.data.links %}
+              <a href="{{ l.href }}" target="_blank" rel="noopener">{{ l.label }}</a>
+              {%- endfor %}
+              <button type="button" data-copy-bibtex>Copy BibTeX</button>
+            </div>
+            <pre class="paper__bibtex" hidden>{{ paper.data.bibtex | trim }}</pre>
+          </div>
+        </div>
+      </article>
+      {%- endfor %}
+    </div>
+  </section>
+
+  <!-- READING — favorite books & videos -->
+  <section class="section library" id="reading">
+    <h2 class="section-title">Things I keep going back to</h2>
+    <p class="library__intro">
+      A short, evolving shelf of books and talks I find myself returning to.
+    </p>
+    <div class="library__groups">
+      <div class="library__group">
+        <h3 class="library__group-title">📚 Reading</h3>
+        <ul class="library__list">
+          {%- for b in library.books %}
+          <li class="library__item">
+            <div class="library__item-title">
+              {%- if b.href %}<a href="{{ b.href }}" target="_blank" rel="noopener">{{ b.title }}</a>{% else %}{{ b.title }}{% endif %}
+            </div>
+            {%- if b.author %}<div class="library__item-meta">{{ b.author }}</div>{% endif %}
+            {%- if b.note %}<div class="library__item-note">{{ b.note }}</div>{% endif %}
+          </li>
+          {%- endfor %}
+        </ul>
+      </div>
+      <div class="library__group">
+        <h3 class="library__group-title">🎬 Talks &amp; videos</h3>
+        <ul class="library__list">
+          {%- for v in library.videos %}
+          <li class="library__item">
+            <div class="library__item-title">
+              {%- if v.href %}<a href="{{ v.href }}" target="_blank" rel="noopener">{{ v.title }}</a>{% else %}{{ v.title }}{% endif %}
+            </div>
+            {%- if v.author %}<div class="library__item-meta">{{ v.author }}</div>{% endif %}
+            {%- if v.note %}<div class="library__item-note">{{ v.note }}</div>{% endif %}
+          </li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p class="footer__ack">Co-crafted by <span id="footer-anurag" style="cursor: pointer;">Vaibhav</span> &amp; <a
+        href="https://claude.ai" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Claude</a>;  inspired by <a href="https://anuragxel.github.io/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Anurag</a></p>
+  </div>
+</footer>
+
+<!-- News Drawer -->
+<div class="news-drawer-overlay" id="news-drawer-overlay"></div>
+<aside class="news-drawer" id="news-drawer" aria-label="All news" aria-hidden="true">
+  <header class="news-drawer__header">
+    <h3 class="news-drawer__title">All News</h3>
+    <button class="news-drawer__close" id="news-drawer-close" aria-label="Close">&times;</button>
+  </header>
+  <div class="news-drawer__body" id="news-drawer-body"></div>
+</aside>
+
+<!-- Filter + search for .paper ledger -->
+<script>
+  (function () {
+    const pill = document.getElementById('filter-pill');
+    const tags = document.getElementById('research-filters');
+    const input = document.getElementById('filter-pill-input');
+    const papers = Array.from(document.querySelectorAll('.paper-list .paper'));
+    if (!pill || !papers.length) return;
+
+    let activeFilter = 'featured';
+    let query = '';
+
+    const apply = () => {
+      const q = query.trim().toLowerCase();
+      papers.forEach(p => {
+        const paperTags = (p.dataset.tags || '').split(',').map(s => s.trim());
+        const tagOk = activeFilter === 'all' || paperTags.includes(activeFilter);
+        const text = q ? p.textContent.toLowerCase() : '';
+        const searchOk = !q || text.includes(q);
+        p.classList.toggle('paper--hidden', !(tagOk && searchOk));
+      });
+    };
+
+    tags?.addEventListener('click', e => {
+      const btn = e.target.closest('.filter-tag');
+      if (!btn) return;
+      tags.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('filter-tag--active'));
+      btn.classList.add('filter-tag--active');
+      activeFilter = btn.dataset.filter;
+      apply();
+    });
+
+    input?.addEventListener('input', e => {
+      query = e.target.value;
+      pill.classList.toggle('filter-pill--searching', !!query);
+      apply();
+    });
+
+    apply();
+  })();
+</script>
+
+<!-- BibTeX copy: delegated handler, shift-click reveals inline, shows themed toast -->
+<script>
+  (function () {
+    const list = document.getElementById('paper-list');
+    if (!list) return;
+
+    const TOAST_MS = 4000;
+    let toastEl = null;
+    let hideTimer = null;
+    let removeTimer = null;
+
+    const formatBibtex = (raw) => {
+      const lines = raw.replace(/\r\n/g, '\n').split('\n').map(l => l.replace(/\s+$/, ''));
+      const nonEmpty = lines.filter(l => l.trim().length);
+      const minIndent = nonEmpty.reduce((m, l) => {
+        const lead = l.match(/^[ \t]*/)[0].length;
+        return Math.min(m, lead);
+      }, Infinity);
+      const dedented = lines.map(l => l.slice(Math.min(minIndent, l.match(/^[ \t]*/)[0].length)));
+      return dedented.join('\n').trim();
+    };
+
+    const ensureToast = () => {
+      if (toastEl) return toastEl;
+      toastEl = document.createElement('div');
+      toastEl.className = 'bibtex-toast';
+      toastEl.setAttribute('role', 'status');
+      toastEl.setAttribute('aria-live', 'polite');
+      toastEl.innerHTML = `
+        <div class="bibtex-toast__header">
+          <span class="bibtex-toast__title">
+            <span class="bibtex-toast__check" aria-hidden="true">✓</span>
+            <span>Copied BibTeX to clipboard</span>
+          </span>
+          <button class="bibtex-toast__close" type="button" aria-label="Dismiss">×</button>
+        </div>
+        <pre class="bibtex-toast__body"></pre>
+        <div class="bibtex-toast__progress" aria-hidden="true"></div>
+      `;
+      document.body.appendChild(toastEl);
+      toastEl.querySelector('.bibtex-toast__close').addEventListener('click', hideToast);
+      toastEl.addEventListener('mouseenter', () => {
+        clearTimeout(hideTimer);
+        clearTimeout(removeTimer);
+        const bar = toastEl.querySelector('.bibtex-toast__progress');
+        toastEl.classList.remove('bibtex-toast--counting');
+        bar.style.transition = 'none';
+        bar.style.transform = 'scaleX(1)';
+      });
+      toastEl.addEventListener('mouseleave', () => scheduleHide());
+      return toastEl;
+    };
+
+    const scheduleHide = () => {
+      const el = toastEl;
+      if (!el) return;
+      clearTimeout(hideTimer);
+      const bar = el.querySelector('.bibtex-toast__progress');
+      bar.style.transition = 'none';
+      bar.style.transform = 'scaleX(1)';
+      void bar.offsetWidth;
+      bar.style.transition = `transform ${TOAST_MS}ms linear`;
+      el.classList.add('bibtex-toast--counting');
+      bar.style.transform = 'scaleX(0)';
+      hideTimer = setTimeout(hideToast, TOAST_MS);
+    };
+
+    const hideToast = () => {
+      if (!toastEl) return;
+      toastEl.classList.remove('bibtex-toast--visible');
+      toastEl.classList.remove('bibtex-toast--counting');
+      clearTimeout(removeTimer);
+      removeTimer = setTimeout(() => {
+        if (toastEl) {
+          toastEl.remove();
+          toastEl = null;
+        }
+      }, 220);
+    };
+
+    const showToast = (bibtex) => {
+      const el = ensureToast();
+      el.querySelector('.bibtex-toast__body').textContent = bibtex;
+      requestAnimationFrame(() => {
+        el.classList.add('bibtex-toast--visible');
+        scheduleHide();
+      });
+    };
+
+    list.addEventListener('click', async (e) => {
+      const btn = e.target.closest('[data-copy-bibtex]');
+      if (!btn) return;
+
+      const bib = btn.closest('.paper__text')?.querySelector('.paper__bibtex');
+      if (!bib) return;
+
+      if (e.shiftKey) {
+        bib.hidden = !bib.hidden;
+        return;
+      }
+
+      const text = formatBibtex(bib.textContent);
+      let copied = true;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        copied = false;
+        bib.hidden = false;
+        const range = document.createRange();
+        range.selectNodeContents(bib);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+
+      showToast(text);
+      if (toastEl && !copied) {
+        toastEl.querySelector('.bibtex-toast__title span:last-child').textContent =
+          'Select & copy (clipboard unavailable)';
+      }
+
+      const original = btn.textContent;
+      btn.textContent = 'Copied';
+      btn.dataset.copied = 'true';
+      setTimeout(() => {
+        btn.textContent = original;
+        delete btn.dataset.copied;
+      }, 1500);
+    });
+  })();
+</script>
+
+<!-- Easter Egg Popup -->
+<div class="easter-egg-overlay" id="easter-egg-overlay">
+  <div class="easter-egg-popup" id="easter-egg-popup">
+    <button class="easter-egg-close" id="easter-egg-close">&times;</button>
+    <iframe id="easter-egg-iframe" width="560" height="315" frameborder="0" allow="autoplay; encrypted-media"
+      allowfullscreen></iframe>
+  </div>
+</div>

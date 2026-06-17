@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{{ title or site.title }}</title>
+  <meta name="description" content="{{ description or site.description }}">
+  <meta name="author" content="{{ site.author }}">
+  <meta name="keywords" content="{{ site.keywords }}">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fbfbf9">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e0e10">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ title or site.title }}">
+  <meta property="og:description" content="{{ description or site.description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:image" content="{{ site.url }}{{ site.image }}">
+  <meta property="og:image:alt" content="{{ site.author }}">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:locale" content="{{ site.locale }}">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="{{ site.twitter }}">
+  <meta name="twitter:creator" content="{{ site.twitter }}">
+  <meta name="twitter:title" content="{{ title or site.title }}">
+  <meta name="twitter:description" content="{{ description or site.description }}">
+  <meta name="twitter:image" content="{{ site.url }}{{ site.image }}">
+  <meta name="twitter:image:alt" content="{{ site.author }}">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Structured data: Person + WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "{{ site.url }}/#person",
+        "name": {{ site.author | dump | safe }},
+        "url": "{{ site.url }}/",
+        "image": "{{ site.url }}{{ site.image }}",
+        "email": "mailto:{{ site.email }}",
+        "description": {{ site.description | dump | safe }},
+        "jobTitle": {{ site.jobTitle | dump | safe }},
+        "affiliation": { "@type": "Organization", "name": {{ site.affiliation | dump | safe }} },
+        "alumniOf": { "@type": "Organization", "name": {{ site.affiliation | dump | safe }} },
+        "worksFor": { "@type": "Organization", "name": {{ site.affiliation | dump | safe }} },
+        "knowsAbout": {{ site.knowsAbout | dump | safe }},
+        "sameAs": {{ site.sameAs | dump | safe }}
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "{{ site.url }}/#profilepage",
+        "url": "{{ site.url }}/",
+        "name": {{ site.title | dump | safe }},
+        "dateModified": "{{ buildDate }}",
+        "isPartOf": { "@id": "{{ site.url }}/#website" },
+        "about": { "@id": "{{ site.url }}/#person" },
+        "mainEntity": { "@id": "{{ site.url }}/#person" }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "{{ site.url }}/#website",
+        "url": "{{ site.url }}/",
+        "name": {{ site.name | dump | safe }},
+        "description": {{ site.description | dump | safe }},
+        "author": { "@id": "{{ site.url }}/#person" }
+      }
+      {%- if collections.papers and collections.papers.length %},
+      {
+        "@type": "ItemList",
+        "name": "Publications by {{ site.author }}",
+        "itemListElement": [
+          {%- for paper in collections.papers %}
+          {
+            "@type": "ListItem",
+            "position": {{ loop.index }},
+            "item": {
+              "@type": "ScholarlyArticle",
+              "name": {{ paper.data.title | dump | safe }},
+              "datePublished": "{{ paper.data.venues[0].year }}",
+              "author": [{% for a in paper.data.authors %}{ "@type": "Person", "name": {{ a.name | dump | safe }} }{% if not loop.last %}, {% endif %}{% endfor %}]
+            }
+          }{% if not loop.last %},{% endif %}
+          {%- endfor %}
+        ]
+      }
+      {%- endif %}
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  {{ content | safe }}
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="/main.js" defer></script>
+</body>
+
+</html>

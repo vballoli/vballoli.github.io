@@ -1,0 +1,31 @@
+# Vaibhav Balloli
+
+> Vaibhav Balloli — Computer Science Ph.D. candidate at the University of Michigan. Building safe and reliable interactive AI systems across healthcare, wildlife conservation, road safety, and education. Research on LLMs, reinforcement learning, representation learning, and human-AI interaction.
+
+Vaibhav Balloli is a Computer Science Ph.D. Candidate at University of Michigan, building safe and reliable interactive AI systems for high-stakes societal domains including healthcare, wildlife conservation, road safety, and education. Research areas: Large Language Models, Reinforcement Learning, Representation Learning, Human-AI Interaction, Agentic Systems, Machine Learning. Previously a Research Fellow and intern at Microsoft Research (HAMS, Vasudha, VeLLM).
+
+This file follows the llms.txt convention (https://llmstxt.org) to give language models a concise, accurate map of the site.
+
+## Publications
+- [RELIANCE: Curating and Evaluating Reproductive Health Information on Social Media](https://realize-lab.github.io/RELIANCE): KDD 2026. Authors: Vaibhav Balloli, Laura Peyton Ellis, Vishala Mishra, Alice M Chi, Alex Friedman Peahl, Elizabeth Bondi-Kelly.
+- [PATHFinder Agents for Tailored Prenatal Care](https://realize-lab.github.io/PATHFinder): Interactive Health 2026. Authors: Vaibhav Balloli, Carissa Samuel, Samia Abdelnabi, Alex Peahl, Elizabeth Bondi-Kelly.
+- ["Where is this coming from?" Uncovering Trustworthiness Ideals in AI-powered Peripartum Information Seeking](https://realize-lab.github.io/MATERNAL): FAccT 2026. Authors: Vaibhav Balloli, Julia Erickson, Xinyi Li, Erin MacMurray van Liemt, Alex Friedman Peahl, Elizabeth Bondi-Kelly.
+- [SEEK-CBM: Editable and Interpretable Retrieval for Elephant Re-Identification](https://realize-lab.github.io/CHAIR): CV4Animals @ CVPR 2026. Authors: Antoine Salaün, Vaibhav Balloli, Timm Haucke, Elizabeth Bondi-Kelly, Sara Beery.
+- [Bridging the Gap: Dynamic Learning Strategies for Improving Multilingual Performance in LLMs](https://arxiv.org/abs/2405.18359): COLING 2025 (Oral). Authors: Somnath Kumar*, Vaibhav Balloli*, Mercy Ranjit, Tanuja Ganu, Kabir Ahuja, Sunayna Sitaraman, Kalika Bali.
+- [Are They the Same Picture? Adapting Concept Bottleneck Models for Human-AI Collaboration in Image Retrieval](https://realize-lab.github.io/CHAIR): IJCAI 2024 (<5% accept). Authors: Vaibhav Balloli, Sara Beery, Elizabeth Bondi-Kelly.
+- [Chanakya: Learning Runtime Decisions for Adaptive Real-Time Perception](https://openreview.net/pdf?id=VpCjozUOM2): NeurIPS 2023. Authors: Anurag Ghosh, Vaibhav Balloli, Akshay Nambi, Aditya Singh, Tanuja Ganu.
+
+## Links
+- [Homepage](https://profile.vballoli.com/): About, news, publications, and reading list
+- [Curriculum Vitae](https://profile.vballoli.com/uploads/Vaibhav_Balloli_CV.pdf): Full CV (PDF)
+- [GitHub](https://github.com/vballoli): Code and open-source projects
+- [Google Scholar](https://scholar.google.com/citations?user=-6i7e7sAAAAJ&hl=en): Publication list and citations
+- [LinkedIn](https://www.linkedin.com/in/vaibhavballoli): Professional profile
+- [Twitter / X](https://twitter.com/v_balloli): Updates
+- [Email](mailto:balloli.vb@gmail.com): Contact
+
+## About
+- Name: Vaibhav Balloli
+- Role: Computer Science Ph.D. Candidate, University of Michigan
+- Research: Large Language Models, Reinforcement Learning, Representation Learning, Human-AI Interaction, Agentic Systems, Machine Learning
+- Previously: Microsoft Research (Research Fellow; Research Intern)

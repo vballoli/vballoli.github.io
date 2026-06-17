@@ -1,0 +1,29 @@
+{
+  "name": "Vaibhav Balloli",
+  "title": "Vaibhav Balloli — AI Researcher",
+  "tagline": "CS Ph.D. at the University of Michigan. Building safe and reliable interactive agentic systems.",
+  "description": "Vaibhav Balloli — Computer Science Ph.D. candidate at the University of Michigan. Building safe and reliable interactive AI systems across healthcare, wildlife conservation, road safety, and education. Research on LLMs, reinforcement learning, representation learning, and human-AI interaction.",
+  "url": "https://profile.vballoli.com",
+  "author": "Vaibhav Balloli",
+  "email": "balloli.vb@gmail.com",
+  "image": "/tn/images/profile.png",
+  "locale": "en_US",
+  "twitter": "@v_balloli",
+  "jobTitle": "Computer Science Ph.D. Candidate",
+  "affiliation": "University of Michigan",
+  "keywords": "Vaibhav Balloli, AI researcher, large language models, LLMs, reinforcement learning, representation learning, human-AI interaction, agentic systems, University of Michigan, Microsoft Research, machine learning",
+  "knowsAbout": [
+    "Large Language Models",
+    "Reinforcement Learning",
+    "Representation Learning",
+    "Human-AI Interaction",
+    "Agentic Systems",
+    "Machine Learning"
+  ],
+  "sameAs": [
+    "https://github.com/vballoli",
+    "https://scholar.google.com/citations?user=-6i7e7sAAAAJ&hl=en",
+    "https://www.linkedin.com/in/vaibhavballoli",
+    "https://twitter.com/v_balloli"
+  ]
+}
