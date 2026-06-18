@@ -14,10 +14,13 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/main.js");
   eleventyConfig.addPassthroughCopy("src/CNAME");
 
-  // Build timestamp for sitemap / lastmod
+  // Build timestamp for structured data, sitemap, and lastmod values.
+  // ProfilePage.dateModified needs a full datetime, while sitemap.lastmod stays date-only.
+  const buildDateTime = new Date().toISOString();
   eleventyConfig.addGlobalData("buildDate", () =>
-    new Date().toISOString().split("T")[0]
+    buildDateTime.split("T")[0]
   );
+  eleventyConfig.addGlobalData("buildDateTime", () => buildDateTime);
 
   // Papers collection: gather every markdown file tagged "papers"
   // (see src/papers/papers.json) and order by the `order` front-matter key.
