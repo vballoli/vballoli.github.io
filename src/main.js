@@ -125,7 +125,7 @@
   var pillInput = document.getElementById('filter-pill-input');
   var pillAnchor = document.getElementById('pill-anchor');
   var isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
-  pillInput.placeholder = (isMac ? '⌘K' : 'Ctrl+K') + ' to search papers…';
+  pillInput.placeholder = 'Search papers by keyword or topic (' + (isMac ? '⌘K' : 'Ctrl+K') + ')';
   var filters = document.getElementById('research-filters');
   var cards = document.querySelectorAll('.paper-card[data-tags]');
   var ticking = false;
@@ -468,20 +468,35 @@
   var links = dropdown.querySelectorAll('.nav-dropdown__link');
   var cmdHint = document.getElementById('cmd-k-hint');
 
+  function syncExpanded() {
+    navToggle.setAttribute('aria-expanded', dropdown.classList.contains('nav-dropdown--open') ? 'true' : 'false');
+  }
+
   navToggle.addEventListener('click', function (e) {
     e.stopPropagation();
     dropdown.classList.toggle('nav-dropdown--open');
+    syncExpanded();
   });
 
   document.addEventListener('click', function (e) {
     if (!dropdown.contains(e.target) && e.target !== navToggle) {
       dropdown.classList.remove('nav-dropdown--open');
+      syncExpanded();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && dropdown.classList.contains('nav-dropdown--open')) {
+      dropdown.classList.remove('nav-dropdown--open');
+      syncExpanded();
+      navToggle.focus();
     }
   });
 
   links.forEach(function (link) {
     link.addEventListener('click', function () {
       dropdown.classList.remove('nav-dropdown--open');
+      syncExpanded();
     });
   });
 
@@ -516,6 +531,7 @@
   // Open command palette from dropdown hint
   cmdHint.addEventListener('click', function () {
     dropdown.classList.remove('nav-dropdown--open');
+    syncExpanded();
     document.getElementById('cmd-overlay').classList.add('cmd-palette-overlay--open');
     document.getElementById('cmd-input').focus();
   });
@@ -786,6 +802,7 @@
       items.sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
 
       renderInto(listEl, items.slice(0, TOP_N));
+      listEl.setAttribute('aria-busy', 'false');
       if (items.length > TOP_N) {
         viewAllBtn.hidden = false;
         viewAllBtn.textContent = 'View all news (' + items.length + ')';
@@ -794,7 +811,8 @@
       viewAllBtn.addEventListener('click', openDrawer);
     })
     .catch(function () {
-      listEl.innerHTML = '<li class="news__item"><span class="news__content">No news available.</span></li>';
+      listEl.setAttribute('aria-busy', 'false');
+      listEl.innerHTML = '<li class="news__item"><span class="news__content">No news available right now. Please check back soon.</span></li>';
     });
 })();
 

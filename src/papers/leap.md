@@ -27,4 +27,4 @@ bibtex: |
     note      = {Oral}
   }
 ---
-A dynamic strategy that selects, per query at run-time, the optimal prompt, LLM, and embedding model to maximize multilingual QA performance — improving non-Latin and low-resource language coverage without any extra training.
+A dynamic strategy that selects, per query at run-time, the optimal prompt, LLM, and embedding model to maximize multilingual QA performance, improving non-Latin and low-resource language coverage without any extra training.

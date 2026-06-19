@@ -5,21 +5,21 @@ permalink: /
 
 <!-- Top Controls (theme + section dropdown) -->
 <div class="top-controls" id="top-controls">
-  <button class="top-btn theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Theme: system">
+  <button class="top-btn theme-toggle" id="theme-toggle" aria-label="Toggle between light, dark, sepia, and system themes" title="Theme: system (click to cycle)">
     <span class="theme-icon theme-icon--light">☀</span>
     <span class="theme-icon theme-icon--dark">☾</span>
     <span class="theme-icon theme-icon--sepia">◑</span>
     <span class="theme-icon theme-icon--system">◐</span>
   </button>
-  <button class="top-btn nav-toggle" id="nav-toggle" aria-label="Navigate sections">⋯</button>
+  <button class="top-btn nav-toggle" id="nav-toggle" aria-label="Navigate sections" aria-haspopup="menu" aria-controls="nav-dropdown" aria-expanded="false">⋯</button>
 
-  <div class="nav-dropdown" id="nav-dropdown">
-    <a class="nav-dropdown__link" href="#top" data-section="top">Home</a>
-    <a class="nav-dropdown__link" href="#news" data-section="news">News</a>
-    <a class="nav-dropdown__link" href="#research" data-section="research">Research</a>
-    <a class="nav-dropdown__link" href="#reading" data-section="reading">Reading</a>
+  <div class="nav-dropdown" id="nav-dropdown" role="menu" aria-label="Section navigation">
+    <a class="nav-dropdown__link" role="menuitem" href="#top" data-section="top">Home</a>
+    <a class="nav-dropdown__link" role="menuitem" href="#news" data-section="news">News</a>
+    <a class="nav-dropdown__link" role="menuitem" href="#research" data-section="research">Research</a>
+    <a class="nav-dropdown__link" role="menuitem" href="#reading" data-section="reading">Reading</a>
     <div class="nav-dropdown__divider"></div>
-    <button class="nav-dropdown__hint" id="cmd-k-hint">Search… <kbd>⌘K</kbd></button>
+    <button class="nav-dropdown__hint" id="cmd-k-hint" role="menuitem" aria-label="Search: press Command K (or Control K) to open the search palette">Search… <kbd aria-hidden="true">⌘K</kbd></button>
   </div>
 </div>
 
@@ -32,8 +32,8 @@ permalink: /
     <div class="cmd-palette__input-wrap">
       <span class="cmd-palette__icon">🔍</span>
       <input class="cmd-palette__input" id="cmd-input" type="text" placeholder="Search papers, tags, sections…"
-        autocomplete="off">
-      <span class="cmd-palette__kbd">ESC</span>
+        aria-label="Search research papers, tags, and sections" autocomplete="off">
+      <span class="cmd-palette__kbd" aria-hidden="true">ESC</span>
     </div>
     <div class="cmd-palette__results" id="cmd-results"></div>
   </div>
@@ -46,10 +46,11 @@ permalink: /
     <div class="hero__inner">
       <div class="hero__text">
         <h1 class="hero__name">{{ site.name }}</h1>
+        <p class="hero__tagline">AI Researcher · Computer Science Ph.D. Candidate, University of Michigan</p>
         <div class="hero__bio">
-          <p>👋 Hi, I'm an AI researcher and a Computer Science Ph.D. candidate at the
+          <p>👋 Hi, I'm an <strong>AI researcher</strong> and a <strong>Computer Science Ph.D. candidate</strong> at the
             <a href="https://cse.engin.umich.edu/">University of Michigan</a>.
-            I design and deploy interactive AI systems that help solve specific societal challenges across healthcare, wildlife conservation, road safety, and education. My research focuses on topics around LLMs, Reinforcement Learning, Representation Learning, and human-AI interaction.
+            I design and deploy <strong>interactive AI systems</strong> that help solve specific societal challenges across healthcare, wildlife conservation, road safety, and education. My research focuses on topics around <strong>LLMs</strong>, Reinforcement Learning, Representation Learning, and <strong>human-AI interaction</strong>.
           </p>
 
           <p>
@@ -62,13 +63,13 @@ permalink: /
 
         <div class="hero__links">
           {%- for link in profile.links %}
-          <a {% if link.primary %}class="hero__link--primary"{% endif %} {% if link.external or link.href[0] != '#' %}target="_blank" rel="noopener"{% endif %} href="{{ link.href }}">{% if link.icon %}{{ link.icon }} {% endif %}{{ link.label }}</a>
+          <a {% if link.primary %}class="hero__link--primary"{% endif %} {% if link.external or link.href[0] != '#' %}target="_blank" rel="noopener"{% endif %} href="{{ link.href }}"{% if link.aria %} aria-label="{{ link.aria }}" title="{{ link.aria }}"{% endif %}>{% if link.icon %}{{ link.icon }} {% endif %}{{ link.label }}</a>
           {%- endfor %}
         </div>
       </div>
 
       <div class="hero__photo">
-        <img alt="Vaibhav Balloli" src="/tn/images/profile.png" width="220" height="220">
+        <img alt="Vaibhav Balloli, AI Researcher and Computer Science Ph.D. candidate at the University of Michigan" src="/tn/images/profile.png" width="220" height="220" decoding="async" fetchpriority="high">
       </div>
     </div>
   </section>
@@ -76,8 +77,13 @@ permalink: /
   <!-- NEWS -->
   <section class="section news" id="news">
     <h2 class="section-title">News</h2>
-    <ul class="news__list" id="news-list">
-      <li class="news__item"><span class="news__date">Loading…</span></li>
+    <ul class="news__list" id="news-list" aria-live="polite" aria-busy="true">
+      <li class="news__item news__item--loading">
+        <span class="news__loading">
+          <span class="news__spinner" aria-hidden="true"></span>
+          <span>Loading the latest news…</span>
+        </span>
+      </li>
     </ul>
     <button class="news__view-all" id="news-view-all" type="button" hidden>View all news</button>
   </section>
@@ -86,34 +92,44 @@ permalink: /
   <section class="section" id="research">
     <h2 class="section-title">Research</h2>
     <p class="research__intro">
-      I work on human-centered AI — designing systems that collaborate with people, surface the right uncertainty,
-      and remain reliable when deployed. My current focus is multilingual LLMs, agent reasoning, and human-AI
-      collaboration for high-stakes domains like healthcare and conservation.
+      I work on human-centered AI, designing <strong>interactive AI systems</strong> that collaborate with people,
+      surface the right uncertainty, and remain reliable when deployed in high-stakes domains such as healthcare,
+      wildlife conservation, road safety, and education. My research sits at the intersection of large language
+      models, reinforcement learning, and human-computer interaction, spanning:
     </p>
+    <ul class="research__areas">
+      <li><strong>Multilingual LLMs:</strong> improving large language model performance for low-resource and non-Latin-script languages.</li>
+      <li><strong>Agent reasoning &amp; interactive AI:</strong> LLM agents that plan, converse, and adapt their decisions at run-time.</li>
+      <li><strong>Human-AI collaboration:</strong> interpretable, editable models that let domain experts intervene where it matters.</li>
+      <li><strong>Reliable evaluation:</strong> curating and benchmarking datasets for trustworthy real-world AI deployment.</li>
+    </ul>
 
     <!-- Filter -->
     <div id="pill-anchor" class="pill-anchor"></div>
-    <div class="filter-pill filter-pill--inline" id="filter-pill">
+    <div class="filter-pill filter-pill--inline" id="filter-pill" role="search">
       <div class="filter-pill__search-wrap">
-        <span class="filter-pill__search-icon">🔍</span>
-        <input class="filter-pill__input" id="filter-pill-input" type="text" placeholder="Ctrl-K to search papers.."
-          autocomplete="off">
+        <span class="filter-pill__search-icon" aria-hidden="true">🔍</span>
+        <label class="visually-hidden" for="filter-pill-input">Search papers by keyword or topic</label>
+        <input class="filter-pill__input" id="filter-pill-input" type="text" placeholder="Search papers by keyword or topic"
+          aria-label="Search papers by keyword or topic" autocomplete="off">
+        <button class="filter-pill__clear" id="filter-pill-clear" type="button" aria-label="Clear search and reset filters" hidden>✕</button>
       </div>
       <div class="filter-pill__divider"></div>
-      <div class="filter-pill__tags" id="research-filters">
-        <button class="filter-tag filter-tag--active" data-filter="featured">Featured</button>
-        <button class="filter-tag" data-filter="all">All</button>
-        <button class="filter-tag" data-filter="llms">LLMs</button>
-        <button class="filter-tag" data-filter="evals">Evals</button>
-        <button class="filter-tag" data-filter="vision">Vision</button>
-        <button class="filter-tag" data-filter="healthcare">Healthcare</button>
-        <button class="filter-tag" data-filter="social-impact">Social Impact</button>
+      <div class="filter-pill__tags" id="research-filters" role="group" aria-label="Filter papers by topic">
+        <button class="filter-tag filter-tag--active" data-filter="featured" aria-pressed="true">Featured</button>
+        <button class="filter-tag" data-filter="all" aria-pressed="false">All</button>
+        <button class="filter-tag" data-filter="llms" aria-pressed="false">LLMs</button>
+        <button class="filter-tag" data-filter="evals" aria-pressed="false">Evals</button>
+        <button class="filter-tag" data-filter="vision" aria-pressed="false">Vision</button>
+        <button class="filter-tag" data-filter="healthcare" aria-pressed="false">Healthcare</button>
+        <button class="filter-tag" data-filter="social-impact" aria-pressed="false">Social Impact</button>
       </div>
     </div>
 
     <div class="paper-list" id="paper-list">
       {%- for paper in collections.papers %}
-      <article class="paper{% if paper.data.featured %} paper--featured{% endif %}" data-tags="{% if paper.data.featured %}featured,{% endif %}{{ paper.data.topics | join(',') }}">
+      <article class="paper{% if paper.data.featured %} paper--featured{% endif %}" data-tags="{% if paper.data.featured %}featured,{% endif %}{{ paper.data.topics | join(',') }}" itemscope itemtype="https://schema.org/ScholarlyArticle">
+        {%- if paper.data.venues and paper.data.venues.length %}<meta itemprop="datePublished" content="{{ paper.data.venues[0].year }}">{% endif %}
         <div class="paper__meta">
           {%- for v in paper.data.venues %}
           <div class="paper__venue">
@@ -133,18 +149,18 @@ permalink: /
         <div class="paper__body">
           {%- if paper.data.thumb %}
           <div class="paper__thumb">
-            <img alt="" src="{{ paper.data.thumb }}" loading="lazy">
+            <img alt="Thumbnail for {{ paper.data.title }}" src="{{ paper.data.thumb }}" loading="lazy" decoding="async" itemprop="image">
           </div>
           {%- endif %}
           <div class="paper__text">
-            <h3 class="paper__title">{{ paper.data.title }}</h3>
-            <p class="paper__authors">{% for a in paper.data.authors %}{% if a.me %}<strong>{{ a.name }}</strong>{% else %}{{ a.name }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</p>
-            <div class="paper__desc">{{ paper.templateContent | safe }}</div>
+            <h3 class="paper__title" itemprop="name headline">{{ paper.data.title }}</h3>
+            <p class="paper__authors">{% for a in paper.data.authors %}<span itemprop="author" itemscope itemtype="https://schema.org/Person">{% if a.me %}<strong itemprop="name">{{ a.name }}</strong>{% else %}<span itemprop="name">{{ a.name }}</span>{% endif %}</span>{% if not loop.last %}, {% endif %}{% endfor %}</p>
+            <div class="paper__desc" itemprop="abstract">{{ paper.templateContent | safe }}</div>
             <div class="paper__actions">
               {%- for l in paper.data.links %}
-              <a href="{{ l.href }}" target="_blank" rel="noopener">{{ l.label }}</a>
+              <a href="{{ l.href }}" target="_blank" rel="noopener" title="{{ l.label }}: {{ paper.data.title }}"{% if loop.first %} itemprop="url"{% endif %}>{{ l.label }}</a>
               {%- endfor %}
-              <button type="button" data-copy-bibtex>Copy BibTeX</button>
+              <button type="button" data-copy-bibtex title="Copy the BibTeX citation for this paper">Copy BibTeX</button>
             </div>
             <pre class="paper__bibtex" hidden>{{ paper.data.bibtex | trim }}</pre>
           </div>
@@ -154,7 +170,7 @@ permalink: /
     </div>
   </section>
 
-  <!-- READING — favorite books & videos -->
+  <!-- READING: favorite books & videos -->
   <section class="section library" id="reading">
     <h2 class="section-title">Things I keep going back to</h2>
     <p class="library__intro">
@@ -197,8 +213,16 @@ permalink: /
 <!-- FOOTER -->
 <footer class="footer">
   <div class="container">
+    <nav class="footer__social" aria-label="Social and contact links">
+      <a href="mailto:balloli.vb@gmail.com" aria-label="Email Vaibhav Balloli" title="Email Vaibhav Balloli">Email</a>
+      <a href="https://github.com/vballoli" target="_blank" rel="noopener" aria-label="GitHub Profile – Vaibhav Balloli" title="GitHub Profile – Vaibhav Balloli">GitHub</a>
+      <a href="https://scholar.google.com/citations?user=-6i7e7sAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar Profile of Vaibhav Balloli" title="Google Scholar Profile of Vaibhav Balloli">Google Scholar</a>
+      <a href="https://www.linkedin.com/in/vaibhavballoli" target="_blank" rel="noopener" aria-label="LinkedIn – Vaibhav Balloli" title="LinkedIn – Vaibhav Balloli">LinkedIn</a>
+      <a href="https://twitter.com/v_balloli" target="_blank" rel="noopener" aria-label="Twitter Profile – @v_balloli" title="Twitter Profile – @v_balloli">Twitter</a>
+    </nav>
     <p class="footer__ack">Co-crafted by <span id="footer-anurag" style="cursor: pointer;">Vaibhav</span> &amp; <a
         href="https://claude.ai" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Claude</a>;  inspired by <a href="https://anuragxel.github.io/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Anurag</a></p>
+    <a class="footer__top-link" href="#top" aria-label="Back to top of page">↑ Back to top</a>
   </div>
 </footer>
 
@@ -218,11 +242,23 @@ permalink: /
     const pill = document.getElementById('filter-pill');
     const tags = document.getElementById('research-filters');
     const input = document.getElementById('filter-pill-input');
+    const clearBtn = document.getElementById('filter-pill-clear');
     const papers = Array.from(document.querySelectorAll('.paper-list .paper'));
     if (!pill || !papers.length) return;
 
     let activeFilter = 'featured';
     let query = '';
+
+    const syncPressed = () => {
+      // Reflect the active filter on every tag (originals + clones) for assistive tech
+      tags.querySelectorAll('.filter-tag').forEach(b => {
+        b.setAttribute('aria-pressed', String(b.dataset.filter === activeFilter && !query));
+      });
+    };
+
+    const syncClear = () => {
+      if (clearBtn) clearBtn.hidden = !(query || activeFilter !== 'featured');
+    };
 
     const apply = () => {
       const q = query.trim().toLowerCase();
@@ -233,6 +269,8 @@ permalink: /
         const searchOk = !q || text.includes(q);
         p.classList.toggle('paper--hidden', !(tagOk && searchOk));
       });
+      syncPressed();
+      syncClear();
     };
 
     tags?.addEventListener('click', e => {
@@ -248,6 +286,18 @@ permalink: /
       query = e.target.value;
       pill.classList.toggle('filter-pill--searching', !!query);
       apply();
+    });
+
+    clearBtn?.addEventListener('click', () => {
+      query = '';
+      if (input) input.value = '';
+      pill.classList.remove('filter-pill--searching');
+      const featured = tags.querySelector('.filter-tag[data-filter="featured"]');
+      tags.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('filter-tag--active'));
+      if (featured) featured.classList.add('filter-tag--active');
+      activeFilter = 'featured';
+      apply();
+      if (input) input.focus();
     });
 
     apply();
@@ -388,9 +438,10 @@ permalink: /
 
 <!-- Easter Egg Popup -->
 <div class="easter-egg-overlay" id="easter-egg-overlay">
-  <div class="easter-egg-popup" id="easter-egg-popup">
-    <button class="easter-egg-close" id="easter-egg-close">&times;</button>
-    <iframe id="easter-egg-iframe" width="560" height="315" frameborder="0" allow="autoplay; encrypted-media"
+  <div class="easter-egg-popup" id="easter-egg-popup" role="dialog" aria-modal="true" aria-labelledby="easter-egg-title">
+    <h2 id="easter-egg-title" class="visually-hidden">Easter egg video</h2>
+    <button class="easter-egg-close" id="easter-egg-close" aria-label="Close easter egg popup">&times;</button>
+    <iframe id="easter-egg-iframe" title="Easter egg video" width="560" height="315" frameborder="0" allow="autoplay; encrypted-media"
       allowfullscreen></iframe>
   </div>
 </div>

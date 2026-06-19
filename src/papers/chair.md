@@ -23,4 +23,4 @@ bibtex: |
     year      = {2024}
   }
 ---
-CHAIR adapts Concept Bottleneck Models so experts can intervene on intermediate concepts during image retrieval — a setting that matters for wildlife re-identification platforms like ElephantBook. Flexible levels of intervention let domain experts spend effort where it's most useful, achieving genuine human-AI complementarity.
+CHAIR adapts Concept Bottleneck Models so experts can intervene on intermediate concepts during image retrieval, a setting that matters for wildlife re-identification platforms like ElephantBook. Flexible levels of intervention let domain experts spend effort where it's most useful, achieving genuine human-AI complementarity.
