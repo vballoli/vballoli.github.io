@@ -2058,14 +2058,54 @@ a:hover, a:focus { color: var(--accent-hover); }
   line-height: 1.7;
 }
 
-.demos__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
-  gap: 1.5rem;
+.demos__carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
+
+.demos__track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  flex: 1;
+  min-width: 0;
+  padding: 0.25rem;
+  margin: -0.25rem;
+  scrollbar-width: none;
+}
+
+.demos__track::-webkit-scrollbar { display: none; }
+
+.demos__nav {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease, opacity 0.18s ease;
+}
+
+.demos__nav:hover { color: var(--accent); background: var(--bg-muted, rgba(127, 127, 127, 0.06)); }
+
+.demos__nav:disabled { opacity: 0.35; cursor: default; }
 
 .demo-card {
   margin: 0;
+  flex: 0 0 100%;
+  scroll-snap-align: center;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
@@ -2081,7 +2121,7 @@ a:hover, a:focus { color: var(--accent-hover); }
 
 .demo-card__lottie {
   width: 100%;
-  aspect-ratio: 1280 / 600;
+  aspect-ratio: var(--demo-aspect, 1280 / 600);
   background: var(--bg-muted, rgba(127, 127, 127, 0.06));
   display: block;
 }
@@ -2115,3 +2155,49 @@ a:hover, a:focus { color: var(--accent-hover); }
 }
 
 .demo-card__caption a:hover { text-decoration: underline; }
+
+/* Hand-drawn "explore more" hint, shown once, themed via --accent */
+.demos__hint {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+  padding-right: 0.4rem;
+  color: var(--accent);
+  cursor: pointer;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.demos__hint--hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.demos__hint-text {
+  font-family: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.05;
+  white-space: nowrap;
+  transform: rotate(-4deg);
+  margin-top: 0.55rem;
+}
+
+.demos__hint-arrow {
+  width: 2rem;
+  height: auto;
+  flex-shrink: 0;
+  margin-right: 0.35rem;
+  animation: hintBob 1.7s ease-in-out infinite;
+}
+
+@keyframes hintBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demos__hint-arrow { animation: none; }
+}

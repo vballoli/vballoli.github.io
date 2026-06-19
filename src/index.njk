@@ -177,17 +177,39 @@ permalink: /
     <p class="demos__intro">
       Interactive animations and visualizations from my research projects.
     </p>
-    <div class="demos__grid">
-      <figure class="demo-card">
-        <div class="demo-card__lottie" data-lottie-src="/lottie/seek-cbm.json" role="img"
-          aria-label="Animated demo of SEEK-CBM: editable and interpretable retrieval for elephant re-identification">
-        </div>
-        <figcaption class="demo-card__caption">
-          <h3 class="demo-card__title">SEEK-CBM</h3>
-          <p>Editable and interpretable retrieval for elephant re-identification.</p>
-          <a href="https://drive.google.com/file/d/1JuWRW6SlzewdU0gJTEZdoZT7_-kp_Ntl/view" target="_blank" rel="noopener">Read the paper →</a>
-        </figcaption>
-      </figure>
+    <div class="demos__carousel" id="demos-carousel">
+      <button class="demos__nav demos__nav--prev" id="demos-prev" type="button" aria-label="Previous demo" aria-controls="demos-track">‹</button>
+      <div class="demos__track" id="demos-track" tabindex="0" aria-label="Research demos, scroll horizontally">
+        <figure class="demo-card">
+          <div class="demo-card__lottie" data-lottie-src="/lottie/seek-cbm.json" style="--demo-aspect: 1280 / 600" role="img"
+            aria-label="Animated demo of SEEK-CBM: editable and interpretable retrieval for elephant re-identification">
+          </div>
+          <figcaption class="demo-card__caption">
+            <h3 class="demo-card__title">SEEK-CBM</h3>
+            <p>Editable and interpretable retrieval for elephant re-identification.</p>
+            <a href="https://drive.google.com/file/d/1JuWRW6SlzewdU0gJTEZdoZT7_-kp_Ntl/view" target="_blank" rel="noopener">Read the paper →</a>
+          </figcaption>
+        </figure>
+        <figure class="demo-card">
+          <div class="demo-card__lottie" data-lottie-src="/lottie/pathfinder.json" style="--demo-aspect: 1000 / 750" role="img"
+            aria-label="Animated demo of PATHFinder: interactive agents for tailored prenatal care">
+          </div>
+          <figcaption class="demo-card__caption">
+            <h3 class="demo-card__title">PATHFinder</h3>
+            <p>Interactive agents for tailored prenatal care.</p>
+            <a href="https://realize-lab.github.io/PATHFinder" target="_blank" rel="noopener">View the project →</a>
+          </figcaption>
+        </figure>
+      </div>
+      <button class="demos__nav demos__nav--next" id="demos-next" type="button" aria-label="Next demo" aria-controls="demos-track">›</button>
+    </div>
+    <div class="demos__hint" id="demos-hint" aria-hidden="true">
+      <span class="demos__hint-text">explore more!</span>
+      <svg class="demos__hint-arrow" viewBox="0 0 46 64" fill="none" stroke="currentColor" stroke-width="2.6"
+        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 58 C 1 41 13 39 17 34 C 24 27 18 19 27 11" />
+        <path d="M18 13 L 28 8 L 32 19" />
+      </svg>
     </div>
   </section>
 

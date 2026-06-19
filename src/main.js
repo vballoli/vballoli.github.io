@@ -850,6 +850,64 @@
   }
 })();
 
+/* ---------- Demos Carousel ---------- */
+(function () {
+  var track = document.getElementById('demos-track');
+  var prev = document.getElementById('demos-prev');
+  var next = document.getElementById('demos-next');
+  if (!track || !prev || !next) return;
+
+  // --- "explore more" hint: shown only once per visitor ---
+  var hint = document.getElementById('demos-hint');
+  var HINT_KEY = 'demos-hint-seen';
+  var hintTimer = null;
+
+  try { if (hint && localStorage.getItem(HINT_KEY)) { hint.remove(); hint = null; } } catch (e) {}
+
+  function dismissHint() {
+    if (!hint) return;
+    clearTimeout(hintTimer);
+    var el = hint;
+    hint = null;
+    el.classList.add('demos__hint--hidden');
+    try { localStorage.setItem(HINT_KEY, '1'); } catch (e) {}
+    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 500);
+  }
+
+  function step() {
+    var card = track.querySelector('.demo-card');
+    if (!card) return track.clientWidth;
+    var styles = getComputedStyle(track);
+    var gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+    return card.getBoundingClientRect().width + gap;
+  }
+
+  function updateButtons() {
+    var maxScroll = track.scrollWidth - track.clientWidth - 1;
+    prev.disabled = track.scrollLeft <= 0;
+    next.disabled = track.scrollLeft >= maxScroll;
+    // Nothing to explore if the track doesn't overflow — drop the hint.
+    if (hint && prev.disabled && next.disabled) dismissHint();
+  }
+
+  prev.addEventListener('click', function () { dismissHint(); track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+  next.addEventListener('click', function () { dismissHint(); track.scrollBy({ left: step(), behavior: 'smooth' }); });
+  if (hint) {
+    hint.addEventListener('click', function () { next.click(); });
+  }
+
+  var ticking = false;
+  track.addEventListener('scroll', function () {
+    dismissHint();
+    if (!ticking) { window.requestAnimationFrame(function () { updateButtons(); ticking = false; }); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', updateButtons);
+  updateButtons();
+
+  // Auto-dismiss the hint after a while even if the visitor never interacts.
+  if (hint) hintTimer = setTimeout(dismissHint, 9000);
+})();
+
 /* ---------- (removed) Scroll Hue Shift ---------- */
 (function () { return;
   var maxShift = 15;
