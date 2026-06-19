@@ -2033,3 +2033,85 @@ a:hover, a:focus { color: var(--accent-hover); }
 }
 
 .footer__top-link:hover { color: var(--accent); }
+
+/* ============================================
+   COOL DEMOS (Lottie)
+   ============================================ */
+.research__demos-link {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.research__demos-link a {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.18s ease;
+}
+
+.research__demos-link a:hover { opacity: 0.75; text-decoration: underline; }
+
+.demos__intro {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.demos__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  gap: 1.5rem;
+}
+
+.demo-card {
+  margin: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xs);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.demo-card:hover {
+  box-shadow: var(--shadow-sm, var(--shadow-xs));
+  transform: translateY(-2px);
+}
+
+.demo-card__lottie {
+  width: 100%;
+  aspect-ratio: 1280 / 600;
+  background: var(--bg-muted, rgba(127, 127, 127, 0.06));
+  display: block;
+}
+
+.demo-card__lottie svg { display: block; }
+
+.demo-card__caption {
+  padding: 1rem 1.15rem 1.25rem;
+}
+
+.demo-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0 0 0.35rem;
+}
+
+.demo-card__caption p {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0 0 0.6rem;
+}
+
+.demo-card__caption a {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.demo-card__caption a:hover { text-decoration: underline; }

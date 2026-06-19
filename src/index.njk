@@ -17,6 +17,7 @@ permalink: /
     <a class="nav-dropdown__link" role="menuitem" href="#top" data-section="top">Home</a>
     <a class="nav-dropdown__link" role="menuitem" href="#news" data-section="news">News</a>
     <a class="nav-dropdown__link" role="menuitem" href="#research" data-section="research">Research</a>
+    <a class="nav-dropdown__link" role="menuitem" href="#demos" data-section="demos">Demos</a>
     <a class="nav-dropdown__link" role="menuitem" href="#reading" data-section="reading">Reading</a>
     <div class="nav-dropdown__divider"></div>
     <button class="nav-dropdown__hint" id="cmd-k-hint" role="menuitem" aria-label="Search: press Command K (or Control K) to open the search palette">Search… <kbd aria-hidden="true">⌘K</kbd></button>
@@ -95,14 +96,14 @@ permalink: /
       I work on human-centered AI, designing <strong>interactive AI systems</strong> that collaborate with people,
       surface the right uncertainty, and remain reliable when deployed in high-stakes domains such as healthcare,
       wildlife conservation, road safety, and education. My research sits at the intersection of large language
-      models, reinforcement learning, and human-computer interaction, spanning:
+      models, reinforcement learning, representation learning, and human-computer interaction, spanning:
     </p>
     <ul class="research__areas">
-      <li><strong>Multilingual LLMs:</strong> improving large language model performance for low-resource and non-Latin-script languages.</li>
-      <li><strong>Agent reasoning &amp; interactive AI:</strong> LLM agents that plan, converse, and adapt their decisions at run-time.</li>
-      <li><strong>Human-AI collaboration:</strong> interpretable, editable models that let domain experts intervene where it matters.</li>
-      <li><strong>Reliable evaluation:</strong> curating and benchmarking datasets for trustworthy real-world AI deployment.</li>
+      <li><strong>Interactive AI Agents:</strong> models and systems that allow stakeholders to improve their decision making.</li>
+      <li><strong>Reliable evaluations:</strong> curating and benchmarking datasets for trustworthy real-world AI deployment.</li>
+      <li><strong>Responsible Deployments:</strong> working closely with stakeholders to responsibly deploy these systems in the real world.</li>
     </ul>
+    <p class="research__demos-link">Want to see the research in motion? <a href="#demos">Look here for cool demos →</a></p>
 
     <!-- Filter -->
     <div id="pill-anchor" class="pill-anchor"></div>
@@ -167,6 +168,26 @@ permalink: /
         </div>
       </article>
       {%- endfor %}
+    </div>
+  </section>
+
+  <!-- COOL DEMOS -->
+  <section class="section demos" id="demos">
+    <h2 class="section-title">Cool Demos</h2>
+    <p class="demos__intro">
+      Interactive animations and visualizations from my research projects.
+    </p>
+    <div class="demos__grid">
+      <figure class="demo-card">
+        <div class="demo-card__lottie" data-lottie-src="/lottie/seek-cbm.json" role="img"
+          aria-label="Animated demo of SEEK-CBM: editable and interpretable retrieval for elephant re-identification">
+        </div>
+        <figcaption class="demo-card__caption">
+          <h3 class="demo-card__title">SEEK-CBM</h3>
+          <p>Editable and interpretable retrieval for elephant re-identification.</p>
+          <a href="https://drive.google.com/file/d/1JuWRW6SlzewdU0gJTEZdoZT7_-kp_Ntl/view" target="_blank" rel="noopener">Read the paper →</a>
+        </figcaption>
+      </figure>
     </div>
   </section>
 

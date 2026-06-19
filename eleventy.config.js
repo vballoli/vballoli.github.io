@@ -5,6 +5,7 @@ module.exports = function (eleventyConfig) {
     fonts: "fonts",
     files: "files",
     uploads: "uploads",
+    lottie: "lottie",
     "news.md": "news.md",
     ".nojekyll": ".nojekyll"
   });

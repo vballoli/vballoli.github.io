@@ -501,7 +501,7 @@
   });
 
   // Highlight active section
-  var sections = ['top', 'news', 'research', 'reading'];
+  var sections = ['top', 'news', 'research', 'demos', 'reading'];
   var ticking = false;
   var indicator = document.getElementById('section-indicator');
   var indicatorItems = indicator.querySelectorAll('.section-indicator__item');
@@ -562,6 +562,7 @@
   [{ id: 'top', label: 'Home', icon: '🏠' },
   { id: 'news', label: 'News', icon: '📣' },
   { id: 'research', label: 'Research', icon: '🔬' },
+  { id: 'demos', label: 'Demos', icon: '✨' },
   { id: 'reading', label: 'Reading', icon: '📚' }
   ].forEach(function (s) {
     var el = document.getElementById(s.id);
@@ -816,6 +817,38 @@
     });
 })();
 
+
+/* ---------- Lottie Demos ---------- */
+(function () {
+  var els = document.querySelectorAll('[data-lottie-src]');
+  if (!els.length) return;
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function play(el) {
+    if (typeof lottie === 'undefined' || el.dataset.lottieLoaded) return;
+    el.dataset.lottieLoaded = '1';
+    lottie.loadAnimation({
+      container: el,
+      renderer: 'svg',
+      loop: !reduce,
+      autoplay: !reduce,
+      path: el.dataset.lottieSrc
+    });
+  }
+
+  // Lazy-load each animation only when it nears the viewport (the JSON can be large).
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { play(e.target); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '200px' });
+    els.forEach(function (el) { io.observe(el); });
+  } else {
+    els.forEach(play);
+  }
+})();
 
 /* ---------- (removed) Scroll Hue Shift ---------- */
 (function () { return;
