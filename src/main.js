@@ -5,18 +5,20 @@
 /* ---------- Theme: light / dark / sepia / system (default: system) ---------- */
 (function () {
   var STORAGE_KEY = 'theme-preference';
-  var validModes = ['light', 'dark', 'sepia', 'system'];
+  var validModes = ['sepia', 'dark', 'system'];
+  var labels = { sepia: 'earth tone', dark: 'dark', system: 'system' };
   var root = document.documentElement;
 
   function getStored() {
     var v = localStorage.getItem(STORAGE_KEY);
-    return validModes.indexOf(v) !== -1 ? v : 'system';
+    // 'light'/'system' (legacy) or anything unknown falls back to the earth-tone default.
+    return validModes.indexOf(v) !== -1 ? v : 'sepia';
   }
 
   function apply(mode) {
     root.setAttribute('data-theme', mode);
     var btn = document.getElementById('theme-toggle');
-    if (btn) btn.setAttribute('title', 'Theme: ' + mode + ' (click to cycle)');
+    if (btn) btn.setAttribute('title', 'Theme: ' + labels[mode] + ' (click to cycle)');
   }
 
   apply(getStored());
@@ -906,6 +908,66 @@
 
   // Auto-dismiss the hint after a while even if the visitor never interacts.
   if (hint) hintTimer = setTimeout(dismissHint, 9000);
+})();
+
+/* ---------- Deep Links & Shareable Anchors ---------- */
+(function () {
+  var track = document.getElementById('demos-track');
+
+  function centerCardInTrack(card) {
+    if (!track || !card) return;
+    var delta = card.getBoundingClientRect().left - track.getBoundingClientRect().left;
+    track.scrollBy({ left: delta, behavior: 'smooth' });
+  }
+
+  function navigate(hash) {
+    if (!hash || hash === '#') return;
+    var target;
+    try { target = document.querySelector(hash); } catch (e) { return; }
+    if (!target) return;
+    if (target.classList && target.classList.contains('demo-card')) {
+      // Bring the Demos section into view, then center the requested card in the carousel.
+      var demos = document.getElementById('demos');
+      if (demos) demos.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      centerCardInTrack(target);
+    } else {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  var toastEl = null, toastTimer = null;
+  function toast(msg) {
+    if (!toastEl) {
+      toastEl = document.createElement('div');
+      toastEl.className = 'link-toast';
+      toastEl.setAttribute('role', 'status');
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = msg;
+    requestAnimationFrame(function () { toastEl.classList.add('link-toast--visible'); });
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { if (toastEl) toastEl.classList.remove('link-toast--visible'); }, 1800);
+  }
+
+  // Click a "#" anchor: update the address bar, scroll to the target, and copy the shareable URL.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('.anchor-link');
+    if (!a) return;
+    e.preventDefault();
+    var href = a.getAttribute('href');
+    if (history.replaceState) history.replaceState(null, '', href);
+    navigate(href);
+    var url = location.origin + location.pathname + href;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () { toast('Link copied'); }, function () {});
+    }
+  });
+
+  // Honor an incoming hash (pasted/shared link) and back/forward navigation.
+  window.addEventListener('hashchange', function () { navigate(location.hash); });
+  if (location.hash) {
+    window.addEventListener('load', function () { setTimeout(function () { navigate(location.hash); }, 80); });
+  }
 })();
 
 /* ---------- (removed) Scroll Hue Shift ---------- */

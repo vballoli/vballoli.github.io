@@ -21,30 +21,31 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap');
 
-/* ---------- Custom Properties (Light) ---------- */
-:root {
-  --bg-primary: #fbfbf9;
-  --bg-secondary: #f2f1ec;
-  --bg-card: #ffffff;
-  --bg-elevated: #ffffff;
-  --bg-hero: #0a0a0b;
+/* ---------- Custom Properties (Earth tone — default) ---------- */
+:root,
+:root[data-theme="sepia"] {
+  --bg-primary: #f3ecdd;
+  --bg-secondary: #e7dcc5;
+  --bg-card: #faf4e7;
+  --bg-elevated: #fbf6ec;
+  --bg-hero: #2a2418;
 
-  --border-subtle: #e8e6df;
-  --border-medium: #d6d3c8;
-  --border-accent: #18181b;
+  --border-subtle: #ddd0b6;
+  --border-medium: #c8b793;
+  --border-accent: #3a3326;
 
-  --text-primary: #111113;
-  --text-secondary: #3a3a3f;
-  --text-muted: #71717a;
-  --text-hero: #ffffff;
-  --text-hero-sub: #a1a1aa;
+  --text-primary: #3a3326;
+  --text-secondary: #5c5440;
+  --text-muted: #8a7d62;
+  --text-hero: #faf4e7;
+  --text-hero-sub: #cdbf9f;
 
-  --accent: #1f8a70;
-  --accent-hover: #176b57;
-  --accent-light: rgba(31, 138, 112, 0.09);
+  --accent: #1c7a63;
+  --accent-hover: #14594a;
+  --accent-light: rgba(28, 122, 99, 0.10);
 
-  --cornell-red: #b31b1b;
-  --highlight: #1f8a70;
+  --cornell-red: #a83232;
+  --highlight: #1c7a63;
 
   --content-width: min(92%, 880px);
 
@@ -57,11 +58,11 @@
   --radius-sm: 6px;
   --radius-lg: 14px;
 
-  /* Elegant, soft shadows */
-  --shadow-xs: 0 1px 2px rgba(15, 15, 20, 0.04);
-  --shadow-sm: 0 1px 3px rgba(15, 15, 20, 0.05), 0 1px 2px rgba(15, 15, 20, 0.03);
-  --shadow-md: 0 4px 14px -2px rgba(15, 15, 20, 0.06), 0 2px 6px -1px rgba(15, 15, 20, 0.04);
-  --shadow-lg: 0 12px 32px -8px rgba(15, 15, 20, 0.12), 0 4px 12px -2px rgba(15, 15, 20, 0.06);
+  /* Elegant, soft shadows (warm) */
+  --shadow-xs: 0 1px 2px rgba(80, 60, 30, 0.06);
+  --shadow-sm: 0 1px 3px rgba(80, 60, 30, 0.08), 0 1px 2px rgba(80, 60, 30, 0.05);
+  --shadow-md: 0 4px 14px -2px rgba(80, 60, 30, 0.10), 0 2px 6px -1px rgba(80, 60, 30, 0.06);
+  --shadow-lg: 0 12px 32px -8px rgba(80, 60, 30, 0.16), 0 4px 12px -2px rgba(80, 60, 30, 0.10);
 
   color-scheme: light;
 }
@@ -99,40 +100,7 @@
   color-scheme: dark;
 }
 
-/* ---------- Earth / sepia tokens (warm beige + umber) ---------- */
-:root[data-theme="sepia"] {
-  --bg-primary: #f3ecdd;
-  --bg-secondary: #e7dcc5;
-  --bg-card: #faf4e7;
-  --bg-elevated: #fbf6ec;
-  --bg-hero: #2a2418;
-
-  --border-subtle: #ddd0b6;
-  --border-medium: #c8b793;
-  --border-accent: #3a3326;
-
-  --text-primary: #3a3326;
-  --text-secondary: #5c5440;
-  --text-muted: #8a7d62;
-  --text-hero: #faf4e7;
-  --text-hero-sub: #cdbf9f;
-
-  --accent: #1c7a63;
-  --accent-hover: #14594a;
-  --accent-light: rgba(28, 122, 99, 0.10);
-
-  --cornell-red: #a83232;
-  --highlight: #1c7a63;
-
-  --shadow-xs: 0 1px 2px rgba(80, 60, 30, 0.06);
-  --shadow-sm: 0 1px 3px rgba(80, 60, 30, 0.08), 0 1px 2px rgba(80, 60, 30, 0.05);
-  --shadow-md: 0 4px 14px -2px rgba(80, 60, 30, 0.10), 0 2px 6px -1px rgba(80, 60, 30, 0.06);
-  --shadow-lg: 0 12px 32px -8px rgba(80, 60, 30, 0.16), 0 4px 12px -2px rgba(80, 60, 30, 0.10);
-
-  color-scheme: light;
-}
-
-/* System mode: follow OS preference */
+/* ---------- System mode: follow OS (dark → dark tokens; light → earth default) ---------- */
 @media (prefers-color-scheme: dark) {
   :root[data-theme="system"] {
     --bg-primary: #0e0e10;
@@ -148,6 +116,8 @@
     --text-primary: #f4f4f5;
     --text-secondary: #d4d4d8;
     --text-muted: #8b8b93;
+    --text-hero: #ffffff;
+    --text-hero-sub: #a1a1aa;
 
     --accent: #5ec9ae;
     --accent-hover: #8fdcc8;
@@ -257,11 +227,17 @@ a:hover, a:focus { color: var(--accent-hover); }
 
 /* Theme toggle icon — hidden by default, JS reveals the active one */
 .theme-toggle .theme-icon { display: none; }
-:root[data-theme="light"] .theme-toggle .theme-icon--light,
+.theme-toggle .theme-icon--sepia,
 :root[data-theme="dark"]  .theme-toggle .theme-icon--dark,
 :root[data-theme="sepia"] .theme-toggle .theme-icon--sepia,
 :root[data-theme="system"] .theme-toggle .theme-icon--system {
   display: inline;
+}
+
+/* When dark or system is active, hide the default (earth) icon */
+:root[data-theme="dark"] .theme-toggle .theme-icon--sepia,
+:root[data-theme="system"] .theme-toggle .theme-icon--sepia {
+  display: none;
 }
 
 /* Nav Dropdown */
@@ -2200,4 +2176,57 @@ a:hover, a:focus { color: var(--accent-hover); }
 
 @media (prefers-reduced-motion: reduce) {
   .demos__hint-arrow { animation: none; }
+}
+
+/* ============================================
+   DEEP LINKS / SHAREABLE ANCHORS
+   ============================================ */
+/* Keep anchored targets clear of the fixed top controls */
+.section, .hero, .demo-card {
+  scroll-margin-top: 1.5rem;
+}
+
+.anchor-link {
+  margin-left: 0.4rem;
+  font-size: 0.7em;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-decoration: none;
+  opacity: 0;
+  vertical-align: middle;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.section-title:hover .anchor-link,
+.demo-card__title:hover .anchor-link,
+.anchor-link:focus { opacity: 0.65; }
+
+.anchor-link:hover { color: var(--accent); opacity: 1; }
+
+/* On touch devices (no hover) keep the anchor faintly visible so it's discoverable */
+@media (hover: none) {
+  .anchor-link { opacity: 0.4; }
+}
+
+.link-toast {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+  padding: 0.5rem 0.95rem;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  z-index: 400;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.link-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
