@@ -19,9 +19,6 @@
   src: url('fonts/InterVariable-Italic.woff2') format('woff2');
 }
 
-/* Google Fonts (Instrument Serif, JetBrains Mono) are loaded via <link> in
-   the document head so they fetch in parallel instead of blocking CSS parse. */
-
 /* ---------- Custom Properties (Earth tone — default) ---------- */
 :root,
 :root[data-theme="sepia"] {
@@ -52,8 +49,8 @@
 
   --font-heading: 'InterVariable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-body: 'InterVariable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-serif: 'Instrument Serif', Georgia, serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-serif: 'InterVariable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'InterVariable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   --radius: 8px;
   --radius-sm: 6px;
@@ -2168,7 +2165,7 @@ a:hover, a:focus { color: var(--accent-hover); }
 }
 
 .demos__hint-text {
-  font-family: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+  font-family: var(--font-body);
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.05;
