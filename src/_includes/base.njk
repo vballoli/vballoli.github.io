@@ -41,7 +41,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@600;700&display=swap">
 
   <link rel="stylesheet" href="/style.css">
 
@@ -79,7 +79,7 @@
         "@id": "{{ site.url }}/#profilepage",
         "url": "{{ site.url }}/",
         "name": {{ site.title | dump | safe }},
-        "dateModified": "{{ buildDate }}",
+        "dateModified": "{{ buildDateTime }}",
         "isPartOf": { "@id": "{{ site.url }}/#website" },
         "about": { "@id": "{{ site.url }}/#person" },
         "mainEntity": { "@id": "{{ site.url }}/#person" }
@@ -121,6 +121,7 @@
   {{ content | safe }}
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js" defer></script>
   <script src="/main.js" defer></script>
 </body>
 

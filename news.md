@@ -39,12 +39,12 @@ Officially a Ph.D. Candidate!
 ---
 
 ## 2024-10-15
-One paper accepted at **COLING 2025** (Oral) — *Bridging the Gap: Dynamic Learning Strategies for Improving Multilingual Performance in LLMs.*
+One paper accepted at **COLING 2025** (Oral): *Bridging the Gap: Dynamic Learning Strategies for Improving Multilingual Performance in LLMs.*
 
 ---
 
 ## 2024-05-16
-**CHAIR** accepted at **IJCAI 2024 — Human-Centered AI Track** (&lt;5% acceptance rate).
+**CHAIR** accepted at **IJCAI 2024, Human-Centered AI Track** (&lt;5% acceptance rate).
 
 ---
 
@@ -54,7 +54,7 @@ One paper accepted at the **CV4Animals Workshop @ CVPR 2024**.
 ---
 
 ## 2024-04-10
-Second place at the **Google × MHacks** hackathon — building the next generation of package management in the age of generative AI ($1,500 prize, solo team).
+Second place at the **Google × MHacks** hackathon, building the next generation of package management in the age of generative AI ($1,500 prize, solo team).
 
 ---
 

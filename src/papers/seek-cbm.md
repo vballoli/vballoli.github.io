@@ -13,6 +13,7 @@ authors:
 venues:
   - { acronym: "CV4Animals @ CVPR", year: "2026" }
 links:
+  - { label: "Paper", href: "https://drive.google.com/file/d/1JuWRW6SlzewdU0gJTEZdoZT7_-kp_Ntl/view" }
   - { label: "Project", href: "https://realize-lab.github.io/CHAIR" }
   - { label: "Code", href: "https://github.com/realize-lab/CHAIR" }
 bibtex: |

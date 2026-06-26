@@ -24,4 +24,4 @@ bibtex: |
     year      = {2023}
   }
 ---
-A learned approximate-execution framework for streaming perception. Chanakya jointly considers scene content and system contention to pick run-time decisions (resolution, model, compute) that balance accuracy and latency — beating static and dynamic baselines on both server GPUs and edge devices.
+A learned approximate-execution framework for streaming perception. Chanakya jointly considers scene content and system contention to pick run-time decisions (resolution, model, compute) that balance accuracy and latency, beating static and dynamic baselines on both server GPUs and edge devices.

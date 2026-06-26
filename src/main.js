@@ -5,18 +5,20 @@
 /* ---------- Theme: light / dark / sepia / system (default: system) ---------- */
 (function () {
   var STORAGE_KEY = 'theme-preference';
-  var validModes = ['light', 'dark', 'sepia', 'system'];
+  var validModes = ['sepia', 'dark', 'system'];
+  var labels = { sepia: 'earth tone', dark: 'dark', system: 'system' };
   var root = document.documentElement;
 
   function getStored() {
     var v = localStorage.getItem(STORAGE_KEY);
-    return validModes.indexOf(v) !== -1 ? v : 'system';
+    // 'light'/'system' (legacy) or anything unknown falls back to the earth-tone default.
+    return validModes.indexOf(v) !== -1 ? v : 'sepia';
   }
 
   function apply(mode) {
     root.setAttribute('data-theme', mode);
     var btn = document.getElementById('theme-toggle');
-    if (btn) btn.setAttribute('title', 'Theme: ' + mode + ' (click to cycle)');
+    if (btn) btn.setAttribute('title', 'Theme: ' + labels[mode] + ' (click to cycle)');
   }
 
   apply(getStored());
@@ -125,7 +127,7 @@
   var pillInput = document.getElementById('filter-pill-input');
   var pillAnchor = document.getElementById('pill-anchor');
   var isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
-  pillInput.placeholder = (isMac ? '⌘K' : 'Ctrl+K') + ' to search papers…';
+  pillInput.placeholder = 'Search papers by keyword or topic (' + (isMac ? '⌘K' : 'Ctrl+K') + ')';
   var filters = document.getElementById('research-filters');
   var cards = document.querySelectorAll('.paper-card[data-tags]');
   var ticking = false;
@@ -468,25 +470,40 @@
   var links = dropdown.querySelectorAll('.nav-dropdown__link');
   var cmdHint = document.getElementById('cmd-k-hint');
 
+  function syncExpanded() {
+    navToggle.setAttribute('aria-expanded', dropdown.classList.contains('nav-dropdown--open') ? 'true' : 'false');
+  }
+
   navToggle.addEventListener('click', function (e) {
     e.stopPropagation();
     dropdown.classList.toggle('nav-dropdown--open');
+    syncExpanded();
   });
 
   document.addEventListener('click', function (e) {
     if (!dropdown.contains(e.target) && e.target !== navToggle) {
       dropdown.classList.remove('nav-dropdown--open');
+      syncExpanded();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && dropdown.classList.contains('nav-dropdown--open')) {
+      dropdown.classList.remove('nav-dropdown--open');
+      syncExpanded();
+      navToggle.focus();
     }
   });
 
   links.forEach(function (link) {
     link.addEventListener('click', function () {
       dropdown.classList.remove('nav-dropdown--open');
+      syncExpanded();
     });
   });
 
   // Highlight active section
-  var sections = ['top', 'news', 'research', 'reading'];
+  var sections = ['top', 'news', 'research', 'demos', 'reading'];
   var ticking = false;
   var indicator = document.getElementById('section-indicator');
   var indicatorItems = indicator.querySelectorAll('.section-indicator__item');
@@ -516,6 +533,7 @@
   // Open command palette from dropdown hint
   cmdHint.addEventListener('click', function () {
     dropdown.classList.remove('nav-dropdown--open');
+    syncExpanded();
     document.getElementById('cmd-overlay').classList.add('cmd-palette-overlay--open');
     document.getElementById('cmd-input').focus();
   });
@@ -546,6 +564,7 @@
   [{ id: 'top', label: 'Home', icon: '🏠' },
   { id: 'news', label: 'News', icon: '📣' },
   { id: 'research', label: 'Research', icon: '🔬' },
+  { id: 'demos', label: 'Demos', icon: '✨' },
   { id: 'reading', label: 'Reading', icon: '📚' }
   ].forEach(function (s) {
     var el = document.getElementById(s.id);
@@ -786,6 +805,7 @@
       items.sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
 
       renderInto(listEl, items.slice(0, TOP_N));
+      listEl.setAttribute('aria-busy', 'false');
       if (items.length > TOP_N) {
         viewAllBtn.hidden = false;
         viewAllBtn.textContent = 'View all news (' + items.length + ')';
@@ -794,10 +814,161 @@
       viewAllBtn.addEventListener('click', openDrawer);
     })
     .catch(function () {
-      listEl.innerHTML = '<li class="news__item"><span class="news__content">No news available.</span></li>';
+      listEl.setAttribute('aria-busy', 'false');
+      listEl.innerHTML = '<li class="news__item"><span class="news__content">No news available right now. Please check back soon.</span></li>';
     });
 })();
 
+
+/* ---------- Lottie Demos ---------- */
+(function () {
+  var els = document.querySelectorAll('[data-lottie-src]');
+  if (!els.length) return;
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function play(el) {
+    if (typeof lottie === 'undefined' || el.dataset.lottieLoaded) return;
+    el.dataset.lottieLoaded = '1';
+    lottie.loadAnimation({
+      container: el,
+      renderer: 'svg',
+      loop: !reduce,
+      autoplay: !reduce,
+      path: el.dataset.lottieSrc
+    });
+  }
+
+  // Lazy-load each animation only when it nears the viewport (the JSON can be large).
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { play(e.target); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '200px' });
+    els.forEach(function (el) { io.observe(el); });
+  } else {
+    els.forEach(play);
+  }
+})();
+
+/* ---------- Demos Carousel ---------- */
+(function () {
+  var track = document.getElementById('demos-track');
+  var prev = document.getElementById('demos-prev');
+  var next = document.getElementById('demos-next');
+  if (!track || !prev || !next) return;
+
+  // --- "explore more" hint: shown only once per visitor ---
+  var hint = document.getElementById('demos-hint');
+  var HINT_KEY = 'demos-hint-seen';
+  var hintTimer = null;
+
+  try { if (hint && localStorage.getItem(HINT_KEY)) { hint.remove(); hint = null; } } catch (e) {}
+
+  function dismissHint() {
+    if (!hint) return;
+    clearTimeout(hintTimer);
+    var el = hint;
+    hint = null;
+    el.classList.add('demos__hint--hidden');
+    try { localStorage.setItem(HINT_KEY, '1'); } catch (e) {}
+    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 500);
+  }
+
+  function step() {
+    var card = track.querySelector('.demo-card');
+    if (!card) return track.clientWidth;
+    var styles = getComputedStyle(track);
+    var gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+    return card.getBoundingClientRect().width + gap;
+  }
+
+  function updateButtons() {
+    var maxScroll = track.scrollWidth - track.clientWidth - 1;
+    prev.disabled = track.scrollLeft <= 0;
+    next.disabled = track.scrollLeft >= maxScroll;
+    // Nothing to explore if the track doesn't overflow — drop the hint.
+    if (hint && prev.disabled && next.disabled) dismissHint();
+  }
+
+  prev.addEventListener('click', function () { dismissHint(); track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+  next.addEventListener('click', function () { dismissHint(); track.scrollBy({ left: step(), behavior: 'smooth' }); });
+  if (hint) {
+    hint.addEventListener('click', function () { next.click(); });
+  }
+
+  var ticking = false;
+  track.addEventListener('scroll', function () {
+    dismissHint();
+    if (!ticking) { window.requestAnimationFrame(function () { updateButtons(); ticking = false; }); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', updateButtons);
+  updateButtons();
+
+  // Auto-dismiss the hint after a while even if the visitor never interacts.
+  if (hint) hintTimer = setTimeout(dismissHint, 9000);
+})();
+
+/* ---------- Deep Links & Shareable Anchors ---------- */
+(function () {
+  var track = document.getElementById('demos-track');
+
+  function centerCardInTrack(card) {
+    if (!track || !card) return;
+    var delta = card.getBoundingClientRect().left - track.getBoundingClientRect().left;
+    track.scrollBy({ left: delta, behavior: 'smooth' });
+  }
+
+  function navigate(hash) {
+    if (!hash || hash === '#') return;
+    var target;
+    try { target = document.querySelector(hash); } catch (e) { return; }
+    if (!target) return;
+    if (target.classList && target.classList.contains('demo-card')) {
+      // Bring the Demos section into view, then center the requested card in the carousel.
+      var demos = document.getElementById('demos');
+      if (demos) demos.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      centerCardInTrack(target);
+    } else {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  var toastEl = null, toastTimer = null;
+  function toast(msg) {
+    if (!toastEl) {
+      toastEl = document.createElement('div');
+      toastEl.className = 'link-toast';
+      toastEl.setAttribute('role', 'status');
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = msg;
+    requestAnimationFrame(function () { toastEl.classList.add('link-toast--visible'); });
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { if (toastEl) toastEl.classList.remove('link-toast--visible'); }, 1800);
+  }
+
+  // Click a "#" anchor: update the address bar, scroll to the target, and copy the shareable URL.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('.anchor-link');
+    if (!a) return;
+    e.preventDefault();
+    var href = a.getAttribute('href');
+    if (history.replaceState) history.replaceState(null, '', href);
+    navigate(href);
+    var url = location.origin + location.pathname + href;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () { toast('Link copied'); }, function () {});
+    }
+  });
+
+  // Honor an incoming hash (pasted/shared link) and back/forward navigation.
+  window.addEventListener('hashchange', function () { navigate(location.hash); });
+  if (location.hash) {
+    window.addEventListener('load', function () { setTimeout(function () { navigate(location.hash); }, 80); });
+  }
+})();
 
 /* ---------- (removed) Scroll Hue Shift ---------- */
 (function () { return;

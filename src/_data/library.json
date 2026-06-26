@@ -4,7 +4,7 @@
     {
       "title": "Project Hail Mary",
       "author": "Andy Weir",
-      "note": "A problem-solving-as-survival sci-fi novel — first-principles reasoning under extreme constraints.",
+      "note": "A problem-solving-as-survival sci-fi novel: first-principles reasoning under extreme constraints.",
       "href": "https://en.wikipedia.org/wiki/Project_Hail_Mary"
     },
     {
@@ -18,19 +18,19 @@
       "author": "Eric Horvitz (CHI 1999)",
       "note": "The foundational paper on designing systems where humans and automated agents collaborate fluidly.",
       "href": "https://www.microsoft.com/en-us/research/publication/principles-of-mixed-initiative-user-interfaces/"
-    }
-  ],
-  "videos": [
+    },
     {
       "title": "The Bitter Lesson",
       "author": "Richard Sutton",
       "note": "Short essay arguing that general methods leveraging computation tend to win out over hand-crafted knowledge.",
       "href": "http://www.incompleteideas.net/IncIdeas/BitterLesson.html"
-    },
+    }
+  ],
+  "videos": [
     {
       "title": "The Last Lecture: Achieving Your Childhood Dreams",
       "author": "Randy Pausch",
-      "note": "Carnegie Mellon professor's wise, funny lecture on living with intention.",
+      "note": "Prof. Randy Pausch's wise, funny lecture on living with intention.",
       "href": "https://www.youtube.com/watch?v=ji5_MqicxSo"
     },
     {
