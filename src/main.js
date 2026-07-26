@@ -51,6 +51,7 @@
   var filters = document.getElementById('research-filters');
   var cards = document.querySelectorAll('.paper-card[data-tags]');
   var searchTag = null; // dynamic "Search: ..." button
+  if (!filters) return;
 
   function applyFilter(filter) {
     cards.forEach(function (card) {
@@ -127,10 +128,11 @@
   var pillInput = document.getElementById('filter-pill-input');
   var pillAnchor = document.getElementById('pill-anchor');
   var isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
-  pillInput.placeholder = 'Search papers by keyword or topic (' + (isMac ? '⌘K' : 'Ctrl+K') + ')';
   var filters = document.getElementById('research-filters');
   var cards = document.querySelectorAll('.paper-card[data-tags]');
   var ticking = false;
+  if (!research || !pill || !pillInput || !pillAnchor || !filters) return;
+  pillInput.placeholder = 'Search papers by keyword or topic (' + (isMac ? '⌘K' : 'Ctrl+K') + ')';
 
   // Track pill state: 'inline' | 'fixed' | 'hidden'
   var pillState = 'inline';
@@ -503,7 +505,7 @@
   });
 
   // Highlight active section
-  var sections = ['top', 'news', 'research', 'demos', 'reading'];
+  var sections = ['top', 'news', 'research', 'demos', 'reading', 'friends'];
   var ticking = false;
   var indicator = document.getElementById('section-indicator');
   var indicatorItems = indicator.querySelectorAll('.section-indicator__item');
@@ -565,7 +567,8 @@
   { id: 'news', label: 'News', icon: '📣' },
   { id: 'research', label: 'Research', icon: '🔬' },
   { id: 'demos', label: 'Demos', icon: '✨' },
-  { id: 'reading', label: 'Reading', icon: '📚' }
+  { id: 'reading', label: 'Reading', icon: '📚' },
+  { id: 'friends', label: 'Friends', icon: '👋' }
   ].forEach(function (s) {
     var el = document.getElementById(s.id);
     if (!el) return;
@@ -575,6 +578,11 @@
   document.querySelectorAll('.filter-tag').forEach(function (btn) {
     var label = btn.textContent.trim();
     items.push({ type: 'filter', icon: '🏷', title: 'Filter: ' + label, sub: 'Research filter', el: btn, haystack: label.toLowerCase() });
+  });
+  // Friend links
+  document.querySelectorAll('.friends-list a').forEach(function (link) {
+    var label = link.textContent.trim();
+    items.push({ type: 'link', icon: '↗', title: label, sub: 'Friend', el: link, haystack: label.toLowerCase() });
   });
 
   function matchItem(query, item) {
@@ -620,6 +628,8 @@
     close();
     if (item.type === 'filter') {
       item.el.click();
+    } else if (item.type === 'link') {
+      window.location.href = item.el.href;
     } else if (item.el) {
       // If selecting a paper, make sure it's visible by switching to "All" filter
       if (item.type === 'paper' && item.el.classList.contains('paper-card--hidden')) {
@@ -673,10 +683,11 @@
       } else {
         // No item selected — apply as a text search filter
         var query = input.value.trim();
-        if (query) {
+        if (query && window.__applySearchFilter) {
           close();
           window.__applySearchFilter(query);
-          document.getElementById('research').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          var research = document.getElementById('research');
+          if (research) research.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
     }
@@ -989,4 +1000,3 @@
   }, { passive: true });
   update();
 })();
-

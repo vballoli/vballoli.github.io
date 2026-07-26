@@ -1251,6 +1251,52 @@ a:hover, a:focus { color: var(--accent-hover); }
 }
 
 /* ============================================
+   FRIENDS
+   ============================================ */
+.friends-page {
+  min-height: calc(100vh - 10rem);
+}
+
+.friends-page .hero {
+  padding-top: 5.5rem;
+}
+
+.friends-page .hero__bio {
+  max-width: 38rem;
+}
+
+.friends-directory {
+  padding-top: 1.75rem;
+}
+
+.friends-list li {
+  padding-block: 0.9rem;
+}
+
+.friends-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.friends-list a::after {
+  content: '↗';
+  color: var(--text-muted);
+  font-size: 0.78em;
+  transition: transform 0.18s ease, color 0.18s ease;
+}
+
+.friends-list a:hover::after {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
+.friends-empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ============================================
    FOOTER
    ============================================ */
 .footer {

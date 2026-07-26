@@ -1,0 +1,20 @@
+{
+  "_comment": "Add, remove, or reorder people in the list below. Each person needs a name and a full website URL.",
+  "_example": {
+    "name": "Friend's name",
+    "href": "https://example.com"
+  },
+  "people": [{
+    "name": "Ranajoy Sadhukhan",
+    "href": "https://ranonrkm.github.io/"
+  },
+  {
+    "name": "Millend Roy",
+    "href": "https://millendroy.github.io/"
+  },
+  {
+    "name": "Tanmey Gupta",
+    "href": "https://tanmaey.github.io/"
+  }
+]
+}

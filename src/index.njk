@@ -18,6 +18,7 @@ permalink: /
     <a class="nav-dropdown__link" role="menuitem" href="#research" data-section="research">Research</a>
     <a class="nav-dropdown__link" role="menuitem" href="#demos" data-section="demos">Demos</a>
     <a class="nav-dropdown__link" role="menuitem" href="#reading" data-section="reading">Reading</a>
+    <a class="nav-dropdown__link" role="menuitem" href="/friends/" data-section="friends">Friends</a>
     <div class="nav-dropdown__divider"></div>
     <button class="nav-dropdown__hint" id="cmd-k-hint" role="menuitem" aria-label="Search: press Command K (or Control K) to open the search palette">Search… <kbd aria-hidden="true">⌘K</kbd></button>
   </div>
@@ -63,7 +64,7 @@ permalink: /
 
         <div class="hero__links">
           {%- for link in profile.links %}
-          <a {% if link.primary %}class="hero__link--primary"{% endif %} {% if link.external or link.href[0] != '#' %}target="_blank" rel="noopener"{% endif %} href="{{ link.href }}"{% if link.aria %} aria-label="{{ link.aria }}" title="{{ link.aria }}"{% endif %}>{% if link.icon %}{{ link.icon }} {% endif %}{{ link.label }}</a>
+          <a {% if link.primary %}class="hero__link--primary"{% endif %} {% if link.external %}target="_blank" rel="noopener"{% endif %} href="{{ link.href }}"{% if link.aria %} aria-label="{{ link.aria }}" title="{{ link.aria }}"{% endif %}>{% if link.icon %}{{ link.icon }} {% endif %}{{ link.label }}</a>
           {%- endfor %}
         </div>
       </div>

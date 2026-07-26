@@ -1,0 +1,93 @@
+---
+layout: base.njk
+title: Friends | Vaibhav Balloli
+description: Incredibly talented people (with a website) who I have the privilige to call friends.
+permalink: /friends/
+---
+
+<!-- Top Controls (theme + site navigation) -->
+<div class="top-controls" id="top-controls">
+  <button class="top-btn theme-toggle" id="theme-toggle" aria-label="Toggle between earth tone, dark, and system themes" title="Theme: earth tone (click to cycle)">
+    <span class="theme-icon theme-icon--sepia">◑</span>
+    <span class="theme-icon theme-icon--dark">☾</span>
+    <span class="theme-icon theme-icon--system">◐</span>
+  </button>
+  <button class="top-btn nav-toggle" id="nav-toggle" aria-label="Navigate pages and sections" aria-haspopup="menu" aria-controls="nav-dropdown" aria-expanded="false">⋯</button>
+
+  <div class="nav-dropdown" id="nav-dropdown" role="menu" aria-label="Site navigation">
+    <a class="nav-dropdown__link" role="menuitem" href="/#top" data-section="top">Home</a>
+    <a class="nav-dropdown__link" role="menuitem" href="/#news" data-section="news">News</a>
+    <a class="nav-dropdown__link" role="menuitem" href="/#research" data-section="research">Research</a>
+    <a class="nav-dropdown__link" role="menuitem" href="/#demos" data-section="demos">Demos</a>
+    <a class="nav-dropdown__link" role="menuitem" href="/#reading" data-section="reading">Reading</a>
+    <a class="nav-dropdown__link nav-dropdown__link--active" role="menuitem" href="/friends/" data-section="friends" aria-current="page">Friends</a>
+    <div class="nav-dropdown__divider"></div>
+    <button class="nav-dropdown__hint" id="cmd-k-hint" role="menuitem" aria-label="Search: press Command K (or Control K) to open the search palette">Search… <kbd aria-hidden="true">⌘K</kbd></button>
+  </div>
+</div>
+
+<nav id="section-indicator" hidden aria-hidden="true"></nav>
+
+<!-- Command Palette -->
+<div class="cmd-palette-overlay" id="cmd-overlay">
+  <div class="cmd-palette" id="cmd-palette">
+    <div class="cmd-palette__input-wrap">
+      <span class="cmd-palette__icon">🔍</span>
+      <input class="cmd-palette__input" id="cmd-input" type="text" placeholder="Search this page…"
+        aria-label="Search this page" autocomplete="off">
+      <span class="cmd-palette__kbd" aria-hidden="true">ESC</span>
+    </div>
+    <div class="cmd-palette__results" id="cmd-results"></div>
+  </div>
+</div>
+
+<main class="container friends-page">
+  <section class="hero" id="friends">
+    <div class="hero__text">
+      <h1 class="hero__name">Friends</h1>
+      <div class="hero__bio">
+        <p>Incredibly talented people (with a website) who I have the privilige to call friends. Highly recommend creating your own <a href="https://slashfriends.org" target="_blank" rel="noopener">slashfriends.org</a> page.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section friends-directory" aria-labelledby="friends-heading">
+    <h2 class="section-title" id="friends-heading">People</h2>
+    {% if friends.people.length %}
+    <ul class="links__list friends-list">
+      {%- for friend in friends.people %}
+      <li>
+        <a href="{{ friend.href }}" target="_blank" rel="noopener">{{ friend.name }}</a>
+      </li>
+      {%- endfor %}
+    </ul>
+    {% else %}
+    <p class="friends-empty">This list is still taking shape.</p>
+    {% endif %}
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <nav class="footer__social" aria-label="Social and contact links">
+      <a href="/" aria-label="Return to Vaibhav Balloli’s homepage">Home</a>
+      <a href="mailto:balloli.vb@gmail.com" aria-label="Email Vaibhav Balloli">Email</a>
+      <a href="https://github.com/vballoli" target="_blank" rel="noopener" aria-label="GitHub Profile – Vaibhav Balloli">GitHub</a>
+      <a href="https://scholar.google.com/citations?user=-6i7e7sAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar Profile of Vaibhav Balloli">Google Scholar</a>
+      <a href="https://www.linkedin.com/in/vaibhavballoli" target="_blank" rel="noopener" aria-label="LinkedIn – Vaibhav Balloli">LinkedIn</a>
+    </nav>
+    <p class="footer__ack">Co-crafted by <span id="footer-anurag" style="cursor: pointer;">Vaibhav</span> &amp; <a
+        href="https://claude.ai" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Claude</a>; inspired by <a href="https://anuragxel.github.io/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">Anurag</a></p>
+    <a class="footer__top-link" href="#friends" aria-label="Back to top of page">↑ Back to top</a>
+  </div>
+</footer>
+
+<!-- Easter Egg Popup -->
+<div class="easter-egg-overlay" id="easter-egg-overlay">
+  <div class="easter-egg-popup" id="easter-egg-popup" role="dialog" aria-modal="true" aria-labelledby="easter-egg-title">
+    <h2 id="easter-egg-title" class="visually-hidden">Easter egg video</h2>
+    <button class="easter-egg-close" id="easter-egg-close" aria-label="Close easter egg popup">&times;</button>
+    <iframe id="easter-egg-iframe" title="Easter egg video" width="560" height="315" frameborder="0" allow="autoplay; encrypted-media"
+      allowfullscreen></iframe>
+  </div>
+</div>
