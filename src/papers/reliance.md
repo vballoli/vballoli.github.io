@@ -14,7 +14,8 @@ authors:
 venues:
   - { acronym: "KDD", year: "2026", kind: "Datasets and Benchmarks Track" }
 links:
-  - { label: "Paper", href: "https://arxiv.org/abs/2606.18285" }
+  - { label: "arXiv", href: "https://arxiv.org/abs/2606.18285" }
+  - { label: "Proceedings", href: "https://doi.org/10.1145/3770855.3817447" }
   - { label: "Project", href: "https://realize-lab.github.io/RELIANCE" }
 bibtex: |
   @inproceedings{balloli2026reliance,
@@ -22,10 +23,11 @@ bibtex: |
     author         = {Balloli, Vaibhav and Ellis, Laura Peyton and Mishra, Vishala and Chi, Alice M and Friedman Peahl, Alex and Bondi-Kelly, Elizabeth},
     booktitle      = {Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining},
     year           = {2026},
+    doi            = {10.1145/3770855.3817447},
+    url            = {https://doi.org/10.1145/3770855.3817447},
     eprint         = {2606.18285},
     archivePrefix  = {arXiv},
-    primaryClass   = {cs.IR},
-    url            = {https://arxiv.org/abs/2606.18285}
+    primaryClass   = {cs.IR}
   }
 ---
 Devise data curation multi-modal agents to collect and curate reproductive health information from TikTok and work with clinicians to evaluate the accuracy of the content and how LLMs perform in evaluating the content for accuracy and harms.

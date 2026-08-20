@@ -13,9 +13,10 @@ authors:
 venues:
   - { acronym: "CV4Animals @ CVPR", year: "2026" }
 links:
-  - { label: "Paper", href: "https://drive.google.com/file/d/1JuWRW6SlzewdU0gJTEZdoZT7_-kp_Ntl/view" }
+  - { label: "PDF", href: "https://drive.google.com/file/d/1JuWRW6SlzewdU0gJTEZdoZT7_-kp_Ntl/view" }
   - { label: "Project", href: "https://realize-lab.github.io/CHAIR" }
   - { label: "Code", href: "https://github.com/realize-lab/CHAIR" }
+  - { label: "Talk", href: "https://www.youtube.com/watch?v=Czo5YQU4-WY" }
 bibtex: |
   @inproceedings{seekcbm2026salaun,
     title     = {{SEEK}-{CBM}: Editable and Interpretable Retrieval for Elephant Re-Identification},
