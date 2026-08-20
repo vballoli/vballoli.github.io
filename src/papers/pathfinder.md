@@ -12,7 +12,7 @@ authors:
   - { name: "Elizabeth Bondi-Kelly" }
 venues:
   - { acronym: "Interactive Health", year: "2026" }
-parent: maternal
+parent: sociotechnical-design
 links:
   - { label: "arXiv", href: "https://arxiv.org/abs/2607.24768" }
   - { label: "Proceedings", href: "https://doi.org/10.1145/3786579.3804996" }

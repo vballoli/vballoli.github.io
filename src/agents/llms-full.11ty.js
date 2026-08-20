@@ -31,7 +31,7 @@ module.exports = class {
       cv.focus,
       "",
       `Research areas: ${site.knowsAbout.join(", ")}.`,
-      `ORCID: ${site.orcid}. Contact: ${site.email}.`
+      `Contact: ${site.email}.`
     );
 
     heading("Research lineage");
@@ -108,8 +108,6 @@ module.exports = class {
     );
     out.push("", "### Research experience", "");
     cv.experience.forEach((e) => out.push(`- ${e.organisation}, ${e.role} (${e.period}): ${e.detail}`));
-    out.push("", "### Working papers", "");
-    cv.workingPapers.forEach((w) => out.push(`- ${w.title}. ${w.authors}`));
     out.push("", "### Awards and honours", "");
     cv.awards.forEach((a) => out.push(`- ${a.year}: ${a.text}`));
     out.push("", "### Service", "");

@@ -2,7 +2,7 @@
 layout: base.njk
 permalink: /cv/
 pageTitle: "Curriculum Vitae | Vaibhav Balloli"
-metaDescription: "Curriculum vitae of Vaibhav Balloli: education, research at Microsoft Research and Michigan, publications, working papers, awards, and peer review."
+metaDescription: "Curriculum vitae of Vaibhav Balloli: education, research at Microsoft Research and Michigan, publications, awards, and peer review."
 ogTitle: "Curriculum Vitae | Vaibhav Balloli"
 ---
 {%- set canonical = site.url + page.url %}
@@ -30,7 +30,6 @@ ogTitle: "Curriculum Vitae | Vaibhav Balloli"
       <a class="paper-page__action" href="{{ cv.pdf }}" target="_blank" rel="noopener">Download PDF</a>
       <a class="paper-page__action" href="mailto:{{ site.email }}">Email</a>
       <a class="paper-page__action" href="https://scholar.google.com/citations?user=-6i7e7sAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
-      <a class="paper-page__action" href="https://orcid.org/{{ site.orcid }}" target="_blank" rel="noopener">ORCID</a>
     </div>
   </header>
 
@@ -82,18 +81,6 @@ ogTitle: "Curriculum Vitae | Vaibhav Balloli"
       </li>
       {%- endfor %}
     </ol>
-  </section>
-
-  <section class="cv__section">
-    <h2>Working papers</h2>
-    <ul class="cv__list">
-      {%- for item in cv.workingPapers %}
-      <li class="cv__entry">
-        <h3 class="cv__entry-title cv__entry-title--plain">{{ item.title }}</h3>
-        <p class="cv__detail">{{ item.authors }}</p>
-      </li>
-      {%- endfor %}
-    </ul>
   </section>
 
   <section class="cv__section">

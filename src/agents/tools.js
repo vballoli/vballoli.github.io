@@ -154,7 +154,7 @@
       name: 'get_profile',
       description:
         'Fetch the site owner’s profile: role, affiliation, advisor, persistent ' +
-        'identifiers (ORCID, DBLP, Semantic Scholar), education, research experience, ' +
+        'identifiers (DBLP, Semantic Scholar), education, research experience, ' +
         'and deployed systems.',
       inputSchema: { type: 'object', properties: {} },
       execute: function () {

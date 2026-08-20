@@ -18,7 +18,7 @@ module.exports = class {
         generated: buildDateTime,
         source: site.url + "/agents/",
         licence: "Metadata is free to reuse with attribution. Paper texts remain under their publishers' terms.",
-        author: { name: site.author, orcid: site.orcid, url: site.url + "/" },
+        author: { name: site.author, url: site.url + "/" },
         count: papers.length,
         order: "reverse chronological",
         papers

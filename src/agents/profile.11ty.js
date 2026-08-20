@@ -24,7 +24,6 @@ module.exports = class {
           summary: cv.focus
         },
         identifiers: {
-          orcid: site.orcid,
           dblp: "348/6962",
           semanticScholar: "1564592237"
         },
@@ -59,7 +58,6 @@ module.exports = class {
           paperCount: t.papers.length,
           url: site.url + "/topics/" + t.slug + "/"
         })),
-        workingPapers: cv.workingPapers,
         service: cv.service
       },
       null,

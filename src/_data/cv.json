@@ -3,7 +3,7 @@
 
   "pdf": "/uploads/Vaibhav_Balloli_CV.pdf",
 
-  "focus": "Applied AI researcher working on the reliability, safety, and usability of AI systems built with and for people. My Ph.D. research focuses on improving conversational (human–LLM) and agentic capabilities for maternal health.",
+  "focus": "I design and deploy interactive human-AI systems that help solve specific societal challenges across healthcare, wildlife conservation, road safety, and education. My Ph.D. research focuses on the reliability, safety, and usability of conversational (human–LLM) and agentic systems, and on the human-centered design that deploying them reliably depends on.",
 
   "education": [
     {
@@ -25,7 +25,7 @@
       "organisation": "Microsoft Research Redmond, AI Frontiers",
       "role": "Research Intern",
       "period": "May – Aug 2025",
-      "detail": "Multi-turn reinforcement learning with large language model agents, and agent evaluation. Advised by Hussein Mozannar, Adam Fourney, Gagan Bansal, Saleema Amershi, and Eric Horvitz."
+      "detail": "Multi-turn reinforcement learning with large language model agents and agent evaluation. Advised by Hussein Mozannar, Adam Fourney, Gagan Bansal, Saleema Amershi, and Eric Horvitz."
     },
     {
       "organisation": "Microsoft Research India",
@@ -38,17 +38,6 @@
       "role": "Societal Impact through Cloud and AI Fellow",
       "period": "Jun 2021 – Jun 2022",
       "detail": "Computer vision, bandits, and localisation for HAMS. Advised by Dr. Akshay Nambi, Tanuja Ganu, and Dr. Venkat Padmanabhan."
-    }
-  ],
-
-  "workingPapers": [
-    {
-      "title": "To Ask or Not To Ask: Evaluating Information Seeking, Execution, and Abstention Capabilities in Long-Context LLM Agents",
-      "authors": "Vaibhav Balloli, Elizabeth Bondi-Kelly"
-    },
-    {
-      "title": "Towards Improving Interactivity in Multi-Turn Human-Agent Systems",
-      "authors": "Vaibhav Balloli, Hussein Mozannar, Adam Fourney, Gagan Bansal, Saleema Amershi, Eric Horvitz"
     }
   ],
 
