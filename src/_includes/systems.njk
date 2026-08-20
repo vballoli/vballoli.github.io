@@ -1,0 +1,45 @@
+<section class="section systems" id="systems">
+  <h2 class="section-title">Systems &amp; deployments <a class="anchor-link" href="#systems" aria-label="Copy link to the Systems and deployments section">#</a></h2>
+  <p class="systems__intro">
+    The same work as the publications below, organised by what was built rather than where it appeared:
+    what I contributed, where each system ended up, and how far along it is.
+  </p>
+
+  <ul class="systems__list">
+    {%- for s in systems.items %}
+    <li class="system">
+      <div class="system__head">
+        <h3 class="system__name">{{ s.name }}</h3>
+        {%- if s.status %}
+        <span class="system__status system__status--{{ s.status | lower | replace(' ', '-') }}">{{ s.status }}</span>
+        {%- endif %}
+        <span class="system__org">{{ s.org }}</span>
+        <span class="system__years">{{ s.years }}</span>
+      </div>
+
+      <div class="system__body">
+        <p class="system__contribution">{{ s.role }}</p>
+        <p>{{ s.impact }}</p>
+      </div>
+
+      {%- if s.stack and s.stack.length %}
+      <div class="system__meta">
+        {%- for chip in s.stack %}
+        <span class="system__chip">{{ chip }}</span>
+        {%- endfor %}
+      </div>
+      {%- endif %}
+
+      <div class="system__links">
+        {%- for l in s.links %}
+        <a href="{{ l.href }}" target="_blank" rel="noopener">{{ l.label }}</a>
+        {%- endfor %}
+        {%- if s.paper %}
+        {%- set linked = collections.papers | findPaper(s.paper) %}
+        {%- if linked %}<a href="{{ linked.url }}">Paper →</a>{% endif %}
+        {%- endif %}
+      </div>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>

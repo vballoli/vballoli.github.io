@@ -1,0 +1,67 @@
+{
+  "_comment": "Systems and deployments, organised by artifact rather than by venue. Every figure here appears in the CV or on a linked public page: keep it that way. `status` is the current stage of the system, not of the paper.",
+
+  "items": [
+    {
+      "name": "HAMS: automated driver licence testing",
+      "status": "Deployed",
+      "org": "Microsoft Research India",
+      "years": "2021 – 2022",
+      "role": "Societal Impact through Cloud and AI Fellow. Worked on the computer vision, bandit, and localisation components as the system scaled.",
+      "impact": "Smartphone-based automated licence testing deployed across India, serving 300,000+ candidates and replacing a subjective manual assessment with an auditable one.",
+      "stack": ["Computer vision", "On-device inference", "Bandits", "Localisation"],
+      "topics": ["vision", "social-impact"],
+      "links": [
+        { "label": "Project", "href": "https://www.microsoft.com/en-us/research/project/hams/" },
+        { "label": "Deployment", "href": "https://www.microsoft.com/en-us/research/project/hams/automated-driver-license-testing/" },
+        { "label": "Press", "href": "https://news.microsoft.com/en-in/features/microsoft-ai-automates-drivers-license-test-india/" }
+      ]
+    },
+    {
+      "name": "PATHFinder: prenatal care planning agent",
+      "status": "In progress",
+      "org": "University of Michigan",
+      "years": "2025 – 2026",
+      "role": "Lead author. Designed and built the four-stage agent: patient intake, dynamic interaction, plan synthesis, and clinician oversight.",
+      "impact": "Conversational agent that produces individualised prenatal care plans aligned to ACOG's PATH guidelines and surfaces local resources. Frontier models scored against expert rubrics across five clinical dimensions, with clinician evaluation in Michigan health systems underway.",
+      "stack": ["LLM agents", "Long-context optimisation", "Clinical rubrics"],
+      "topics": ["llms", "healthcare", "evals"],
+      "paper": "pathfinder",
+      "links": [
+        { "label": "Project", "href": "https://realize-lab.github.io/PATHFinder" },
+        { "label": "arXiv", "href": "https://arxiv.org/abs/2607.24768" }
+      ]
+    },
+    {
+      "name": "CHAIR & SEEK-CBM: steerable wildlife re-identification",
+      "status": "In progress",
+      "org": "University of Michigan · MIT",
+      "years": "2023 – 2026",
+      "role": "Lead author on CHAIR; co-author on the SEEK-CBM follow-up with the Beery Lab at MIT.",
+      "impact": "Concept-bottleneck retrieval that lets conservation experts intervene mid-search, built for platforms like ElephantBook and evaluated on elephant populations in the Masai Mara. SEEK-CBM's modern backbones improved retrieval performance by 497% over CHAIR.",
+      "stack": ["Concept bottleneck models", "Self-supervised vision", "Human-in-the-loop retrieval"],
+      "topics": ["vision", "social-impact"],
+      "paper": "seek-cbm",
+      "links": [
+        { "label": "Project", "href": "https://realize-lab.github.io/CHAIR" },
+        { "label": "Code", "href": "https://github.com/realize-lab/CHAIR" },
+        { "label": "Talk", "href": "https://www.youtube.com/watch?v=Czo5YQU4-WY" }
+      ]
+    },
+    {
+      "name": "VeLLM: multilingual LLMs for the global majority",
+      "status": "Prototyping",
+      "org": "Microsoft Research India",
+      "years": "2022 – 2023",
+      "role": "Research Fellow. Co-led the dynamic prompt/model/embedding selection work that became the COLING 2025 paper.",
+      "impact": "Platform work behind LLM applications piloted in schools across India, improving coverage for non-Latin-script and low-resource languages without additional training.",
+      "stack": ["LLMs", "Multilingual evaluation", "Prompt & model routing"],
+      "topics": ["llms", "social-impact"],
+      "paper": "leap",
+      "links": [
+        { "label": "Project", "href": "https://www.microsoft.com/en-us/research/project/project-vellm/" },
+        { "label": "Context", "href": "https://www.microsoft.com/en-us/research/story/advancing-ai-to-meet-needs-of-the-global-majority/" }
+      ]
+    }
+  ]
+}

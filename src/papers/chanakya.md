@@ -12,6 +12,7 @@ authors:
   - { name: "Tanuja Ganu" }
 venues:
   - { acronym: "NeurIPS", year: "2023" }
+doi: "10.52202/075280-2429"
 links:
   - { label: "Paper", href: "https://openreview.net/pdf?id=VpCjozUOM2" }
   - { label: "Code", href: "https://github.com/microsoft/Chanakya" }

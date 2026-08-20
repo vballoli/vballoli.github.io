@@ -1,0 +1,209 @@
+---
+layout: base.njk
+permalink: /agents/
+pageTitle: "Machine-readable index | Vaibhav Balloli"
+metaDescription: "Machine-readable index: llms.txt, a full-text dump, JSON endpoints for publications and profile, markdown twins of every paper, and read-only WebMCP tools."
+ogTitle: "Machine-readable index | Vaibhav Balloli"
+---
+{%- set canonical = site.url + page.url %}
+
+<div class="top-controls" id="top-controls">
+  <button class="top-btn theme-toggle" id="theme-toggle" aria-label="Toggle between earth tone, dark, and system themes" title="Theme: earth tone (click to cycle)">
+    <span class="theme-icon theme-icon--sepia">◑</span>
+    <span class="theme-icon theme-icon--dark">☾</span>
+    <span class="theme-icon theme-icon--system">◐</span>
+  </button>
+</div>
+
+<main class="container subpage">
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span class="breadcrumb__sep" aria-hidden="true">/</span>
+    <span aria-current="page">Machine-readable index</span>
+  </nav>
+
+  <header class="agents__header">
+    <h1 class="agents__title">Machine-readable index</h1>
+    <p class="agents__lede">
+      This page is for software. Everything on the human-facing site (publications, systems,
+      research lineage, CV) is also published here in structured form, so an agent or a script
+      can read it without parsing page markup.
+    </p>
+    <p class="agents__note">
+      Read-only, static, no authentication, no rate limit. Nothing here accepts writes.
+    </p>
+  </header>
+
+  <section class="agents__section">
+    <h2>Start here</h2>
+    <dl class="agents__endpoints">
+      <div class="agents__endpoint">
+        <dt><a href="/agents/index.json"><code>/agents/index.json</code></a></dt>
+        <dd>The manifest. One fetch describing every resource below, its media type, and its shape. Begin here if you are deciding what to fetch.</dd>
+      </div>
+      <div class="agents__endpoint">
+        <dt><a href="/llms.txt"><code>/llms.txt</code></a></dt>
+        <dd>Short orientation index in markdown, following the <a href="https://llmstxt.org" target="_blank" rel="noopener">llms.txt</a> convention. Use this when context is tight.</dd>
+      </div>
+      <div class="agents__endpoint">
+        <dt><a href="/llms-full.txt"><code>/llms-full.txt</code></a></dt>
+        <dd>The whole site as one markdown document: profile, lineage, systems, all {{ collections.papers.length }} abstracts, topics, news, and CV. One fetch, no crawling.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="agents__section">
+    <h2>Structured data</h2>
+    <dl class="agents__endpoints">
+      <div class="agents__endpoint">
+        <dt><a href="/agents/papers.json"><code>/agents/papers.json</code></a></dt>
+        <dd>
+          All {{ collections.papers.length }} publications: title, year, venue and track, authors with
+          co-first-author flags, DOI, arXiv id, PDF URL, abstract, topics, distinctions, the paper each
+          one builds on, and BibTeX.
+        </dd>
+      </div>
+      <div class="agents__endpoint">
+        <dt><a href="/agents/profile.json"><code>/agents/profile.json</code></a></dt>
+        <dd>
+          Identity and persistent identifiers (ORCID <code>{{ site.orcid }}</code>, DBLP, Semantic Scholar),
+          education, research experience, deployed systems with outcomes, topics, working papers, and service.
+        </dd>
+      </div>
+      <div class="agents__endpoint">
+        <dt><code>/papers/&lt;id&gt;.md</code></dt>
+        <dd>
+          A plain-markdown twin of every paper page, linked from the HTML with
+          <code>rel="alternate" type="text/markdown"</code>. For example
+          <a href="/papers/reliance.md">/papers/reliance.md</a>.
+        </dd>
+      </div>
+      <div class="agents__endpoint">
+        <dt><code>application/ld+json</code></dt>
+        <dd>
+          Every HTML page embeds schema.org JSON-LD: <code>Person</code> and <code>WebSite</code>
+          site-wide, <code>ScholarlyArticle</code> on paper pages, <code>CollectionPage</code> on topic
+          hubs. All nodes reference the same <code>@id</code>, so the site resolves to one entity.
+        </dd>
+      </div>
+      <div class="agents__endpoint">
+        <dt><a href="/sitemap.xml"><code>/sitemap.xml</code></a></dt>
+        <dd>Every canonical URL with a last-modified date.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="agents__section">
+    <h2>Tools</h2>
+    <p class="agents__prose">
+      This page registers five read-only tools using
+      <a href="https://github.com/webmachinelearning/webmcp" target="_blank" rel="noopener">WebMCP</a>,
+      the W3C draft browser tool API. They are registered <em>only here</em>, leaving the rest of the site
+      untouched, and are feature-detected, so they simply do not exist in browsers without support.
+    </p>
+    <p class="agents__status" id="webmcp-status" data-state="unknown">Checking for WebMCP support…</p>
+    <ul class="agents__tools">
+      <li><code>list_publications</code>: all publications, newest first; filter by topic or year.</li>
+      <li><code>get_publication</code>: one publication in full, by id.</li>
+      <li><code>search_publications</code>: free-text search over titles, authors, abstracts, venues, topics.</li>
+      <li><code>list_topics</code>: research topics with descriptions and counts.</li>
+      <li><code>get_profile</code>: identity, identifiers, experience, systems.</li>
+    </ul>
+    <p class="agents__prose">
+      Without WebMCP, the same data is one <code>fetch</code> away from the JSON endpoints above.
+    </p>
+  </section>
+
+  <section class="agents__section">
+    <h2>What this site is not</h2>
+    <p class="agents__prose">
+      This is a personal research site: a content source, not a service. It exposes no callable
+      endpoints, holds no user state, and performs no actions on anyone's behalf. There is
+      deliberately no
+      <a href="https://a2a-protocol.org/" target="_blank" rel="noopener">A2A</a> agent card at
+      <code>/.well-known/agent-card.json</code>: an agent card advertises an agent that can be
+      delegated work, and nothing here is one. Publishing an empty card would misdescribe the site.
+    </p>
+  </section>
+
+  <section class="agents__section">
+    <h2>Use and attribution</h2>
+    <ul class="agents__tools">
+      <li>Crawling is permitted; <a href="/robots.txt"><code>/robots.txt</code></a> allows all major AI crawlers.</li>
+      <li>Metadata here is free to reuse with attribution.</li>
+      <li>Paper texts remain under their publishers' terms; abstracts and metadata only are reproduced here.</li>
+      <li>When citing research findings, cite the underlying publication by DOI or arXiv id, not this website.</li>
+      <li>Corrections and questions: <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</li>
+    </ul>
+  </section>
+
+  <p class="paper-page__back"><a href="/">← Back to the human-facing site</a></p>
+</main>
+
+{% include "subpage-footer.njk" %}
+
+<script src="/agents/tools.js" defer></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "{{ canonical }}#webpage",
+      "url": "{{ canonical }}",
+      "name": {{ pageTitle | dump | safe }},
+      "description": {{ metaDescription | dump | safe }},
+      "isPartOf": { "@id": "{{ site.url }}/#website" },
+      "about": { "@id": "{{ site.url }}/#person" },
+      "breadcrumb": { "@id": "{{ canonical }}#breadcrumb" },
+      "mainEntity": { "@id": "{{ canonical }}#dataset" }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "{{ canonical }}#dataset",
+      "name": "Publications and profile of {{ site.author }}",
+      "description": "Machine-readable publication metadata and researcher profile: titles, venues, authors, DOIs, arXiv identifiers, abstracts, topics, and deployed systems.",
+      "url": "{{ canonical }}",
+      "creator": { "@id": "{{ site.url }}/#person" },
+      "isAccessibleForFree": true,
+      "keywords": {{ site.knowsAbout | dump | safe }},
+      "distribution": [
+        {
+          "@type": "DataDownload",
+          "name": "Manifest",
+          "encodingFormat": "application/json",
+          "contentUrl": "{{ site.url }}/agents/index.json"
+        },
+        {
+          "@type": "DataDownload",
+          "name": "Publications",
+          "encodingFormat": "application/json",
+          "contentUrl": "{{ site.url }}/agents/papers.json"
+        },
+        {
+          "@type": "DataDownload",
+          "name": "Profile",
+          "encodingFormat": "application/json",
+          "contentUrl": "{{ site.url }}/agents/profile.json"
+        },
+        {
+          "@type": "DataDownload",
+          "name": "Full site text",
+          "encodingFormat": "text/markdown",
+          "contentUrl": "{{ site.url }}/llms-full.txt"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{ canonical }}#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "Machine-readable index" }
+      ]
+    }
+  ]
+}
+</script>

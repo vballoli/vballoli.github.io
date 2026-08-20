@@ -1,0 +1,163 @@
+---
+layout: base.njk
+permalink: /cv/
+pageTitle: "Curriculum Vitae | Vaibhav Balloli"
+metaDescription: "Curriculum vitae of Vaibhav Balloli: education, research at Microsoft Research and Michigan, publications, working papers, awards, and peer review."
+ogTitle: "Curriculum Vitae | Vaibhav Balloli"
+---
+{%- set canonical = site.url + page.url %}
+
+<div class="top-controls" id="top-controls">
+  <button class="top-btn theme-toggle" id="theme-toggle" aria-label="Toggle between earth tone, dark, and system themes" title="Theme: earth tone (click to cycle)">
+    <span class="theme-icon theme-icon--sepia">◑</span>
+    <span class="theme-icon theme-icon--dark">☾</span>
+    <span class="theme-icon theme-icon--system">◐</span>
+  </button>
+</div>
+
+<main class="container subpage">
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span class="breadcrumb__sep" aria-hidden="true">/</span>
+    <span aria-current="page">Curriculum Vitae</span>
+  </nav>
+
+  <header class="cv__header">
+    <h1 class="cv__title">Curriculum Vitae</h1>
+    <p class="cv__focus">{{ cv.focus }}</p>
+    <div class="cv__actions">
+      <a class="paper-page__action" href="{{ cv.pdf }}" target="_blank" rel="noopener">Download PDF</a>
+      <a class="paper-page__action" href="mailto:{{ site.email }}">Email</a>
+      <a class="paper-page__action" href="https://scholar.google.com/citations?user=-6i7e7sAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+      <a class="paper-page__action" href="https://orcid.org/{{ site.orcid }}" target="_blank" rel="noopener">ORCID</a>
+    </div>
+  </header>
+
+  <section class="cv__section">
+    <h2>Education</h2>
+    <ul class="cv__list">
+      {%- for item in cv.education %}
+      <li class="cv__entry">
+        <div class="cv__entry-head">
+          <h3 class="cv__entry-title">
+            {%- if item.href %}<a href="{{ item.href }}" target="_blank" rel="noopener">{{ item.institution }}</a>{% else %}{{ item.institution }}{% endif %}
+          </h3>
+          <span class="cv__period">{{ item.period }}</span>
+        </div>
+        <p class="cv__role">{{ item.qualification }}</p>
+        {%- if item.detail %}<p class="cv__detail">{{ item.detail }}</p>{% endif %}
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+
+  <section class="cv__section">
+    <h2>Research experience</h2>
+    <ul class="cv__list">
+      {%- for item in cv.experience %}
+      <li class="cv__entry">
+        <div class="cv__entry-head">
+          <h3 class="cv__entry-title">{{ item.organisation }}</h3>
+          <span class="cv__period">{{ item.period }}</span>
+        </div>
+        <p class="cv__role">{{ item.role }}</p>
+        <p class="cv__detail">{{ item.detail }}</p>
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+
+  <section class="cv__section">
+    <h2>Publications</h2>
+    <ol class="cv__papers">
+      {%- for paper in collections.papers %}
+      <li class="cv__paper">
+        <a class="cv__paper-title" href="{{ paper.url }}">{{ paper.data.title }}</a>
+        <p class="cv__paper-authors">{% for a in paper.data.authors %}{% if a.me %}<strong>{{ a.name }}</strong>{% else %}{{ a.name }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+        <p class="cv__paper-venue">
+          {%- for v in paper.data.venues %}{{ v.acronym }} {{ v.year }}{% if v.kind %} · {{ v.kind }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}
+          {%- for b in paper.data.badges %} · {{ b.label }}{% endfor %}
+        </p>
+      </li>
+      {%- endfor %}
+    </ol>
+  </section>
+
+  <section class="cv__section">
+    <h2>Working papers</h2>
+    <ul class="cv__list">
+      {%- for item in cv.workingPapers %}
+      <li class="cv__entry">
+        <h3 class="cv__entry-title cv__entry-title--plain">{{ item.title }}</h3>
+        <p class="cv__detail">{{ item.authors }}</p>
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+
+  <section class="cv__section">
+    <h2>Awards &amp; honours</h2>
+    <ul class="cv__timeline">
+      {%- for item in cv.awards %}
+      <li class="cv__timeline-item">
+        <span class="cv__timeline-year">{{ item.year }}</span>
+        <span class="cv__timeline-text">{{ item.text }}</span>
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+
+  <section class="cv__section">
+    <h2>Service</h2>
+    <ul class="cv__list">
+      {%- for item in cv.service %}
+      <li class="cv__entry">
+        <h3 class="cv__entry-title cv__entry-title--plain">{{ item.label }}</h3>
+        <p class="cv__detail">{{ item.detail }}</p>
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+
+  <p class="paper-page__back"><a href="/">← Back to homepage</a></p>
+</main>
+
+{% include "subpage-footer.njk" %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "{{ canonical }}#webpage",
+      "url": "{{ canonical }}",
+      "name": {{ pageTitle | dump | safe }},
+      "description": {{ metaDescription | dump | safe }},
+      "isPartOf": { "@id": "{{ site.url }}/#website" },
+      "about": { "@id": "{{ site.url }}/#person" },
+      "mainEntity": { "@id": "{{ site.url }}/#person" },
+      "breadcrumb": { "@id": "{{ canonical }}#breadcrumb" },
+      "significantLink": "{{ site.url }}{{ cv.pdf }}",
+      "hasPart": [
+        {%- for item in cv.education %}
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": {{ item.qualification | dump | safe }},
+          "recognizedBy": { "@type": "CollegeOrUniversity", "name": {{ item.institution | dump | safe }} }
+        }{% if not loop.last %},{% endif %}
+        {%- endfor %}
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{ canonical }}#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "Curriculum Vitae" }
+      ]
+    }
+  ]
+}
+</script>

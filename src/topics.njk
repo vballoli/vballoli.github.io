@@ -1,0 +1,115 @@
+---
+layout: base.njk
+pagination:
+  data: collections.topics
+  size: 1
+  alias: topic
+  addAllPagesToCollections: true
+permalink: "/topics/{{ topic.slug }}/"
+eleventyComputed:
+  pageTitle: "{{ topic.label | safe }}: research by Vaibhav Balloli"
+  metaDescription: "{{ topic.blurb | truncate(155) | safe }}"
+  ogTitle: "{{ topic.label | safe }}: research by Vaibhav Balloli"
+---
+{%- set canonical = site.url + page.url %}
+
+<div class="top-controls" id="top-controls">
+  <button class="top-btn theme-toggle" id="theme-toggle" aria-label="Toggle between earth tone, dark, and system themes" title="Theme: earth tone (click to cycle)">
+    <span class="theme-icon theme-icon--sepia">◑</span>
+    <span class="theme-icon theme-icon--dark">☾</span>
+    <span class="theme-icon theme-icon--system">◐</span>
+  </button>
+</div>
+
+<main class="container subpage">
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span class="breadcrumb__sep" aria-hidden="true">/</span>
+    <a href="/#research">Research</a>
+    <span class="breadcrumb__sep" aria-hidden="true">/</span>
+    <span aria-current="page">{{ topic.label }}</span>
+  </nav>
+
+  <header class="topic__header">
+    <h1 class="topic__title">{{ topic.label }}</h1>
+    <p class="topic__blurb">{{ topic.blurb }}</p>
+    <p class="topic__count">{{ topic.papers.length }} paper{% if topic.papers.length != 1 %}s{% endif %}</p>
+  </header>
+
+  <ol class="topic__papers">
+    {%- for paper in topic.papers %}
+    <li class="topic__paper">
+      <a class="topic__paper-title" href="{{ paper.url }}">{{ paper.data.title }}</a>
+      <p class="topic__paper-authors">{% for a in paper.data.authors %}{% if a.me %}<strong>{{ a.name }}</strong>{% else %}{{ a.name }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+      <p class="topic__paper-venue">
+        {%- for v in paper.data.venues %}{{ v.acronym }} {{ v.year }}{% if v.kind %} · {{ v.kind }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}
+      </p>
+    </li>
+    {%- endfor %}
+  </ol>
+
+  <nav class="topic__siblings" aria-label="Other research topics">
+    <h2 class="topic__siblings-title">Other topics</h2>
+    <ul class="topic__siblings-list">
+      {%- for other in collections.topics %}
+      {%- if other.slug != topic.slug %}
+      <li><a class="paper-card__tag" href="/topics/{{ other.slug }}/">{{ other.label }}</a></li>
+      {%- endif %}
+      {%- endfor %}
+    </ul>
+  </nav>
+
+  <p class="paper-page__back"><a href="/#research">← All publications</a></p>
+</main>
+
+{% include "subpage-footer.njk" %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "{{ canonical }}#webpage",
+      "url": "{{ canonical }}",
+      "name": {{ pageTitle | dump | safe }},
+      "description": {{ topic.blurb | dump | safe }},
+      "isPartOf": { "@id": "{{ site.url }}/#website" },
+      "about": { "@id": "{{ site.url }}/#person" },
+      "breadcrumb": { "@id": "{{ canonical }}#breadcrumb" },
+      "mainEntity": { "@id": "{{ canonical }}#list" }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "{{ canonical }}#list",
+      "name": {{ (topic.label + " papers by " + site.author) | dump | safe }},
+      "numberOfItems": {{ topic.papers.length }},
+      "itemListElement": [
+        {%- for paper in topic.papers %}
+        {
+          "@type": "ListItem",
+          "position": {{ loop.index }},
+          "url": "{{ site.url }}{{ paper.url }}",
+          "item": {
+            "@type": "ScholarlyArticle",
+            "@id": "{{ site.url }}{{ paper.url }}#article",
+            "name": {{ paper.data.title | dump | safe }},
+            "url": "{{ site.url }}{{ paper.url }}"
+          }
+        }{% if not loop.last %},{% endif %}
+        {%- endfor %}
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{ canonical }}#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "Research", "item": "{{ site.url }}/#research" },
+        { "@type": "ListItem", "position": 3, "name": {{ topic.label | dump | safe }} }
+      ]
+    }
+  ]
+}
+</script>

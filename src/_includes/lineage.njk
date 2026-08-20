@@ -1,0 +1,99 @@
+{#- Research lineage.
+
+    Rendered entirely at build time: every node is a real <a> to a real page, so
+    the diagram stays navigable and legible with no JavaScript.
+
+    Each thread's DOM order runs roots -> oldest -> newest -> deployment; CSS
+    reverses the column so the tree reads bottom-up on screen. -#}
+
+<section class="section lineage-section" id="lineage">
+  <h2 class="section-title">Research lineage <a class="anchor-link" href="#lineage" aria-label="Copy link to the Research lineage section">#</a></h2>
+  <p class="lineage__intro">{{ lineage.intro }}</p>
+
+  {%- set layout = lineage.threads | threadSpans %}
+  <div class="lineage" style="--lineage-cols: {{ layout.total }}">
+    {%- for thread in lineage.threads %}
+    <article class="lineage__thread" style="--lineage-span: {{ layout.spans[loop.index0] }}" aria-labelledby="lineage-{{ thread.id }}">
+      <h3 class="lineage__question" id="lineage-{{ thread.id }}">{{ thread.theme }}</h3>
+
+      <ol class="lineage__stem">
+        {#- Roots come first in the DOM (so the spoken order is "for these
+            people, first this, then this, and here is where it runs") and CSS
+            flips the column so they render at the bottom of the diagram. -#}
+        <li class="lineage__roots">
+          <span class="lineage__roots-label">{{ thread.roots }}</span>
+        </li>
+
+        {%- for level in thread.levels %}
+
+        {#- Connector below this level: forked when the level has two papers. -#}
+        <li class="lineage__connector" aria-hidden="true">
+          {%- if level.length > 1 %}
+          <svg viewBox="0 0 100 44" preserveAspectRatio="none" focusable="false">
+            <path d="M50 44 C50 20 25 24 25 0" vector-effect="non-scaling-stroke" />
+            <path d="M50 44 C50 20 75 24 75 0" vector-effect="non-scaling-stroke" />
+          </svg>
+          {%- else %}
+          <svg viewBox="0 0 100 44" preserveAspectRatio="none" focusable="false">
+            <path d="M50 44 L50 0" vector-effect="non-scaling-stroke" />
+          </svg>
+          {%- endif %}
+        </li>
+
+        <li class="lineage__level{% if level.length > 1 %} lineage__level--split{% endif %}">
+          {%- for node in level %}
+          {%- set paper = collections.papers | findPaper(node.slug) %}
+          {%- if paper %}
+          <a class="lineage__node" href="{{ paper.url }}">
+            <span class="lineage__node-meta">
+              <span class="lineage__node-venue">{{ paper.data.venues[0].acronym }}</span>
+              <span class="lineage__node-year">{{ paper.data.venues[0].year }}</span>
+            </span>
+            <span class="lineage__node-title">{{ paper.data.title | truncate(58) }}</span>
+            {%- if node.note %}<span class="lineage__node-note">{{ node.note }}</span>{% endif %}
+          </a>
+          {%- endif %}
+          {%- endfor %}
+        </li>
+        {%- endfor %}
+
+        {%- if thread.stage %}
+        {#- Last in the DOM, so the reversed column puts it at the crown.
+            Branches merge back into one. -#}
+        {%- set top = thread.levels | last %}
+        <li class="lineage__connector lineage__connector--crown" aria-hidden="true">
+          {%- if top.length > 1 %}
+          <svg viewBox="0 0 100 44" preserveAspectRatio="none" focusable="false">
+            <path d="M25 44 C25 20 50 24 50 0" vector-effect="non-scaling-stroke" />
+            <path d="M75 44 C75 20 50 24 50 0" vector-effect="non-scaling-stroke" />
+          </svg>
+          {%- else %}
+          <svg viewBox="0 0 100 44" preserveAspectRatio="none" focusable="false">
+            <path d="M50 44 L50 0" vector-effect="non-scaling-stroke" />
+          </svg>
+          {%- endif %}
+        </li>
+
+        <li class="lineage__crown{% if not thread.deployment %} lineage__crown--bare{% endif %}">
+          <span class="lineage__crown-eyebrow">{{ thread.stage }}</span>
+          {%- if thread.deployment %}
+          <span class="lineage__crown-label">{{ thread.deployment }}</span>
+          {%- endif %}
+        </li>
+        {%- endif %}
+      </ol>
+    </article>
+    {%- endfor %}
+  </div>
+
+  <p class="lineage__legend">
+    <span class="lineage__legend-mark" aria-hidden="true"></span>
+    Read bottom-up: the people each thread serves sit at the root, the papers grow from there, and the top of each
+    thread is where the work is headed.
+  </p>
+  {%- if lineage.credit %}
+  <p class="lineage__credit">
+    Tree layout inspired by <a href="{{ lineage.credit.href }}" target="_blank" rel="noopener">{{ lineage.credit.name }}</a>.
+  </p>
+  {%- endif %}
+</section>

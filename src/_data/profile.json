@@ -1,6 +1,6 @@
 {
   "links": [
-    { "label": "CV", "icon": "📄", "href": "/uploads/Vaibhav_Balloli_CV.pdf", "primary": true, "external": true, "aria": "Download Vaibhav Balloli’s Curriculum Vitae (PDF)" },
+    { "label": "CV", "icon": "📄", "href": "/cv/", "primary": true, "aria": "Curriculum Vitae of Vaibhav Balloli" },
     { "label": "Email", "href": "mailto:balloli.vb@gmail.com", "external": true, "aria": "Email Vaibhav Balloli" },
     { "label": "GitHub", "href": "https://github.com/vballoli", "external": true, "aria": "GitHub Profile – Vaibhav Balloli" },
     { "label": "Google Scholar", "href": "https://scholar.google.com/citations?user=-6i7e7sAAAAJ&hl=en", "external": true, "aria": "Google Scholar Profile of Vaibhav Balloli" },

@@ -6,27 +6,59 @@ eleventyExcludeFromCollections: true
 
 > {{ site.description }}
 
-{{ site.name }} is a {{ site.jobTitle }} at {{ site.affiliation }}, building safe and reliable interactive AI systems for high-stakes societal domains including healthcare, wildlife conservation, road safety, and education. Research areas: {{ site.knowsAbout | join(", ") }}. Previously a Research Fellow and intern at Microsoft Research (HAMS, Vasudha, VeLLM).
+{{ site.name }} is an {{ site.jobTitle }} at {{ site.affiliation }}, building and deploying safe, reliable interactive AI systems for high-stakes societal domains including healthcare, wildlife conservation, road safety, and education. Research areas: {{ site.knowsAbout | join(", ") }}. Previously a Research Fellow and intern at Microsoft Research (HAMS, Vasudha, VeLLM).
 
-This file follows the llms.txt convention (https://llmstxt.org) to give language models a concise, accurate map of the site.
+This file follows the llms.txt convention (https://llmstxt.org). For structured data (JSON endpoints, markdown alternates, and the full site text in one fetch), see {{ site.url }}/agents/.
+
+## Machine-readable
+- [Manifest]({{ site.url }}/agents/index.json): Every machine-readable resource on this site, with media types and field lists. Start here.
+- [Full site text]({{ site.url }}/llms-full.txt): Profile, research lineage, systems, all abstracts, topics, news, and CV concatenated into one document.
+- [Publications JSON]({{ site.url }}/agents/papers.json): All publications with DOI, arXiv id, authors, venue, abstract, topics, lineage, and BibTeX.
+- [Profile JSON]({{ site.url }}/agents/profile.json): Identity, persistent identifiers, education, research experience, and deployed systems.
+- [Machine-readable index]({{ site.url }}/agents/): Human-readable documentation of all of the above.
 
 ## Publications
 {%- for paper in collections.papers %}
-- [{{ paper.data.title | safe }}]({{ paper.data.links[0].href if paper.data.links and paper.data.links.length else site.url }}): {% for v in paper.data.venues %}{{ v.acronym | safe }} {{ v.year }}{% if not loop.last %}, {% endif %}{% endfor %}{% if paper.data.badges and paper.data.badges.length %} ({% for b in paper.data.badges %}{{ b.label | safe }}{% if not loop.last %}, {% endif %}{% endfor %}){% endif %}. Authors: {% for a in paper.data.authors %}{{ a.name | safe }}{% if not loop.last %}, {% endif %}{% endfor %}.
+{%- set pm = paper.data.paperMeta %}
+- [{{ paper.data.title | safe }}]({{ site.url }}{{ paper.url }}): {% for v in paper.data.venues %}{{ v.acronym | safe }} {{ v.year }}{% if v.kind %} ({{ v.kind }}){% endif %}{% if not loop.last %}, {% endif %}{% endfor %}{% if paper.data.badges and paper.data.badges.length %} [{% for b in paper.data.badges %}{{ b.label | safe }}{% if not loop.last %}, {% endif %}{% endfor %}]{% endif %}. Authors: {% for a in paper.data.authors %}{{ a.name | safe }}{% if not loop.last %}, {% endif %}{% endfor %}.{% if pm.doi %} DOI: {{ pm.doi }}.{% endif %}{% if pm.arxivId %} arXiv: {{ pm.arxivId }}.{% endif %}
+{%- endfor %}
+
+## Systems and deployments
+{%- for s in systems.items %}
+- **{{ s.name | safe }}** ({{ s.org | safe }}, {{ s.years | safe }}, status: {{ s.status | safe }}): {{ s.role | safe }} {{ s.impact | safe }}
+{%- endfor %}
+
+## Research lineage
+{%- for thread in lineage.threads %}
+- *{{ thread.theme | safe }}* for {{ thread.roots | lower | safe }}. {% for level in thread.levels %}{% for node in level %}{% set p = collections.papers | findPaper(node.slug) %}{% if p %}{{ p.data.title | safe }}{% if not loop.last %} and {% endif %}{% endif %}{% endfor %}{% if not loop.last %} → {% endif %}{% endfor %}. Stage: {{ thread.stage | safe }}.{% if thread.deployment %} Deployment: {{ thread.deployment | safe }}.{% endif %}
+{%- endfor %}
+
+## Topics
+{%- for topic in collections.topics %}
+- [{{ topic.label | safe }}]({{ site.url }}/topics/{{ topic.slug }}/): {{ topic.blurb | safe }}
 {%- endfor %}
 
 ## Links
-- [Homepage]({{ site.url }}/): About, news, publications, and reading list
-- [Friends]({{ site.url }}/friends/): Friends and their websites
-- [Curriculum Vitae]({{ site.url }}/uploads/Vaibhav_Balloli_CV.pdf): Full CV (PDF)
+- [Homepage]({{ site.url }}/): About, news, systems, publications, research lineage, and reading list
+- [Curriculum Vitae]({{ site.url }}/cv/): Education, research experience, publications, awards, and service ([PDF]({{ site.url }}{{ cv.pdf }}))
 - [GitHub](https://github.com/vballoli): Code and open-source projects
 - [Google Scholar](https://scholar.google.com/citations?user=-6i7e7sAAAAJ&hl=en): Publication list and citations
+- [ORCID](https://orcid.org/{{ site.orcid }}): Persistent researcher identifier
+- [Semantic Scholar](https://www.semanticscholar.org/author/1564592237): Publication record
+- [DBLP](https://dblp.org/pid/348/6962): Computer science bibliography
 - [LinkedIn](https://www.linkedin.com/in/vaibhavballoli): Professional profile
 - [Twitter / X](https://twitter.com/v_balloli): Updates
 - [Email](mailto:{{ site.email }}): Contact
 
+## Optional
+- [Friends]({{ site.url }}/friends/): Friends of the author and their websites
+- [Reading list]({{ site.url }}/#reading): Books and talks the author returns to
+- [News]({{ site.url }}/#news): Dated announcements, also included in the full site text
+
 ## About
 - Name: {{ site.name }}
 - Role: {{ site.jobTitle }}, {{ site.affiliation }}
+- Advisor: Elizabeth Bondi-Kelly
 - Research: {{ site.knowsAbout | join(", ") }}
 - Previously: Microsoft Research (Research Fellow; Research Intern)
+- ORCID: {{ site.orcid }}

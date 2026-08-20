@@ -1,7 +1,7 @@
 {
   "name": "vballoli-website",
   "version": "1.0.0",
-  "description": "Personal academic website for Vaibhav Balloli — built with Eleventy.",
+  "description": "Personal academic website for Vaibhav Balloli, built with Eleventy.",
   "private": true,
   "scripts": {
     "build": "eleventy",
@@ -10,6 +10,7 @@
     "clean": "rm -rf _site"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.0.0",
+    "markdown-it": "^15.0.0"
   }
 }

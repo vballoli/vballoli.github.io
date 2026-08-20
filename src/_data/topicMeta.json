@@ -1,0 +1,23 @@
+{
+  "_comment": "Labels and descriptions for the topic tags used in src/papers/*.md front matter. Each blurb is the intro for /topics/<slug>/, so keep them substantive enough to be worth reading on their own.",
+  "llms": {
+    "label": "Large Language Models",
+    "blurb": "Work on making large language models useful when the stakes are real: choosing prompts, models, and embeddings at run time rather than fixing them in advance, building conversational agents that gather context before they advise, and measuring where frontier models still fall short. The thread running through it is that an LLM is a component in a system, not the system itself."
+  },
+  "evals": {
+    "label": "Evaluation & Benchmarks",
+    "blurb": "Datasets and evaluation protocols built with the domain experts who have to trust the result. Rather than scoring models on proxies, this work curates expert-annotated ground truth (clinicians reviewing health claims, rubrics written by practising obstetricians) and asks whether language models can stand in for that judgement. Usually the answer is partly, and the interesting part is where the gap sits."
+  },
+  "healthcare": {
+    "label": "AI for Health",
+    "blurb": "Research on AI in peripartum and reproductive health, spanning the full arc from formative study to deployed system to benchmark: what birthing people, clinicians, doulas, and community health workers actually need from an information tool, an agent built to those requirements, and a dataset for checking whether the surrounding information ecosystem is accurate."
+  },
+  "vision": {
+    "label": "Computer Vision",
+    "blurb": "Vision systems designed to be steered by the people who use them. This includes concept-bottleneck retrieval for wildlife re-identification, where a domain expert can intervene on intermediate concepts mid-search, and adaptive streaming perception that trades accuracy against latency at run time based on scene content and system contention."
+  },
+  "social-impact": {
+    "label": "AI for Social Impact",
+    "blurb": "Deployments where the measure of success is whether something changed for the people involved: road safety testing across India, elephant re-identification for conservation partners, prenatal care planning with clinicians in the loop. The recurring lesson is that the deployment constraints reshape the model, not the other way round."
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "_comment": "Mirrors uploads/Vaibhav_Balloli_CV.pdf. When the PDF changes, change this too: the page and the PDF should never disagree.",
+
+  "pdf": "/uploads/Vaibhav_Balloli_CV.pdf",
+
+  "focus": "Applied AI researcher working on the reliability, safety, and usability of AI systems built with and for people. My Ph.D. research focuses on improving conversational (human–LLM) and agentic capabilities for maternal health.",
+
+  "education": [
+    {
+      "institution": "University of Michigan, Ann Arbor",
+      "href": "https://cse.engin.umich.edu/",
+      "period": "2023 – present",
+      "qualification": "Ph.D. Candidate, M.S. in Computer Science and Engineering",
+      "detail": "Advised by Prof. Elizabeth Bondi-Kelly. Coursework in reinforcement learning theory, causality and ML, NLP, HCI, AI, and advanced data mining."
+    },
+    {
+      "institution": "BITS Pilani, Hyderabad Campus",
+      "period": "2016 – 2020",
+      "qualification": "B.E. in Electronics and Communication Engineering"
+    }
+  ],
+
+  "experience": [
+    {
+      "organisation": "Microsoft Research Redmond, AI Frontiers",
+      "role": "Research Intern",
+      "period": "May – Aug 2025",
+      "detail": "Multi-turn reinforcement learning with large language model agents, and agent evaluation. Advised by Hussein Mozannar, Adam Fourney, Gagan Bansal, Saleema Amershi, and Eric Horvitz."
+    },
+    {
+      "organisation": "Microsoft Research India",
+      "role": "Research Fellow",
+      "period": "Jun 2022 – Jun 2023",
+      "detail": "Reinforcement learning and large language models on Project Vasudha and Project VeLLM. Advised by Dr. Akshay Nambi and Tanuja Ganu."
+    },
+    {
+      "organisation": "Microsoft Research India",
+      "role": "Societal Impact through Cloud and AI Fellow",
+      "period": "Jun 2021 – Jun 2022",
+      "detail": "Computer vision, bandits, and localisation for HAMS. Advised by Dr. Akshay Nambi, Tanuja Ganu, and Dr. Venkat Padmanabhan."
+    }
+  ],
+
+  "workingPapers": [
+    {
+      "title": "To Ask or Not To Ask: Evaluating Information Seeking, Execution, and Abstention Capabilities in Long-Context LLM Agents",
+      "authors": "Vaibhav Balloli, Elizabeth Bondi-Kelly"
+    },
+    {
+      "title": "Towards Improving Interactivity in Multi-Turn Human-Agent Systems",
+      "authors": "Vaibhav Balloli, Hussein Mozannar, Adam Fourney, Gagan Bansal, Saleema Amershi, Eric Horvitz"
+    }
+  ],
+
+  "awards": [
+    { "year": "2026", "text": "FAccT travel award" },
+    { "year": "2025", "text": "Exceptional preliminary exam (advancement to candidacy)" },
+    { "year": "2025", "text": "Poster presented at the Society-centered AI workshop, Google, Mountain View" },
+    { "year": "2024", "text": "2nd place, Google × MHacks hackathon" },
+    { "year": "2024", "text": "VeLLM work referenced by Satya Nadella and covered in the Times of India and FirstPost" },
+    { "year": "2023", "text": "Selected for the Harvard/MIT HAIST/MAIA introductory fellowship on AI safety" },
+    { "year": "2022", "text": "HAMS automated licence testing featured in the Punjab News Express" },
+    { "year": "2021", "text": "Winner, Microsoft Global Hackathon (Future of Edge Computing track)" },
+    { "year": "2020", "text": "Co-founded SmartCampus, which handled ₹25 million in transactions" }
+  ],
+
+  "service": [
+    { "label": "Conference reviewing", "detail": "NeurIPS 2026, KDD 2026, NeurIPS 2025, IJCAI 2025, ICML 2025, AAMAS 2025, ICLR 2025, NeurIPS 2024" },
+    { "label": "Workshop reviewing", "detail": "CV4Animals @ CVPR 2024, CompSust @ NeurIPS 2023, EvalEval @ ACL 2026" }
+  ]
+}

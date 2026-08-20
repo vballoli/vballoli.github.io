@@ -12,6 +12,14 @@ authors:
   - { name: "Sara Beery" }
 venues:
   - { acronym: "CV4Animals @ CVPR", year: "2026" }
+parent: chair
+video:
+  name: "SEEK-CBM: Interpretable and Editable Retrieval for Elephant Re-Identification"
+  description: "Reading-group talk on SEEK-CBM: editable, interpretable concept-bottleneck retrieval for elephant re-identification."
+  thumbnail: "https://i.ytimg.com/vi/Czo5YQU4-WY/hqdefault.jpg"
+  uploadDate: "2026-07-29"
+  duration: "PT59M26S"
+  embedUrl: "https://www.youtube.com/embed/Czo5YQU4-WY"
 links:
   - { label: "PDF", href: "https://drive.google.com/file/d/1JuWRW6SlzewdU0gJTEZdoZT7_-kp_Ntl/view" }
   - { label: "Project", href: "https://realize-lab.github.io/CHAIR" }

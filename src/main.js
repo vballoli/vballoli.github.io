@@ -1,5 +1,5 @@
 /* ============================================
-   Vaibhav Balloli — Personal Website Scripts
+   Vaibhav Balloli: Personal Website Scripts
    ============================================ */
 
 /* ---------- Theme: light / dark / sepia / system (default: system) ---------- */
@@ -243,7 +243,7 @@
     }, 120);
   }, { passive: true });
 
-  // Handle click on any filter tag (original or clone) — delegate
+  // Handle click on any filter tag (original or clone): delegate
   filters.addEventListener('click', function (e) {
     var btn = e.target.closest('.filter-tag');
     if (!btn) return;
@@ -353,7 +353,7 @@
     // Has the anchor's bottom scrolled above the viewport top?
     var anchorAbove = anchorRect.bottom < 0;
 
-    // When pill is inline, it scrolls naturally — never force-hide it.
+    // When pill is inline, it scrolls naturally, so never force-hide it.
     // Only hide when transitioning from the fixed state.
     if (pillState === 'inline') {
       if (researchInView && anchorAbove) {
@@ -406,7 +406,7 @@
         // Deactivate all filter tags when searching
         allBtns.forEach(function (b) { b.classList.remove('filter-tag--active'); });
       } else {
-        // Empty — restore featured filter
+        // Empty, so restore the featured filter
         var featuredBtn = filters.querySelector('.filter-tag[data-filter="featured"]');
         if (featuredBtn) featuredBtn.click();
       }
@@ -505,7 +505,7 @@
   });
 
   // Highlight active section
-  var sections = ['top', 'news', 'research', 'demos', 'reading', 'friends'];
+  var sections = ['top', 'news', 'systems', 'research', 'lineage', 'demos', 'reading', 'friends'];
   var ticking = false;
   var indicator = document.getElementById('section-indicator');
   var indicatorItems = indicator.querySelectorAll('.section-indicator__item');
@@ -551,7 +551,7 @@
 
   // Build search index
   var items = [];
-  // Papers — index title, authors, description, venue, and tags
+  // Papers: index title, authors, description, venue, and tags
   document.querySelectorAll('.paper, .paper-card').forEach(function (card) {
     var title = (card.querySelector('.paper__title, .paper-card__title') || {}).textContent || '';
     var authors = (card.querySelector('.paper__authors, .paper-card__authors') || {}).textContent || '';
@@ -565,8 +565,10 @@
   // Sections
   [{ id: 'top', label: 'Home', icon: '🏠' },
   { id: 'news', label: 'News', icon: '📣' },
+  { id: 'systems', label: 'Systems', icon: '🛠' },
   { id: 'research', label: 'Research', icon: '🔬' },
-  { id: 'demos', label: 'Demos', icon: '✨' },
+  { id: 'lineage', label: 'Research lineage', icon: '🌱' },
+  { id: 'demos', label: 'Interactive research demos', icon: '✨' },
   { id: 'reading', label: 'Reading', icon: '📚' },
   { id: 'friends', label: 'Friends', icon: '👋' }
   ].forEach(function (s) {
@@ -586,7 +588,7 @@
   });
 
   function matchItem(query, item) {
-    // Simple case-insensitive substring search — split query into words, all must match
+    // Simple case-insensitive substring search: split query into words, all must match
     var words = query.toLowerCase().split(/\s+/).filter(Boolean);
     return words.every(function (w) { return item.haystack.indexOf(w) !== -1; });
   }
@@ -681,7 +683,7 @@
       if (activeIdx >= 0 && activeIdx < itemEls.length) {
         itemEls[activeIdx].click();
       } else {
-        // No item selected — apply as a text search filter
+        // No item selected, so apply as a text search filter
         var query = input.value.trim();
         if (query && window.__applySearchFilter) {
           close();
@@ -737,61 +739,22 @@
 })();
 
 /* ---------- News (Markdown) ---------- */
+/* ---------- News drawer ----------
+   News items are rendered at build time (see src/_data/news.js), so this only
+   wires the "view all" drawer. No fetch, no client-side markdown. */
 (function () {
-  var listEl = document.getElementById('news-list');
   var viewAllBtn = document.getElementById('news-view-all');
   var drawer = document.getElementById('news-drawer');
   var overlay = document.getElementById('news-drawer-overlay');
   var closeBtn = document.getElementById('news-drawer-close');
-  var drawerBody = document.getElementById('news-drawer-body');
-  if (!listEl) return;
-
-  var TOP_N = 5;
-
-  function parseItem(block) {
-    // First line: "## YYYY-MM-DD" — extract as date, rest is markdown body
-    var lines = block.trim().split('\n');
-    var date = '';
-    var bodyStart = 0;
-    var m = lines[0] && lines[0].match(/^##\s+(.+)\s*$/);
-    if (m) { date = m[1].trim(); bodyStart = 1; }
-    var body = lines.slice(bodyStart).join('\n').trim();
-    return { date: date, body: body };
-  }
-
-  function formatDate(d) {
-    // d is "YYYY-MM-DD"
-    var parts = d.split('-');
-    if (parts.length !== 3) return d;
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var mi = parseInt(parts[1], 10) - 1;
-    if (mi < 0 || mi > 11) return d;
-    return months[mi] + ' ' + parseInt(parts[2], 10) + ', ' + parts[0];
-  }
-
-  function renderInto(target, items) {
-    target.innerHTML = '';
-    if (!items.length) {
-      target.innerHTML = '<li class="news__item"><span class="news__content">No news yet.</span></li>';
-      return;
-    }
-    items.forEach(function (it) {
-      var li = document.createElement('li');
-      li.className = 'news__item';
-      var html = window.marked ? window.marked.parse(it.body) : it.body;
-      li.innerHTML =
-        (it.date ? '<span class="news__date">' + formatDate(it.date) + '</span>' : '') +
-        '<div class="news__content">' + html + '</div>';
-      target.appendChild(li);
-    });
-  }
+  if (!drawer || !overlay || !closeBtn) return;
 
   function openDrawer() {
     drawer.classList.add('news-drawer--open');
     overlay.classList.add('news-drawer-overlay--open');
     drawer.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    closeBtn.focus();
   }
 
   function closeDrawer() {
@@ -799,35 +762,15 @@
     overlay.classList.remove('news-drawer-overlay--open');
     drawer.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (viewAllBtn) viewAllBtn.focus();
   }
 
+  if (viewAllBtn) viewAllBtn.addEventListener('click', openDrawer);
   closeBtn.addEventListener('click', closeDrawer);
   overlay.addEventListener('click', closeDrawer);
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && drawer.classList.contains('news-drawer--open')) closeDrawer();
   });
-
-  fetch('news.md', { cache: 'no-cache' })
-    .then(function (r) { return r.ok ? r.text() : Promise.reject(); })
-    .then(function (md) {
-      var blocks = md.split(/^\s*---\s*$/m).map(function (b) { return b.trim(); }).filter(Boolean);
-      var items = blocks.map(parseItem).filter(function (it) { return it.body; });
-      // Sort by date descending (lexicographic on YYYY-MM-DD works)
-      items.sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
-
-      renderInto(listEl, items.slice(0, TOP_N));
-      listEl.setAttribute('aria-busy', 'false');
-      if (items.length > TOP_N) {
-        viewAllBtn.hidden = false;
-        viewAllBtn.textContent = 'View all news (' + items.length + ')';
-      }
-      renderInto(drawerBody, items);
-      viewAllBtn.addEventListener('click', openDrawer);
-    })
-    .catch(function () {
-      listEl.setAttribute('aria-busy', 'false');
-      listEl.innerHTML = '<li class="news__item"><span class="news__content">No news available right now. Please check back soon.</span></li>';
-    });
 })();
 
 
@@ -899,7 +842,7 @@
     var maxScroll = track.scrollWidth - track.clientWidth - 1;
     prev.disabled = track.scrollLeft <= 0;
     next.disabled = track.scrollLeft >= maxScroll;
-    // Nothing to explore if the track doesn't overflow — drop the hint.
+    // Nothing to explore if the track doesn't overflow, so drop the hint.
     if (hint && prev.disabled && next.disabled) dismissHint();
   }
 
@@ -937,7 +880,7 @@
     try { target = document.querySelector(hash); } catch (e) { return; }
     if (!target) return;
     if (target.classList && target.classList.contains('demo-card')) {
-      // Bring the Demos section into view, then center the requested card in the carousel.
+      // Bring the demos section into view, then center the requested card in the carousel.
       var demos = document.getElementById('demos');
       if (demos) demos.scrollIntoView({ behavior: 'smooth', block: 'start' });
       centerCardInTrack(target);
@@ -999,4 +942,39 @@
     }
   }, { passive: true });
   update();
+})();
+
+
+/* ---------- BibTeX copy on individual paper pages ---------- */
+(function () {
+  var btn = document.querySelector('[data-copy-bibtex-page]');
+  if (!btn) return;
+
+  var block = document.querySelector('.paper-page__bibtex');
+  if (!block) return;
+
+  btn.addEventListener('click', function () {
+    var text = block.textContent.trim();
+    var done = function () {
+      var original = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(function () { btn.textContent = original; }, 1800);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () {});
+      return;
+    }
+
+    // Fallback for browsers without the async clipboard API.
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'absolute';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  });
 })();

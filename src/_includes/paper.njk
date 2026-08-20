@@ -1,0 +1,218 @@
+---
+layout: base.njk
+---
+{%- set m = paperMeta %}
+{%- set canonical = site.url + page.url %}
+
+<div class="top-controls" id="top-controls">
+  <button class="top-btn theme-toggle" id="theme-toggle" aria-label="Toggle between earth tone, dark, and system themes" title="Theme: earth tone (click to cycle)">
+    <span class="theme-icon theme-icon--sepia">◑</span>
+    <span class="theme-icon theme-icon--dark">☾</span>
+    <span class="theme-icon theme-icon--system">◐</span>
+  </button>
+</div>
+
+<main class="container subpage">
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span class="breadcrumb__sep" aria-hidden="true">/</span>
+    <a href="/#research">Research</a>
+    <span class="breadcrumb__sep" aria-hidden="true">/</span>
+    <span aria-current="page">{{ m.venueLabel }}</span>
+  </nav>
+
+  <article class="paper-page">
+    <header class="paper-page__header">
+      <div class="paper-page__venues">
+        {%- for v in venues %}
+        <span class="paper__venue-acronym">{{ v.acronym }}</span>
+        <span class="paper__year">{{ v.year }}</span>
+        {%- if v.kind %}<span class="paper__venue-kind">{{ v.kind }}</span>{% endif %}
+        {%- endfor %}
+        {%- for b in badges %}
+        <span class="paper__badge paper__badge--{{ b.type }}">{{ b.label }}</span>
+        {%- endfor %}
+      </div>
+
+      <h1 class="paper-page__title">{{ title }}</h1>
+
+      <p class="paper-page__authors">
+        {%- for a in authors %}{% if a.me %}<strong>{{ a.name }}</strong>{% else %}{{ a.name }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}
+      </p>
+
+      {%- if m.venueFullName %}
+      <p class="paper-page__venue-full">{{ m.venueFullName }}</p>
+      {%- endif %}
+
+      <div class="paper-page__actions">
+        {%- for l in links %}
+        <a class="paper-page__action" href="{{ l.href }}" target="_blank" rel="noopener">{{ l.label }}</a>
+        {%- endfor %}
+      </div>
+    </header>
+
+    {%- if thumb %}
+    <figure class="paper-page__figure">
+      {%- set dim = thumb | imageSize %}
+      <img src="{{ thumb }}" alt="Figure from “{{ title }}”"{% if dim %} width="{{ dim.width }}" height="{{ dim.height }}"{% endif %} loading="lazy" decoding="async">
+    </figure>
+    {%- endif %}
+
+    <section class="paper-page__section">
+      <h2>Summary</h2>
+      <div class="paper-page__abstract">{{ content | safe }}</div>
+    </section>
+
+    {%- set parentPaper = collections.papers | findPaper(parent) %}
+    {%- set childPapers = collections.papers | childrenOf(page.fileSlug) %}
+    {%- if parentPaper or childPapers.length %}
+    <section class="paper-page__section">
+      <h2>How this fits together</h2>
+      <ul class="paper-page__lineage">
+        {%- if parentPaper %}
+        <li><span class="paper-page__lineage-rel">Builds on</span> <a href="{{ parentPaper.url }}">{{ parentPaper.data.title }}</a></li>
+        {%- endif %}
+        {%- for child in childPapers %}
+        <li><span class="paper-page__lineage-rel">Extended by</span> <a href="{{ child.url }}">{{ child.data.title }}</a></li>
+        {%- endfor %}
+      </ul>
+      <p class="paper-page__lineage-more"><a href="/#lineage">See the full research lineage →</a></p>
+    </section>
+    {%- endif %}
+
+    {%- if video %}
+    <section class="paper-page__section">
+      <h2>Talk</h2>
+      <div class="paper-page__video">
+        <iframe src="{{ video.embedUrl | replace('youtube.com', 'youtube-nocookie.com') }}"
+          title="{{ video.name }}" loading="lazy"
+          allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+    </section>
+    {%- endif %}
+
+    {%- if topics and topics.length %}
+    <section class="paper-page__section">
+      <h2>Topics</h2>
+      <ul class="paper-page__topics">
+        {%- for t in topics %}
+        <li><a class="paper-card__tag" href="/topics/{{ t }}/">{{ topicMeta[t].label if topicMeta[t] else t }}</a></li>
+        {%- endfor %}
+      </ul>
+    </section>
+    {%- endif %}
+
+    {%- if bibtex %}
+    <section class="paper-page__section">
+      <h2>Cite this paper</h2>
+      <pre class="paper-page__bibtex"><code>{{ bibtex | trim }}</code></pre>
+      <button class="paper-page__copy" type="button" data-copy-bibtex-page>Copy BibTeX</button>
+    </section>
+    {%- endif %}
+
+    <p class="paper-page__back"><a href="/#research">← All publications</a></p>
+  </article>
+</main>
+
+{% include "subpage-footer.njk" %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "{{ canonical }}#article",
+      "url": "{{ canonical }}",
+      "name": {{ title | dump | safe }},
+      "headline": {{ title | dump | safe }},
+      "abstract": {{ m.summary | dump | safe }},
+      "inLanguage": "en",
+      {%- if venues and venues.length %}
+      "datePublished": "{{ venues[0].year }}",
+      {%- endif %}
+      {%- if thumb %}
+      "image": "{{ site.url }}{{ thumb }}",
+      {%- endif %}
+      "author": [
+        {%- for name in m.authorNames %}
+        {
+          "@type": "Person",
+          "name": {{ name | dump | safe }}{% if authors[loop.index0].me %},
+          "@id": "{{ site.url }}/#person"{% endif %}
+        }{% if not loop.last %},{% endif %}
+        {%- endfor %}
+      ],
+      {%- if m.venueFullName %}
+      "isPartOf": {
+        "@type": "CreativeWork",
+        "name": {{ m.venueFullName | dump | safe }}
+      },
+      {%- endif %}
+      {%- if m.doi %}
+      "identifier": [
+        { "@type": "PropertyValue", "propertyID": "DOI", "value": "{{ m.doi }}" }
+        {%- if m.arxivId %},
+        { "@type": "PropertyValue", "propertyID": "arXiv", "value": "{{ m.arxivId }}" }
+        {%- endif %}
+      ],
+      {%- elif m.arxivId %}
+      "identifier": [
+        { "@type": "PropertyValue", "propertyID": "arXiv", "value": "{{ m.arxivId }}" }
+      ],
+      {%- endif %}
+      {%- if topics and topics.length %}
+      "keywords": {{ topics | dump | safe }},
+      {%- endif %}
+      "isAccessibleForFree": true,
+      {%- if parentPaper %}
+      "citation": {
+        "@type": "ScholarlyArticle",
+        "@id": "{{ site.url }}{{ parentPaper.url }}#article",
+        "name": {{ parentPaper.data.title | dump | safe }},
+        "url": "{{ site.url }}{{ parentPaper.url }}"
+      },
+      {%- endif %}
+      "sameAs": {{ m.sameAs | dump | safe }},
+      "mainEntityOfPage": { "@id": "{{ canonical }}#webpage" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "{{ canonical }}#webpage",
+      "url": "{{ canonical }}",
+      "name": {{ pageTitle | dump | safe }},
+      "description": {{ metaDescription | dump | safe }},
+      "isPartOf": { "@id": "{{ site.url }}/#website" },
+      "about": { "@id": "{{ canonical }}#article" },
+      "primaryImageOfPage": "{{ site.url }}{{ thumb or site.image }}",
+      "breadcrumb": { "@id": "{{ canonical }}#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{ canonical }}#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.url }}/" },
+        { "@type": "ListItem", "position": 2, "name": "Research", "item": "{{ site.url }}/#research" },
+        { "@type": "ListItem", "position": 3, "name": {{ title | dump | safe }} }
+      ]
+    }
+    {%- if m.videoUrl and video %},
+    {
+      "@type": "VideoObject",
+      "name": {{ video.name | dump | safe }},
+      "description": {{ video.description | dump | safe }},
+      "thumbnailUrl": {{ video.thumbnail | dump | safe }},
+      "uploadDate": "{{ video.uploadDate }}",
+      {%- if video.duration %}
+      "duration": "{{ video.duration }}",
+      {%- endif %}
+      "embedUrl": {{ video.embedUrl | dump | safe }},
+      "contentUrl": {{ m.videoUrl | dump | safe }},
+      "publisher": { "@id": "{{ site.url }}/#person" }
+    }
+    {%- endif %}
+  ]
+}
+</script>

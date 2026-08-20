@@ -14,6 +14,7 @@ authors:
   - { name: "Kalika Bali" }
 venues:
   - { acronym: "COLING", year: "2025" }
+parent: chanakya
 badges:
   - { label: "Oral", type: "highlight" }
 links:

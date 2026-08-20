@@ -15,7 +15,9 @@ permalink: /
   <div class="nav-dropdown" id="nav-dropdown" role="menu" aria-label="Section navigation">
     <a class="nav-dropdown__link" role="menuitem" href="#top" data-section="top">Home</a>
     <a class="nav-dropdown__link" role="menuitem" href="#news" data-section="news">News</a>
+    <a class="nav-dropdown__link" role="menuitem" href="#systems" data-section="systems">Systems</a>
     <a class="nav-dropdown__link" role="menuitem" href="#research" data-section="research">Research</a>
+    <a class="nav-dropdown__link" role="menuitem" href="#lineage" data-section="lineage">Lineage</a>
     <a class="nav-dropdown__link" role="menuitem" href="#demos" data-section="demos">Demos</a>
     <a class="nav-dropdown__link" role="menuitem" href="#reading" data-section="reading">Reading</a>
     <a class="nav-dropdown__link" role="menuitem" href="/friends/" data-section="friends">Friends</a>
@@ -47,9 +49,9 @@ permalink: /
     <div class="hero__inner">
       <div class="hero__text">
         <h1 class="hero__name">{{ site.name }}</h1>
-        <p class="hero__tagline">AI Researcher · Computer Science Ph.D. Candidate, University of Michigan</p>
+        <p class="hero__tagline">Applied AI Researcher · Computer Science Ph.D. Candidate, University of Michigan</p>
         <div class="hero__bio">
-          <p>👋 Hi, I'm an <strong>AI researcher</strong> and a <strong>Computer Science Ph.D. candidate</strong> at the
+          <p>👋 Hi, I'm an <strong>applied AI researcher</strong> and a <strong>Computer Science Ph.D. candidate</strong> at the
             <a href="https://cse.engin.umich.edu/">University of Michigan</a>.
             I design and deploy <strong>interactive AI systems</strong> that help solve specific societal challenges across healthcare, wildlife conservation, road safety, and education. My research focuses on topics around <strong>LLMs</strong>, Reinforcement Learning, Representation Learning, and <strong>human-AI interaction</strong>.
           </p>
@@ -62,6 +64,12 @@ permalink: /
           </p>
         </div>
 
+        <p class="hero__standing">
+          Always glad to hear from people working on similar problems: research collaborations, student questions,
+          or just a good argument about evaluation. Reach me at
+          <a href="mailto:{{ site.email }}">{{ site.email }}</a>.
+        </p>
+
         <div class="hero__links">
           {%- for link in profile.links %}
           <a {% if link.primary %}class="hero__link--primary"{% endif %} {% if link.external %}target="_blank" rel="noopener"{% endif %} href="{{ link.href }}"{% if link.aria %} aria-label="{{ link.aria }}" title="{{ link.aria }}"{% endif %}>{% if link.icon %}{{ link.icon }} {% endif %}{{ link.label }}</a>
@@ -70,7 +78,7 @@ permalink: /
       </div>
 
       <div class="hero__photo">
-        <img alt="Vaibhav Balloli, AI Researcher and Computer Science Ph.D. candidate at the University of Michigan" src="/tn/images/profile.png" width="220" height="220" decoding="async" fetchpriority="high">
+        <img alt="Vaibhav Balloli, applied AI researcher and Computer Science Ph.D. candidate at the University of Michigan" src="/tn/images/profile.png" width="220" height="220" decoding="async" fetchpriority="high">
       </div>
     </div>
   </section>
@@ -78,32 +86,40 @@ permalink: /
   <!-- NEWS -->
   <section class="section news" id="news">
     <h2 class="section-title">News <a class="anchor-link" href="#news" aria-label="Copy link to the News section">#</a></h2>
-    <ul class="news__list" id="news-list" aria-live="polite" aria-busy="true">
-      <li class="news__item news__item--loading">
-        <span class="news__loading">
-          <span class="news__spinner" aria-hidden="true"></span>
-          <span>Loading the latest news…</span>
-        </span>
+    <ul class="news__list" id="news-list">
+      {%- for item in news.slice(0, 5) %}
+      <li class="news__item">
+        {%- if item.date %}<time class="news__date" datetime="{{ item.date }}">{{ item.dateFormatted }}</time>{% endif %}
+        <div class="news__content">{{ item.html | safe }}</div>
       </li>
+      {%- else %}
+      <li class="news__item"><span class="news__content">No news yet.</span></li>
+      {%- endfor %}
     </ul>
-    <button class="news__view-all" id="news-view-all" type="button" hidden>View all news</button>
+    {%- if news.length > 5 %}
+    <button class="news__view-all" id="news-view-all" type="button">View all news ({{ news.length }})</button>
+    {%- endif %}
   </section>
+
+  {% include "systems.njk" %}
 
   <!-- RESEARCH -->
   <section class="section" id="research">
     <h2 class="section-title">Research <a class="anchor-link" href="#research" aria-label="Copy link to the Research section">#</a></h2>
     <p class="research__intro">
-      I work on human-centered AI, designing <strong>interactive AI systems</strong> that collaborate with people,
-      surface the right uncertainty, and remain reliable when deployed in high-stakes domains such as healthcare,
-      wildlife conservation, road safety, and education. My research sits at the intersection of large language
-      models, reinforcement learning, representation learning, and human-computer interaction, spanning:
+      I build <strong>interactive AI systems</strong> that people can steer: agents that ask before they advise,
+      retrieval a domain expert can correct mid-search, and models that reconfigure themselves at run time.
+      The hard part is rarely the model. It is deciding what a system should be uncertain about, what it should hand
+      back to a person, and how anyone would know when it is wrong. That question runs through my work in healthcare,
+      wildlife conservation, road safety, and education, and sits at the intersection of <strong>large language
+      models</strong>, reinforcement learning, representation learning, and <strong>human-AI interaction</strong>:
     </p>
     <ul class="research__areas">
       <li><strong>Interactive AI Agents:</strong> models and systems that allow stakeholders to improve their decision making.</li>
       <li><strong>Reliable evaluations:</strong> curating and benchmarking datasets for trustworthy real-world AI deployment.</li>
       <li><strong>Responsible Deployments:</strong> working closely with stakeholders to responsibly deploy these systems in the real world.</li>
     </ul>
-    <p class="research__demos-link">Want to see the research in motion? <a href="#demos">Look here for cool demos →</a></p>
+    <p class="research__demos-link">Want to see the research in motion? <a href="#demos">See the interactive demos →</a></p>
 
     <!-- Filter -->
     <div id="pill-anchor" class="pill-anchor"></div>
@@ -150,18 +166,21 @@ permalink: /
         <div class="paper__body">
           {%- if paper.data.thumb %}
           <div class="paper__thumb">
-            <img alt="Thumbnail for {{ paper.data.title }}" src="{{ paper.data.thumb }}" loading="lazy" decoding="async" itemprop="image">
+            {%- set dim = paper.data.thumb | imageSize %}
+            <img alt="Thumbnail for {{ paper.data.title }}" src="{{ paper.data.thumb }}"{% if dim %} width="{{ dim.width }}" height="{{ dim.height }}"{% endif %} loading="lazy" decoding="async" itemprop="image">
           </div>
           {%- endif %}
           <div class="paper__text">
-            <h3 class="paper__title" itemprop="name headline">{{ paper.data.title }}</h3>
+            <h3 class="paper__title" itemprop="name headline"><a href="{{ paper.url }}">{{ paper.data.title }}</a></h3>
+            <link itemprop="url mainEntityOfPage" href="{{ site.url }}{{ paper.url }}">
             <p class="paper__authors">{% for a in paper.data.authors %}<span itemprop="author" itemscope itemtype="https://schema.org/Person">{% if a.me %}<strong itemprop="name">{{ a.name }}</strong>{% else %}<span itemprop="name">{{ a.name }}</span>{% endif %}</span>{% if not loop.last %}, {% endif %}{% endfor %}</p>
             <div class="paper__desc" itemprop="abstract">{{ paper.templateContent | safe }}</div>
             <div class="paper__actions">
               {%- for l in paper.data.links %}
-              <a href="{{ l.href }}" target="_blank" rel="noopener" title="{{ l.label }}: {{ paper.data.title }}"{% if loop.first %} itemprop="url"{% endif %}>{{ l.label }}</a>
+              <a href="{{ l.href }}" target="_blank" rel="noopener" title="{{ l.label }}: {{ paper.data.title }}" itemprop="sameAs">{{ l.label }}</a>
               {%- endfor %}
               <button type="button" data-copy-bibtex title="Copy the BibTeX citation for this paper">Copy BibTeX</button>
+              <a class="paper__details" href="{{ paper.url }}" title="Full details, citation, and lineage for {{ paper.data.title }}">Details →</a>
             </div>
             <pre class="paper__bibtex" hidden>{{ paper.data.bibtex | trim }}</pre>
           </div>
@@ -171,11 +190,13 @@ permalink: /
     </div>
   </section>
 
-  <!-- COOL DEMOS -->
+  {% include "lineage.njk" %}
+
+  <!-- INTERACTIVE RESEARCH DEMOS -->
   <section class="section demos" id="demos">
-    <h2 class="section-title">Cool Demos <a class="anchor-link" href="#demos" aria-label="Copy link to the Cool Demos section">#</a></h2>
+    <h2 class="section-title">Interactive research demos <a class="anchor-link" href="#demos" aria-label="Copy link to the interactive research demos section">#</a></h2>
     <p class="demos__intro">
-      Interactive animations and visualizations from my research projects.
+      Animated walkthroughs of how the systems below actually work, drawn from the papers themselves.
     </p>
     <div class="demos__carousel" id="demos-carousel">
       <button class="demos__nav demos__nav--prev" id="demos-prev" type="button" aria-label="Previous demo" aria-controls="demos-track">‹</button>
@@ -276,7 +297,16 @@ permalink: /
     <h3 class="news-drawer__title">All News</h3>
     <button class="news-drawer__close" id="news-drawer-close" aria-label="Close">&times;</button>
   </header>
-  <div class="news-drawer__body" id="news-drawer-body"></div>
+  <div class="news-drawer__body" id="news-drawer-body">
+    <ul class="news__list">
+      {%- for item in news %}
+      <li class="news__item">
+        {%- if item.date %}<time class="news__date" datetime="{{ item.date }}">{{ item.dateFormatted }}</time>{% endif %}
+        <div class="news__content">{{ item.html | safe }}</div>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
 </aside>
 
 <!-- Filter + search for .paper ledger -->
@@ -488,3 +518,74 @@ permalink: /
       allowfullscreen></iframe>
   </div>
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "{{ site.url }}/#profilepage",
+      "url": "{{ site.url }}/",
+      "name": {{ site.title | dump | safe }},
+      "description": {{ site.description | dump | safe }},
+      "dateModified": "{{ buildDateTime }}",
+      "isPartOf": { "@id": "{{ site.url }}/#website" },
+      "about": { "@id": "{{ site.url }}/#person" },
+      "mainEntity": { "@id": "{{ site.url }}/#person" },
+      "primaryImageOfPage": "{{ site.url }}{{ site.image }}",
+      "significantLink": [
+        "{{ site.url }}/cv/",
+        {%- for topic in collections.topics %}
+        "{{ site.url }}/topics/{{ topic.slug }}/"{% if not loop.last %},{% endif %}
+        {%- endfor %}
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "{{ site.url }}/#publications",
+      "name": "Publications by {{ site.author }}",
+      "numberOfItems": {{ collections.papers.length }},
+      "itemListOrder": "https://schema.org/ItemListOrderDescending",
+      "itemListElement": [
+        {%- for paper in collections.papers %}
+        {%- set pm = paper.data.paperMeta %}
+        {
+          "@type": "ListItem",
+          "position": {{ loop.index }},
+          "url": "{{ site.url }}{{ paper.url }}",
+          "item": {
+            "@type": "ScholarlyArticle",
+            "@id": "{{ site.url }}{{ paper.url }}#article",
+            "name": {{ paper.data.title | dump | safe }},
+            "url": "{{ site.url }}{{ paper.url }}",
+            "datePublished": "{{ paper.data.venues[0].year }}",
+            {%- if paper.data.thumb %}
+            "image": "{{ site.url }}{{ paper.data.thumb }}",
+            {%- endif %}
+            {%- if pm.venueFullName %}
+            "isPartOf": { "@type": "CreativeWork", "name": {{ pm.venueFullName | dump | safe }} },
+            {%- endif %}
+            {%- if pm.doi %}
+            "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "{{ pm.doi }}" },
+            {%- elif pm.arxivId %}
+            "identifier": { "@type": "PropertyValue", "propertyID": "arXiv", "value": "{{ pm.arxivId }}" },
+            {%- endif %}
+            "sameAs": {{ pm.sameAs | dump | safe }},
+            "author": [
+              {%- for a in paper.data.authors %}
+              {
+                "@type": "Person",
+                "name": {{ a.name | replace("*", "") | dump | safe }}{% if a.me %},
+                "@id": "{{ site.url }}/#person"{% endif %}
+              }{% if not loop.last %},{% endif %}
+              {%- endfor %}
+            ]
+          }
+        }{% if not loop.last %},{% endif %}
+        {%- endfor %}
+      ]
+    }
+  ]
+}
+</script>

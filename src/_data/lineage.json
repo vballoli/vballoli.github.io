@@ -1,0 +1,77 @@
+{
+  "_comment": "The research lineage diagram. `levels` are ordered oldest-first; the layout renders them bottom-up so each paper sits above the work it grew out of. `roots` is what each thread serves and renders at the bottom; `stage` and the optional `deployment` render at the top. A thread with no `deployment` shows its stage alone. Slugs must match filenames in src/papers/.",
+  "intro": "Seven papers, three threads. Each thread starts with the people it is for, grows upward through the work, and ends where that work is headed.",
+  "credit": {
+    "text": "Tree layout inspired by Philippe Laban's paper garden.",
+    "name": "Philippe Laban",
+    "href": "https://tingofurro.github.io/"
+  },
+  "threads": [
+    {
+      "id": "conservation",
+      "theme": "Helping experts steer retrieval",
+      "roots": "Conservation biologists & rangers",
+      "stage": "Research + Deployment",
+      "deployment": "To be deployed for the elephant work",
+      "levels": [
+        [
+          {
+            "slug": "chair",
+            "note": "Let experts intervene on concepts mid-search"
+          }
+        ],
+        [
+          {
+            "slug": "seek-cbm",
+            "note": "Modern backbones, 497% better retrieval"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "health",
+      "theme": "Deploying trustworthy health AI systems",
+      "roots": "Birthing people, clinicians & health workers",
+      "stage": "Research + Deployment",
+      "deployment": "TBD in Michigan",
+      "levels": [
+        [
+          {
+            "slug": "maternal",
+            "note": "Ask them first: four focus groups, three stakeholder groups"
+          }
+        ],
+        [
+          {
+            "slug": "pathfinder",
+            "note": "Build to that spec: a care-planning agent"
+          },
+          {
+            "slug": "reliance",
+            "note": "Then measure the ecosystem it lives in"
+          }
+        ]
+      ]
+    },
+    {
+      "id": "adaptive",
+      "theme": "Selecting best system configuration",
+      "roots": "Adaptive systems",
+      "stage": "Research",
+      "levels": [
+        [
+          {
+            "slug": "chanakya",
+            "note": "Trade accuracy for latency as the scene changes"
+          }
+        ],
+        [
+          {
+            "slug": "leap",
+            "note": "Same idea, now choosing prompts and models per query"
+          }
+        ]
+      ]
+    }
+  ]
+}
