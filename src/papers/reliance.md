@@ -13,7 +13,7 @@ authors:
   - { name: "Elizabeth Bondi-Kelly" }
 venues:
   - { acronym: "KDD", year: "2026", kind: "Datasets and Benchmarks Track" }
-parent: maternal
+parent: sociotechnical-design
 links:
   - { label: "arXiv", href: "https://arxiv.org/abs/2606.18285" }
   - { label: "Proceedings", href: "https://doi.org/10.1145/3770855.3817447" }
