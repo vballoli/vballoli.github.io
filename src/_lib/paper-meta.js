@@ -129,6 +129,9 @@ function citationMeta(data) {
   if (id) {
     push("citation_arxiv_id", id);
     push("citation_abstract_html_url", `https://arxiv.org/abs/${id}`);
+  } else if (doi(data)) {
+    // No preprint, so the publisher's landing page is the abstract of record.
+    push("citation_abstract_html_url", `https://doi.org/${doi(data)}`);
   }
   push("citation_pdf_url", pdfUrl(data));
 
