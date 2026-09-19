@@ -2,7 +2,7 @@
 layout: base.njk
 permalink: /cv/
 pageTitle: "Curriculum Vitae | Vaibhav Balloli"
-metaDescription: "Curriculum vitae of Vaibhav Balloli: education, research at Microsoft Research and Michigan, publications, awards, and peer review."
+metaDescription: "Curriculum vitae of Vaibhav Balloli: research focus, deployed systems, education, Microsoft Research experience, publications, awards, and service."
 ogTitle: "Curriculum Vitae | Vaibhav Balloli"
 ---
 {%- set canonical = site.url + page.url %}
@@ -32,6 +32,29 @@ ogTitle: "Curriculum Vitae | Vaibhav Balloli"
       <a class="paper-page__action" href="https://scholar.google.com/citations?user=-6i7e7sAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
     </div>
   </header>
+
+  <section class="cv__section">
+    <h2>Research focus</h2>
+    <ul class="research__areas">
+      {%- for area in cv.researchAreas %}
+      <li>{{ area }}</li>
+      {%- endfor %}
+    </ul>
+  </section>
+
+  <section class="cv__section">
+    <h2>Research and engineering impact</h2>
+    <ul class="cv__list">
+      {%- for item in cv.impact %}
+      <li class="cv__entry"><strong>{{ item.name }}:</strong> {{ item.detail }}</li>
+      {%- endfor %}
+    </ul>
+  </section>
+
+  <section class="cv__section">
+    <h2>Technical skills</h2>
+    <p class="cv__detail">{{ cv.skills }}</p>
+  </section>
 
   <section class="cv__section">
     <h2>Education</h2>
@@ -68,8 +91,15 @@ ogTitle: "Curriculum Vitae | Vaibhav Balloli"
   </section>
 
   <section class="cv__section">
-    <h2>Publications</h2>
+    <h2>Publications and working papers</h2>
     <ol class="cv__papers">
+      {%- for paper in cv.workingPapers %}
+      <li class="cv__paper">
+        <span class="cv__paper-title">{{ paper.title }}</span>
+        <p class="cv__paper-authors">{% for a in paper.authors %}{% if a.me %}<strong>{{ a.name }}</strong>{% else %}{{ a.name }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+        <p class="cv__paper-venue">Working paper</p>
+      </li>
+      {%- endfor %}
       {%- for paper in collections.papers %}
       <li class="cv__paper">
         <a class="cv__paper-title" href="{{ paper.url }}">{{ paper.data.title }}</a>
@@ -84,7 +114,7 @@ ogTitle: "Curriculum Vitae | Vaibhav Balloli"
   </section>
 
   <section class="cv__section">
-    <h2>Awards &amp; honours</h2>
+    <h2>Awards and recognition</h2>
     <ul class="cv__timeline">
       {%- for item in cv.awards %}
       <li class="cv__timeline-item">

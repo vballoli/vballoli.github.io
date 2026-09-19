@@ -8,7 +8,7 @@
       "org": "Microsoft Research India",
       "years": "2021 – 2022",
       "role": "Societal Impact through Cloud and AI Fellow. Worked on the computer vision, bandit, and localisation components as the system scaled.",
-      "impact": "Smartphone-based automated licence testing deployed across India, serving 300,000+ candidates and replacing a subjective manual assessment with an auditable one.",
+      "impact": "Smartphone-based automated licence testing deployed across India, serving 440,000+ candidates and replacing a subjective manual assessment with an auditable one.",
       "stack": ["Computer vision", "On-device inference", "Bandits", "Localisation"],
       "topics": ["vision", "social-impact"],
       "links": [

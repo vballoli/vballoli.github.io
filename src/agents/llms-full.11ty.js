@@ -102,12 +102,18 @@ module.exports = class {
     });
 
     heading("Curriculum vitae");
+    out.push("### Research focus", "", ...cv.researchAreas.map((area) => `- ${area}`));
+    out.push("", "### Research and engineering impact", "");
+    cv.impact.forEach((item) => out.push(`- ${item.name}: ${item.detail}`));
+    out.push("", "### Technical skills", "", cv.skills, "");
     out.push("### Education", "");
     cv.education.forEach((e) =>
       out.push(`- ${e.institution} (${e.period}): ${e.qualification}.${e.detail ? " " + e.detail : ""}`)
     );
     out.push("", "### Research experience", "");
     cv.experience.forEach((e) => out.push(`- ${e.organisation}, ${e.role} (${e.period}): ${e.detail}`));
+    out.push("", "### Working papers", "");
+    cv.workingPapers.forEach((p) => out.push(`- ${p.title}. Authors: ${p.authors.map((a) => a.name).join(", ")}.`));
     out.push("", "### Awards and honours", "");
     cv.awards.forEach((a) => out.push(`- ${a.year}: ${a.text}`));
     out.push("", "### Service", "");
