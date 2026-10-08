@@ -13,10 +13,9 @@
   ],
 
   "impact": [
-    { "name": "HAMS", "detail": "Automated driver's-license testing deployed across India; more than 440,000 candidates assessed." },
-    { "name": "PATHFinder", "detail": "Conversational agent being deployed with clinicians and patients for personalized prenatal care planning at the University of Michigan." },
+    { "name": "PATHFinder", "detail": "Conversational patient- and clinician-facing agent being deployed for personalized prenatal care planning at the University of Michigan." },
     { "name": "Elephant Re-ID", "detail": "Computer vision models being deployed for elephant re-identification in Botswana." },
-    { "name": "SmartCampus", "detail": "Co-founded a campus payments platform that processed INR 25 million at 1,000 active users per minute." }
+    { "name": "HAMS", "detail": "Automated driver's-license testing deployed across India; more than 440,000 candidates assessed." }
   ],
 
   "skills": "Python, C++, JavaScript; PyTorch, JAX, SkyRL, verl.",
@@ -65,7 +64,7 @@
         { "name": "Sabine Loos" },
         { "name": "Vaibhav Balloli", "me": true },
         { "name": "Lauren K. Palermo" },
-        { "name": "Benjamin B Mirus" },
+        { "name": "Benjamin B. Mirus" },
         { "name": "Nathan Wood" },
         { "name": "Aleeza Wilkins" },
         { "name": "Elizabeth Bondi-Kelly" }
@@ -77,7 +76,8 @@
     { "year": "2025", "text": "Exceptional rating, Ph.D. preliminary exam (advancement to candidacy)" },
     { "year": "2024", "text": "2nd place, Google × MHacks hackathon (USD 1,500); featured by labs.google" },
     { "year": "2023", "text": "Selected for the Harvard/MIT HAIST/MAIA introductory fellowship on AI safety" },
-    { "year": "2022–2024", "text": "VeLLM cited by Satya Nadella and covered in the Times of India; HAMS covered in the Punjab News Express" }
+    { "year": "2022–2024", "text": "VeLLM cited by Satya Nadella and covered in the Times of India; HAMS covered in the Punjab News Express" },
+    { "year": "2023", "text": "Featured in a podcast about SmartCampus, co-founded during undergrad" }
   ],
 
   "service": [
