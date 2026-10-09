@@ -56,21 +56,7 @@
     }
   ],
 
-  "workingPapers": [
-    {
-      "title": "MATTER-LC: Multimodal Agentic Task Orchestration for Transforming Evidence into Source-Auditable Records in Landslide-Loss Curation",
-      "authors": [
-        { "name": "Xin Wei" },
-        { "name": "Sabine Loos" },
-        { "name": "Vaibhav Balloli", "me": true },
-        { "name": "Lauren K. Palermo" },
-        { "name": "Benjamin B. Mirus" },
-        { "name": "Nathan Wood" },
-        { "name": "Aleeza Wilkins" },
-        { "name": "Elizabeth Bondi-Kelly" }
-      ]
-    }
-  ],
+  "workingPapers": [],
 
   "awards": [
     { "year": "2025", "text": "Exceptional rating, Ph.D. preliminary exam (advancement to candidacy)" },

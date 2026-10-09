@@ -112,8 +112,10 @@ module.exports = class {
     );
     out.push("", "### Research experience", "");
     cv.experience.forEach((e) => out.push(`- ${e.organisation}, ${e.role} (${e.period}): ${e.detail}`));
-    out.push("", "### Working papers", "");
-    cv.workingPapers.forEach((p) => out.push(`- ${p.title}. Authors: ${p.authors.map((a) => a.name).join(", ")}.`));
+    if (cv.workingPapers.length) {
+      out.push("", "### Working papers", "");
+      cv.workingPapers.forEach((p) => out.push(`- ${p.title}. Authors: ${p.authors.map((a) => a.name).join(", ")}.`));
+    }
     out.push("", "### Awards and honours", "");
     cv.awards.forEach((a) => out.push(`- ${a.year}: ${a.text}`));
     out.push("", "### Service", "");
