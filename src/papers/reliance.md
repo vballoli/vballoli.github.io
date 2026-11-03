@@ -2,6 +2,7 @@
 order: 1
 featured: true
 title: "RELIANCE: Curating and Evaluating Reproductive Health Information on Social Media"
+oneliner: "Multi-modal agents curate TikTok reproductive health videos, and clinicians and LLMs judge them for accuracy and harms."
 topics: [llms, evals, healthcare, social-impact]
 thumb: /tn/images/reliance.png
 authors:

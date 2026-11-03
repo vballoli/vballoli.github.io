@@ -2,6 +2,7 @@
 order: 7
 featured: true
 title: "Chanakya: Learning Runtime Decisions for Adaptive Real-Time Perception"
+oneliner: "Learns run-time choices of resolution, model, and compute from scene content and system contention to balance accuracy and latency."
 topics: [vision]
 thumb: /tn/images/chanakya.png
 authors:
