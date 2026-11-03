@@ -4,7 +4,7 @@
 
   <ul class="systems__list">
     {%- for s in systems.items %}
-    <li class="system" style="--i: {{ loop.index0 }}">
+    <li class="system">
       <div class="system__top">
         <span class="system__status system__status--{{ s.status | lower | replace(' ', '-') }}"><span class="system__dot" aria-hidden="true"></span>{{ s.status }}</span>
         <span class="system__years">{{ s.years }}</span>
