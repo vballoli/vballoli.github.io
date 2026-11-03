@@ -1,0 +1,28 @@
+name: PR build check
+
+# Builds every pull request without deploying, so a broken template or data
+# file is caught before it reaches main. The built site is kept for 3 days as
+# an artifact for review.
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: _site
+          retention-days: 3
+

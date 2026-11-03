@@ -16,8 +16,8 @@ permalink: /
     <a class="nav-dropdown__link" role="menuitem" href="#top" data-section="top">Home</a>
     <a class="nav-dropdown__link" role="menuitem" href="#news" data-section="news">News</a>
     <a class="nav-dropdown__link" role="menuitem" href="#systems" data-section="systems">Systems</a>
+    <a class="nav-dropdown__link" role="menuitem" href="#lineage" data-section="lineage">Trails</a>
     <a class="nav-dropdown__link" role="menuitem" href="#research" data-section="research">Research</a>
-    <a class="nav-dropdown__link" role="menuitem" href="#lineage" data-section="lineage">Lineage</a>
     <a class="nav-dropdown__link" role="menuitem" href="#demos" data-section="demos">Demos</a>
     <a class="nav-dropdown__link" role="menuitem" href="#reading" data-section="reading">Reading</a>
     <a class="nav-dropdown__link" role="menuitem" href="/friends/" data-section="friends">Friends</a>
@@ -77,9 +77,20 @@ permalink: /
         </div>
       </div>
 
-      <div class="hero__photo">
-        <img alt="Vaibhav Balloli, applied AI researcher and Computer Science Ph.D. candidate at the University of Michigan" src="/tn/images/profile.png" width="220" height="220" decoding="async" fetchpriority="high">
-      </div>
+      <figure class="hero__photo viewfinder">
+        <span class="viewfinder__corner viewfinder__corner--tl" aria-hidden="true"></span>
+        <span class="viewfinder__corner viewfinder__corner--tr" aria-hidden="true"></span>
+        <span class="viewfinder__corner viewfinder__corner--bl" aria-hidden="true"></span>
+        <span class="viewfinder__corner viewfinder__corner--br" aria-hidden="true"></span>
+        <div class="viewfinder__frame">
+          <img alt="Vaibhav Balloli, applied AI researcher and Computer Science Ph.D. candidate at the University of Michigan" src="/tn/images/profile.png" width="220" height="220" decoding="async" fetchpriority="high">
+          <div class="viewfinder__stamp" aria-hidden="true">
+            <span class="viewfinder__rec"><span class="viewfinder__dot"></span>CAM-01</span>
+            <span>42.28°N 83.74°W</span>
+          </div>
+        </div>
+        <figcaption class="viewfinder__caption">ann arbor, mi</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -102,6 +113,9 @@ permalink: /
   </section>
 
   {% include "systems.njk" %}
+
+  <!-- RESEARCH TRAILS -->
+  {% include "lineage.njk" %}
 
   <!-- RESEARCH -->
   <section class="section" id="research">
@@ -143,7 +157,7 @@ permalink: /
 
     <div class="paper-list" id="paper-list">
       {%- for paper in collections.papers %}
-      <article class="paper{% if paper.data.featured %} paper--featured{% endif %}" data-tags="{% if paper.data.featured %}featured,{% endif %}{{ paper.data.topics | join(',') }}" itemscope itemtype="https://schema.org/ScholarlyArticle">
+      <article class="paper{% if paper.data.featured %} paper--featured{% endif %}" data-thread="{{ paper.fileSlug | threadOf }}" data-tags="{% if paper.data.featured %}featured,{% endif %}{{ paper.data.topics | join(',') }}" itemscope itemtype="https://schema.org/ScholarlyArticle">
         {%- if paper.data.venues and paper.data.venues.length %}<meta itemprop="datePublished" content="{{ paper.data.venues[0].year }}">{% endif %}
         <div class="paper__meta">
           {%- for v in paper.data.venues %}
@@ -187,8 +201,6 @@ permalink: /
       {%- endfor %}
     </div>
   </section>
-
-  {% include "lineage.njk" %}
 
   <!-- INTERACTIVE RESEARCH DEMOS -->
   <section class="section demos" id="demos">
@@ -319,7 +331,24 @@ permalink: /
     if (!pill || !papers.length) return;
 
     let activeFilter = 'featured';
+    let activeThread = null;
     let query = '';
+
+    // Research trails above the list double as a filter: picking a trail shows
+    // only that thread's papers.
+    const trailsEl = document.getElementById('trails');
+    const trailButtons = Array.from(document.querySelectorAll('[data-thread-filter]'));
+    const setTag = (name) => {
+      tags.querySelectorAll('.filter-tag').forEach(b => b.classList.toggle('filter-tag--active', b.dataset.filter === name));
+      activeFilter = name;
+    };
+    const syncTrails = () => {
+      trailButtons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.threadFilter === activeThread)));
+      if (trailsEl) {
+        trailsEl.classList.toggle('trails--filtered', !!activeThread);
+        trailsEl.querySelectorAll('.trail').forEach(t => t.classList.toggle('trail--active', t.dataset.thread === activeThread));
+      }
+    };
 
     const syncPressed = () => {
       // Reflect the active filter on every tag (originals + clones) for assistive tech
@@ -329,7 +358,7 @@ permalink: /
     };
 
     const syncClear = () => {
-      if (clearBtn) clearBtn.hidden = !(query || activeFilter !== 'featured');
+      if (clearBtn) clearBtn.hidden = !(query || activeFilter !== 'featured' || activeThread);
     };
 
     const apply = () => {
@@ -337,11 +366,13 @@ permalink: /
       papers.forEach(p => {
         const paperTags = (p.dataset.tags || '').split(',').map(s => s.trim());
         const tagOk = activeFilter === 'all' || paperTags.includes(activeFilter);
+        const threadOk = !activeThread || p.dataset.thread === activeThread;
         const text = q ? p.textContent.toLowerCase() : '';
         const searchOk = !q || text.includes(q);
-        p.classList.toggle('paper--hidden', !(tagOk && searchOk));
+        p.classList.toggle('paper--hidden', !(tagOk && searchOk && threadOk));
       });
       syncPressed();
+      syncTrails();
       syncClear();
     };
 
@@ -351,8 +382,21 @@ permalink: /
       tags.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('filter-tag--active'));
       btn.classList.add('filter-tag--active');
       activeFilter = btn.dataset.filter;
+      activeThread = null;
       apply();
     });
+
+    trailButtons.forEach(btn => btn.addEventListener('click', () => {
+      const id = btn.dataset.threadFilter;
+      activeThread = activeThread === id ? null : id;
+      setTag(activeThread ? 'all' : 'featured');
+      apply();
+      const list = document.getElementById('paper-list');
+      if (activeThread && list && list.getBoundingClientRect().top > window.innerHeight * 0.6) {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        pill.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      }
+    }));
 
     input?.addEventListener('input', e => {
       query = e.target.value;
@@ -368,11 +412,24 @@ permalink: /
       tags.querySelectorAll('.filter-tag').forEach(b => b.classList.remove('filter-tag--active'));
       if (featured) featured.classList.add('filter-tag--active');
       activeFilter = 'featured';
+      activeThread = null;
       apply();
       if (input) input.focus();
     });
 
     apply();
+  })();
+</script>
+
+<!-- Pause looping animations while they're off-screen -->
+<script>
+  (function () {
+    const loops = document.querySelectorAll('.trail, .viewfinder');
+    if (!loops.length || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => e.target.classList.toggle('is-paused', !e.isIntersecting));
+    }, { rootMargin: '80px 0px' });
+    loops.forEach(el => { el.classList.add('is-paused'); io.observe(el); });
   })();
 </script>
 

@@ -71,13 +71,15 @@ module.exports = function (eleventyConfig) {
     (papers || []).filter((p) => p.data.parent === slug)
   );
 
-  // A thread as wide as its widest level, so a forked thread gets the room its
-  // two branches need instead of being squeezed into an equal third.
-  eleventyConfig.addFilter("threadSpans", (threads) => {
-    const spans = (threads || []).map((thread) =>
-      Math.max(1, ...(thread.levels || []).map((level) => level.length))
+  // Research trails: a thread's papers in order, oldest first, and which
+  // thread a paper belongs to (so the paper list can be filtered by trail).
+  const lineageData = require("./src/_data/lineage.json");
+  eleventyConfig.addFilter("trailStops", (levels) => (levels || []).flat());
+  eleventyConfig.addFilter("threadOf", (slug) => {
+    const thread = (lineageData.threads || []).find((t) =>
+      (t.levels || []).flat().some((node) => node.slug === slug)
     );
-    return { spans, total: spans.reduce((a, b) => a + b, 0) };
+    return thread ? thread.id : "";
   });
 
   // --- Collections ---
