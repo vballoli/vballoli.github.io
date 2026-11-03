@@ -21,9 +21,9 @@
     <article class="trail trail--{{ thread.id }}" data-thread="{{ thread.id }}" aria-labelledby="trail-{{ thread.id }}">
 
       <div class="trail__clip trail__clip--{{ thread.clip }}" role="img" aria-label="
-        {%- if thread.clip == 'retrieval' %}Looping illustration: the model misreads one ear notch, an expert corrects that concept, and retrieval switches from the wrong elephant to the right one.
+        {%- if thread.clip == 'retrieval' %}Looping illustration: the model misreads a right-ear tear in the elephant's SEEK code, an expert corrects that concept, and retrieval switches from the wrong elephant to the right one.
         {%- elif thread.clip == 'health' %}Looping illustration: a patient asks, the AI agent drafts a reply, a safety check flags a risky line, the agent corrects it, and the scores rise.
-        {%- else %}Looping illustration: video frames and multilingual queries stream past a router that picks a resolution or model for each one.{% endif %}">
+        {%- else %}Looping illustration: video frames and Hindi and Tamil queries stream past a router that picks a detector and input scale for each frame, and an LLM and prompt strategy for each query.{% endif %}">
         <div class="clip__bar" aria-hidden="true">
           <span class="clip__rec"><span class="clip__dot"></span>{{ thread.cam }}</span>
           <span>{{ thread.place }}</span>
@@ -35,9 +35,9 @@
           <span class="kr-flag kr-flag--ear"></span>
           <span class="kr-caption">query ear</span>
           <div class="kr-concepts">
-            <div class="kr-row"><span>notch 1</span><span class="kr-track"><span class="kr-fill" style="--w: 80%"></span></span></div>
-            <div class="kr-row"><span>notch 2</span><span class="kr-track"><span class="kr-fill kr-fill--wrong" style="--w: 22%"></span><span class="kr-fill kr-fill--right" style="--w: 86%"></span></span></div>
-            <div class="kr-row"><span>tear</span><span class="kr-track"><span class="kr-fill" style="--w: 58%"></span></span></div>
+            <div class="kr-row"><span>tusks</span><span class="kr-track"><span class="kr-fill" style="--w: 80%"></span></span></div>
+            <div class="kr-row"><span>R ear tear</span><span class="kr-track"><span class="kr-fill kr-fill--wrong" style="--w: 22%"></span><span class="kr-fill kr-fill--right" style="--w: 86%"></span></span></div>
+            <div class="kr-row"><span>L ear hole</span><span class="kr-track"><span class="kr-fill" style="--w: 58%"></span></span></div>
             <span class="kr-flag kr-flag--row"></span>
           </div>
           <div class="kr-result">
@@ -75,10 +75,10 @@
         <div class="clip__body rt" aria-hidden="true">
           <div class="rt-belt">
             {%- for pass in [1, 2] %}
-            <div class="rt-card"><span class="rt-frame"><i style="--l: 4px; --t: 6px; --w: 9px; --h: 12px"></i><i style="--l: 15px; --t: 9px; --w: 8px; --h: 10px"></i><i style="--l: 26px; --t: 4px; --w: 9px; --h: 14px"></i></span><span class="rt-tag">720p · L</span></div>
-            <div class="rt-card"><span class="rt-frame rt-frame--text" lang="hi">नमस्ते?</span><span class="rt-tag">LLM-B</span></div>
-            <div class="rt-card"><span class="rt-frame"><i style="--l: 22px; --t: 9px; --w: 9px; --h: 10px"></i></span><span class="rt-tag">360p · S</span></div>
-            <div class="rt-card"><span class="rt-frame rt-frame--text" lang="ta">வணக்கம்?</span><span class="rt-tag">LLM-A</span></div>
+            <div class="rt-card"><span class="rt-frame"><i style="--l: 4px; --t: 6px; --w: 9px; --h: 12px"></i><i style="--l: 15px; --t: 9px; --w: 8px; --h: 10px"></i><i style="--l: 26px; --t: 4px; --w: 9px; --h: 14px"></i></span><span class="rt-tag">720 · frcnn</span></div>
+            <div class="rt-card"><span class="rt-frame rt-frame--text" lang="hi">नमस्ते?</span><span class="rt-tag">GPT-4T · Mono</span></div>
+            <div class="rt-card"><span class="rt-frame"><i style="--l: 22px; --t: 9px; --w: 9px; --h: 10px"></i></span><span class="rt-tag">360 · yolo</span></div>
+            <div class="rt-card"><span class="rt-frame rt-frame--text" lang="ta">வணக்கம்?</span><span class="rt-tag">Mixtral · Sim</span></div>
             {%- endfor %}
           </div>
           <span class="rt-veil"></span>

@@ -2494,7 +2494,7 @@ a:hover, a:focus { color: var(--accent-hover); }
 .kr-caption { position: absolute; left: 4px; top: 72px; font-family: var(--font-mono); font-size: 8px; color: #a89b7c; }
 .kr-concepts { position: absolute; left: 70px; top: 2px; width: 126px; height: 50px; }
 .kr-row { display: flex; align-items: center; gap: 6px; height: 16px; }
-.kr-row > span:first-child { flex: 0 0 44px; font-family: var(--font-mono); font-size: 8.5px; color: #a89b7c; }
+.kr-row > span:first-child { flex: 0 0 54px; font-family: var(--font-mono); font-size: 8px; white-space: nowrap; color: #a89b7c; }
 .kr-track { position: relative; flex: 1; height: 5px; overflow: hidden; border-radius: 3px; background: #4a4232; }
 .kr-fill { position: absolute; left: 0; top: 0; bottom: 0; width: var(--w); border-radius: 3px; background: #5ec9ae; }
 .kr-fill--wrong { background: #e2574c; animation: krWrong 6s ease infinite; }
@@ -2575,8 +2575,8 @@ a:hover, a:focus { color: var(--accent-hover); }
 
 /* Router: video frames and multilingual queries pass a router that picks a setting per input. */
 .rt { left: 0; right: 0; top: 24px; bottom: 6px; }
-.rt-belt { position: absolute; left: 0; top: 14px; display: flex; gap: 12px; animation: rtBelt 9s linear infinite; }
-.rt-card { flex: 0 0 40px; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.rt-belt { position: absolute; left: 0; top: 14px; display: flex; gap: 10px; animation: rtBelt 9s linear infinite; }
+.rt-card { flex: 0 0 56px; display: flex; flex-direction: column; align-items: center; gap: 5px; }
 .rt-frame {
   position: relative; width: 40px; height: 30px; box-sizing: border-box;
   display: flex; align-items: center; justify-content: center;
@@ -2585,12 +2585,12 @@ a:hover, a:focus { color: var(--accent-hover); }
 }
 .rt-frame:not(.rt-frame--text)::after { content: ''; position: absolute; left: 2px; right: 2px; bottom: 7px; height: 1px; background: #4a4232; }
 .rt-frame i { position: absolute; left: var(--l); top: var(--t); width: var(--w); height: var(--h); box-sizing: border-box; border: 1px solid #8fb3e0; }
-.rt-tag { font-family: var(--font-mono); font-size: 8px; white-space: nowrap; color: #8fb3e0; }
+.rt-tag { font-family: var(--font-mono); font-size: 7.5px; white-space: nowrap; color: #8fb3e0; }
 .rt-veil { position: absolute; left: 0; top: 47px; width: 50%; height: 14px; background: #2a2418; opacity: 0.88; }
 .rt-gate { position: absolute; left: 50%; top: 4px; bottom: 0; border-left: 1.5px dashed #8fb3e0; }
 .rt-gate-label { position: absolute; left: 50%; top: 0; margin-left: 5px; color: #8fb3e0; }
 .rt-caption { position: absolute; left: 8px; bottom: 0; }
-@keyframes rtBelt { from { transform: translateX(-208px); } to { transform: translateX(0); } }
+@keyframes rtBelt { from { transform: translateX(-264px); } to { transform: translateX(0); } }
 
 /* Off-screen loops pause; reduced motion shows each clip's end state. */
 .is-paused, .is-paused * { animation-play-state: paused !important; }
