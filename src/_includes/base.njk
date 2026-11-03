@@ -47,12 +47,11 @@
   {{ headExtra | safe }}
   {%- endif %}
 
-  <!-- Fonts: Inter is self-hosted; Fraunces (display) and IBM Plex Mono (labels)
-       load from Google Fonts without blocking render, then swap in. -->
-  <link rel="preload" href="/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Fonts: Bricolage Grotesque (headings), Instrument Sans (body) and
+       JetBrains Mono (labels) load from Google Fonts without blocking render. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  {%- set fontCss = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" %}
+  {%- set fontCss = "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:ital,wght@0,400..600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" %}
   <link rel="stylesheet" href="{{ fontCss }}" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="{{ fontCss }}"></noscript>
 

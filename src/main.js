@@ -505,7 +505,7 @@
   });
 
   // Highlight active section
-  var sections = ['top', 'news', 'systems', 'lineage', 'research', 'demos', 'reading', 'friends'];
+  var sections = ['top', 'systems', 'news', 'lineage', 'research', 'demos', 'reading', 'friends'];
   var ticking = false;
   var indicator = document.getElementById('section-indicator');
   var indicatorItems = indicator.querySelectorAll('.section-indicator__item');
@@ -564,8 +564,8 @@
   });
   // Sections
   [{ id: 'top', label: 'Home', icon: '🏠' },
-  { id: 'news', label: 'News', icon: '📣' },
   { id: 'systems', label: 'Systems', icon: '🛠' },
+  { id: 'news', label: 'News', icon: '📣' },
   { id: 'lineage', label: 'Research trails', icon: '🌱' },
   { id: 'research', label: 'Research', icon: '🔬' },
   { id: 'demos', label: 'Interactive research demos', icon: '✨' },

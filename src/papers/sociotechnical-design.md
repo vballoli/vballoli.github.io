@@ -2,6 +2,7 @@
 order: 3
 featured: false
 title: "\"Where is this coming from?\" Uncovering Trustworthiness Ideals in AI-powered Peripartum Information Seeking"
+oneliner: "Focus groups on the role of AI information tools in peripartum care and what stakeholders expect for trust and governance."
 topics: [healthcare]
 thumb: /tn/images/facct.png
 authors:

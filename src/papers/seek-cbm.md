@@ -2,6 +2,7 @@
 order: 4
 featured: false
 title: "SEEK-CBM: Editable and Interpretable Retrieval for Elephant Re-Identification"
+oneliner: "Upgrades CHAIR to modern vision architectures and self-supervised training, improving performance by 497%."
 topics: [vision, social-impact]
 thumb: /tn/images/seekcbm.png
 authors:

@@ -2,6 +2,7 @@
 order: 5
 featured: true
 title: "Bridging the Gap: Dynamic Learning Strategies for Improving Multilingual Performance in LLMs"
+oneliner: "Picks the prompt, LLM, and embedding model per query at run time to improve multilingual QA, with no extra training."
 topics: [llms]
 thumb: /tn/images/leap.png
 authors:

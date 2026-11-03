@@ -2293,13 +2293,6 @@ a:hover, a:focus { color: var(--accent-hover); }
 /* ============================================
    HERO STANDING LINE
    ============================================ */
-.hero__standing {
-  margin-top: 1rem;
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-}
-
-.hero__standing strong { color: var(--text-primary); font-weight: 600; }
 
 /* ============================================
    RESEARCH TRAILS
@@ -2604,131 +2597,104 @@ a:hover, a:focus { color: var(--accent-hover); }
 }
 
 /* ============================================
-   SYSTEMS
+   SYSTEMS IN THE FIELD
+   Post-it style field-note cards: flat, hard offset shadow, lift + folded
+   corner on hover, staggered fade-in on load.
    ============================================ */
 .systems__intro {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.65;
-  margin-bottom: 1.75rem;
-  max-width: 62ch;
-}
-
-.systems__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 1rem;
-}
-
-.system {
-  padding: 1.15rem 1.25rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
-}
-
-.system:hover {
-  border-color: var(--border-medium);
-  box-shadow: var(--shadow-sm);
-}
-
-.system__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.5rem 0.7rem;
-  margin-bottom: 0.55rem;
-}
-
-.system__name {
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-/* Stage of the system itself, not of the paper that describes it. */
-.system__status {
-  flex-shrink: 0;
-  padding: 0.12rem 0.5rem;
-  border: 1px solid var(--border-medium);
-  border-radius: 999px;
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  white-space: nowrap;
-}
-
-.system__status--deployed {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.system__org {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
-
-.system__org::before { content: '·'; margin-right: 0.5rem; }
-
-.system__years {
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-  margin-left: auto;
-  white-space: nowrap;
-}
-
-.system__body p {
-  font-size: 0.88rem;
+  font-size: 15px;
   line-height: 1.6;
   color: var(--text-secondary);
-  margin: 0 0 0.5rem;
+  margin-bottom: 28px;
+  max-width: 62ch;
 }
-
-.system__body p:last-child { margin-bottom: 0; }
-
-.system__contribution { color: var(--text-primary) !important; }
-
-.system__meta {
+.systems__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.system {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.4rem 0.5rem;
-  margin-top: 0.8rem;
-}
-
-.system__chip {
-  font-size: 0.7rem;
-  letter-spacing: 0.03em;
-  padding: 0.2rem 0.5rem;
-  border-radius: var(--radius-sm);
-  background: var(--bg-secondary);
+  flex-direction: column;
+  padding: 20px 20px 18px;
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+  box-shadow: 6px 6px 0 var(--frame-shadow);
+  transition: transform 0.28s cubic-bezier(.2, .8, .2, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+  animation: systemIn 0.55s cubic-bezier(.2, .8, .2, 1) both;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+.system::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(225deg, var(--bg-primary) 50%, var(--border-medium) 50%);
+  transform: scale(0);
+  transform-origin: top right;
+  transition: transform 0.28s ease;
+}
+.system:hover {
+  transform: translate(-2px, -3px);
+  box-shadow: 9px 9px 0 var(--frame-shadow);
+  border-color: var(--border-medium);
+}
+.system:hover::after { transform: scale(1); }
+@keyframes systemIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+.system__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.system__status { display: inline-flex; align-items: center; gap: 7px; }
+.system__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--status-progress); }
+.system__status--deployed .system__dot { background: var(--accent); }
+.system__years { white-space: nowrap; }
+.system__name {
+  margin: 0 0 8px;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+.system__blurb {
+  margin: 0 0 14px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+.system__org {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
   color: var(--text-muted);
 }
-
 .system__links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 0.9rem;
-  margin-top: 0.75rem;
-  padding-top: 0.7rem;
-  border-top: 1px solid var(--border-subtle);
-  font-size: 0.82rem;
+  gap: 4px 14px;
+  margin-top: auto;
+  padding-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
 }
-
+.system__org + .system__links { margin-top: 12px; border-top: 1px dashed var(--border-subtle); }
 .system__links a { font-weight: 500; }
-
-@media (max-width: 640px) {
-  .system__years { margin-left: 0; width: 100%; }
-}
 
 /* ============================================
    SUBPAGES (paper + topic)
@@ -3292,48 +3258,71 @@ a.cv__paper-title:hover { color: var(--accent); }
 
 /* ============================================
    FIELD NOTEBOOK LAYER
-   Typography, viewfinder photo, field-note cards and venue stamps. Builds on
+   Typography (Bricolage Grotesque / Instrument Sans / JetBrains Mono), viewfinder photo, field-note cards and venue stamps. Builds on
    the theme tokens above, so sepia, dark and system all keep working.
    ============================================ */
 :root,
 :root[data-theme] {
-  --font-heading: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --font-heading: 'Bricolage Grotesque', 'Arial Black', system-ui, sans-serif;
+  --font-serif: 'Bricolage Grotesque', 'Arial Black', system-ui, sans-serif;
+  --font-body: 'Instrument Sans', 'Helvetica Neue', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
 }
 
 /* Trail colours: distinct in lightness as well as hue. */
 :root,
 :root[data-theme="sepia"] {
+  --frame-shadow: rgba(28, 122, 99, 0.16);
+  --status-progress: #b0812a;
   --trail-1: #176a56;
   --trail-2: #a14a1a;
   --trail-3: #2f5d93;
 }
 :root[data-theme="dark"] {
+  --frame-shadow: rgba(94, 201, 174, 0.16);
+  --status-progress: #e0b25a;
   --trail-1: #5ec9ae;
   --trail-2: #e08a5a;
   --trail-3: #8fb3e0;
 }
 @media (prefers-color-scheme: dark) {
   :root[data-theme="system"] {
+    --frame-shadow: rgba(94, 201, 174, 0.16);
+    --status-progress: #e0b25a;
     --trail-1: #5ec9ae;
     --trail-2: #e08a5a;
     --trail-3: #8fb3e0;
   }
 }
 
-body { font-size: 16px; }
-
+/* ---------- Fixed type scale (px, so every section matches) ----------
+   Display 46 · section 28 · card 20 · log title 18 · trail 18/15
+   body 16 · secondary 14.5 · labels (mono) 12–13 · micro 11 */
+body { font-size: 16px; line-height: 1.6; font-feature-settings: normal; }
 .hero__name {
-  font-weight: 650;
-  font-size: 2.8rem;
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1.04;
   letter-spacing: -0.02em;
-  font-variation-settings: "opsz" 144;
 }
-
+.hero__tagline {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.hero__bio p { font-size: 16px; line-height: 1.62; }
+.hero__links a {
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
 .section-title {
-  font-weight: 600;
-  font-size: 1.75rem;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
   letter-spacing: -0.015em;
 }
 .section-title::before {
@@ -3342,6 +3331,20 @@ body { font-size: 16px; }
   font-weight: 400;
   font-size: 0.8em;
   color: var(--accent);
+}
+.research__intro, .trails__intro { font-size: 15px; line-height: 1.6; }
+.research__areas li { font-size: 15px; }
+.news__date { font-size: 12px; }
+.news__content { font-size: 15px; }
+.trail__pick { font-size: 18px; }
+.trail__count { font-size: 12px; }
+.trail__kicker { font-size: 11px; }
+.trail__title { font-size: 15px; }
+.trail__note { font-size: 13px; }
+
+@media (max-width: 640px) {
+  .hero__name { font-size: 36px; }
+  .section-title { font-size: 24px; }
 }
 
 /* ---------- Viewfinder hero photo ---------- */
@@ -3420,32 +3423,6 @@ body { font-size: 16px; }
   color: var(--text-muted);
 }
 
-/* ---------- Field-note cards ---------- */
-.system {
-  position: relative;
-  border-radius: 3px;
-  box-shadow: 5px 5px 0 var(--accent-light);
-  transition: transform 0.28s cubic-bezier(.2, .8, .2, 1), box-shadow 0.28s ease, border-color 0.28s ease;
-}
-.system::after {
-  content: '';
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  width: 18px;
-  height: 18px;
-  background: linear-gradient(225deg, var(--bg-primary) 50%, var(--border-medium) 50%);
-  transform: scale(0);
-  transform-origin: top right;
-  transition: transform 0.28s ease;
-}
-.system:hover {
-  transform: translate(-2px, -3px);
-  box-shadow: 9px 9px 0 var(--accent-light);
-  border-color: var(--border-medium);
-}
-.system:hover::after { transform: scale(1); }
-
 /* ---------- Venue stamps ---------- */
 .paper__venue-acronym {
   align-self: flex-start;
@@ -3468,5 +3445,147 @@ body { font-size: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .viewfinder__corner, .viewfinder__stamp, .viewfinder__frame img, .system, .system::after { transition: none !important; }
+  .viewfinder__corner, .viewfinder__stamp, .viewfinder__frame img, .system, .system::after, .paper__thumb, .paper__thumb::after { transition: none !important; }
+  .system { animation: none !important; }
+}
+
+/* ---------- Research log ----------
+   Left: venue stamp, year, track, then the figure (a field-note card with the
+   same lift + folded corner as Systems). Middle: title, authors, one-liner,
+   trail. Right: the paper's links as buttons. */
+.paper-list .paper {
+  grid-template-columns: 150px minmax(0, 1fr) 156px;
+  grid-template-rows: auto 1fr;
+  column-gap: 28px;
+  row-gap: 14px;
+  padding: 26px 0;
+  border-top: 1px dashed var(--border-subtle);
+  max-height: 1400px;
+}
+.paper-list .paper:last-child { border-bottom: 1px dashed var(--border-subtle); }
+.paper__meta { gap: 10px; }
+.paper__venue-acronym { font-size: 12px; line-height: 1.35; margin-bottom: 4px; }
+.paper__year { font-size: 12px; }
+.paper__venue-kind { font-size: 12px; }
+
+.paper-list .paper__thumb {
+  position: relative;
+  display: block;
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+  overflow: visible;
+  padding: 5px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+  box-shadow: 5px 5px 0 var(--frame-shadow);
+  transition: transform 0.28s cubic-bezier(.2, .8, .2, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+.paper-list .paper__thumb img { border-radius: 2px; }
+.paper-list .paper__thumb::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(225deg, var(--bg-primary) 50%, var(--border-medium) 50%);
+  transform: scale(0);
+  transform-origin: top right;
+  transition: transform 0.28s ease;
+}
+.paper-list .paper__thumb:hover,
+.paper:hover .paper__thumb {
+  transform: translateY(-3px);
+  box-shadow: 8px 8px 0 var(--frame-shadow);
+  border-color: var(--border-medium);
+}
+.paper-list .paper__thumb:hover::after,
+.paper:hover .paper__thumb::after { transform: scale(1); }
+
+.paper__text { grid-column: 2; }
+.paper__title,
+.paper--featured .paper__title {
+  margin-bottom: 6px;
+  font-size: 18px;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+}
+.paper__title a { color: var(--text-primary); }
+.paper__title a:hover { color: var(--accent); }
+.paper__authors { margin-bottom: 8px; font-size: 14px; }
+.paper__oneliner {
+  margin: 0 0 10px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+.paper__trail {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.paper__trail-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--trail-1); }
+.paper__trail--health .paper__trail-dot { background: var(--trail-2); }
+.paper__trail--adaptive .paper__trail-dot { background: var(--trail-3); }
+
+.paper-list .paper__actions {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+}
+.paper-list .paper__actions > * + *::before { content: none; }
+.paper-list .paper__actions a,
+.paper-list .paper__actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.paper-list .paper__actions a:hover,
+.paper-list .paper__actions button:hover { border-color: var(--border-medium); color: var(--accent); }
+.paper-list .paper__actions .paper__details {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  color: var(--bg-primary);
+}
+.paper-list .paper__actions .paper__details:hover { color: var(--bg-primary); opacity: 0.88; }
+.paper-list .paper__bibtex { grid-column: auto; }
+
+@media (max-width: 860px) {
+  .paper-list .paper { grid-template-columns: 120px minmax(0, 1fr); grid-template-rows: auto auto auto; }
+  .paper-list .paper__text { grid-row: 1 / span 2; }
+  .paper-list .paper__actions {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 640px) {
+  .paper-list .paper { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .paper-list .paper__meta,
+  .paper-list .paper__thumb,
+  .paper-list .paper__text,
+  .paper-list .paper__actions { grid-column: 1; grid-row: auto; }
+  .paper-list .paper__thumb { max-width: 160px; }
 }

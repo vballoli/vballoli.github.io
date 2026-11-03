@@ -2,6 +2,7 @@
 order: 6
 featured: true
 title: "Are They the Same Picture? Adapting Concept Bottleneck Models for Human-AI Collaboration in Image Retrieval"
+oneliner: "Concept bottleneck models that let experts intervene on concepts mid-retrieval, for wildlife re-identification platforms like ElephantBook."
 topics: [vision, social-impact]
 thumb: /tn/images/CHAIR.png
 authors:

@@ -14,8 +14,8 @@ permalink: /
 
   <div class="nav-dropdown" id="nav-dropdown" role="menu" aria-label="Section navigation">
     <a class="nav-dropdown__link" role="menuitem" href="#top" data-section="top">Home</a>
-    <a class="nav-dropdown__link" role="menuitem" href="#news" data-section="news">News</a>
     <a class="nav-dropdown__link" role="menuitem" href="#systems" data-section="systems">Systems</a>
+    <a class="nav-dropdown__link" role="menuitem" href="#news" data-section="news">News</a>
     <a class="nav-dropdown__link" role="menuitem" href="#lineage" data-section="lineage">Trails</a>
     <a class="nav-dropdown__link" role="menuitem" href="#research" data-section="research">Research</a>
     <a class="nav-dropdown__link" role="menuitem" href="#demos" data-section="demos">Demos</a>
@@ -64,12 +64,6 @@ permalink: /
           </p>
         </div>
 
-        <p class="hero__standing">
-          Always glad to hear from people working on similar problems: research collaborations, student questions,
-          or just a good argument about evaluation. Reach me at
-          <a href="mailto:{{ site.email }}">{{ site.email }}</a>.
-        </p>
-
         <div class="hero__links">
           {%- for link in profile.links %}
           <a {% if link.primary %}class="hero__link--primary"{% endif %} {% if link.external %}target="_blank" rel="noopener"{% endif %} href="{{ link.href }}"{% if link.aria %} aria-label="{{ link.aria }}" title="{{ link.aria }}"{% endif %}>{% if link.icon %}{{ link.icon }} {% endif %}{{ link.label }}</a>
@@ -94,6 +88,9 @@ permalink: /
     </div>
   </section>
 
+  <!-- SYSTEMS -->
+  {% include "systems.njk" %}
+
   <!-- NEWS -->
   <section class="section news" id="news">
     <h2 class="section-title">News <a class="anchor-link" href="#news" aria-label="Copy link to the News section">#</a></h2>
@@ -111,8 +108,6 @@ permalink: /
     <button class="news__view-all" id="news-view-all" type="button">View all news ({{ news.length }})</button>
     {%- endif %}
   </section>
-
-  {% include "systems.njk" %}
 
   <!-- RESEARCH TRAILS -->
   {% include "lineage.njk" %}
@@ -157,7 +152,8 @@ permalink: /
 
     <div class="paper-list" id="paper-list">
       {%- for paper in collections.papers %}
-      <article class="paper{% if paper.data.featured %} paper--featured{% endif %}" data-thread="{{ paper.fileSlug | threadOf }}" data-tags="{% if paper.data.featured %}featured,{% endif %}{{ paper.data.topics | join(',') }}" itemscope itemtype="https://schema.org/ScholarlyArticle">
+      {%- set thread = paper.fileSlug | threadOf %}
+      <article class="paper{% if paper.data.featured %} paper--featured{% endif %}" data-thread="{{ thread }}" data-tags="{% if paper.data.featured %}featured,{% endif %}{{ paper.data.topics | join(',') }}" itemscope itemtype="https://schema.org/ScholarlyArticle">
         {%- if paper.data.venues and paper.data.venues.length %}<meta itemprop="datePublished" content="{{ paper.data.venues[0].year }}">{% endif %}
         <div class="paper__meta">
           {%- for v in paper.data.venues %}
@@ -177,24 +173,31 @@ permalink: /
         </div>
         <div class="paper__body">
           {%- if paper.data.thumb %}
-          <div class="paper__thumb">
+          <a class="paper__thumb" href="{{ paper.url }}" tabindex="-1" aria-hidden="true">
             {%- set dim = paper.data.thumb | imageSize %}
-            <img alt="Thumbnail for {{ paper.data.title }}" src="{{ paper.data.thumb }}"{% if dim %} width="{{ dim.width }}" height="{{ dim.height }}"{% endif %} loading="lazy" decoding="async" itemprop="image">
-          </div>
+            <img alt="" src="{{ paper.data.thumb }}"{% if dim %} width="{{ dim.width }}" height="{{ dim.height }}"{% endif %} loading="lazy" decoding="async" itemprop="image">
+          </a>
           {%- endif %}
           <div class="paper__text">
             <h3 class="paper__title" itemprop="name headline"><a href="{{ paper.url }}">{{ paper.data.title }}</a></h3>
             <link itemprop="url mainEntityOfPage" href="{{ site.url }}{{ paper.url }}">
             <p class="paper__authors">{% for a in paper.data.authors %}<span itemprop="author" itemscope itemtype="https://schema.org/Person">{% if a.me %}<strong itemprop="name">{{ a.name }}</strong>{% else %}<span itemprop="name">{{ a.name }}</span>{% endif %}</span>{% if not loop.last %}, {% endif %}{% endfor %}</p>
-            <div class="paper__desc" itemprop="abstract">{{ paper.templateContent | safe }}</div>
-            <div class="paper__actions">
-              {%- for l in paper.data.links %}
-              <a href="{{ l.href }}" target="_blank" rel="noopener" title="{{ l.label }}: {{ paper.data.title }}" itemprop="sameAs">{{ l.label }}</a>
-              {%- endfor %}
-              <button type="button" data-copy-bibtex title="Copy the BibTeX citation for this paper">Copy BibTeX</button>
-              <a class="paper__details" href="{{ paper.url }}" title="Full details, citation, and lineage for {{ paper.data.title }}">Details →</a>
-            </div>
+            {%- if paper.data.oneliner %}<p class="paper__oneliner">{{ paper.data.oneliner }}</p>{% endif %}
+            {#- The full description stays in the page for search and structured data. #}
+            <div class="paper__desc" itemprop="abstract" hidden>{{ paper.templateContent | safe }}</div>
+            {%- if thread %}
+            {%- for t in lineage.threads %}{% if t.id == thread %}
+            <p class="paper__trail paper__trail--{{ thread }}"><span class="paper__trail-dot" aria-hidden="true"></span>{{ t.theme }}</p>
+            {%- endif %}{% endfor %}
+            {%- endif %}
             <pre class="paper__bibtex" hidden>{{ paper.data.bibtex | trim }}</pre>
+          </div>
+          <div class="paper__actions">
+            {%- for l in paper.data.links %}
+            <a href="{{ l.href }}" target="_blank" rel="noopener" title="{{ l.label }}: {{ paper.data.title }}" itemprop="sameAs">{{ l.label }}</a>
+            {%- endfor %}
+            <button type="button" data-copy-bibtex title="Copy the BibTeX citation for this paper">Copy BibTeX</button>
+            <a class="paper__details" href="{{ paper.url }}" title="Full details, citation, and lineage for {{ paper.data.title }}">Details →</a>
           </div>
         </div>
       </article>
@@ -526,7 +529,7 @@ permalink: /
       const btn = e.target.closest('[data-copy-bibtex]');
       if (!btn) return;
 
-      const bib = btn.closest('.paper__text')?.querySelector('.paper__bibtex');
+      const bib = btn.closest('.paper')?.querySelector('.paper__bibtex');
       if (!bib) return;
 
       if (e.shiftKey) {
