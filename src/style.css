@@ -157,10 +157,6 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .hero__name, .hero__bio > p, .hero__mentoring, .hero__links, .hero__photo {
-    opacity: 1 !important;
-    transform: none !important;
-  }
 }
 
 body {
@@ -443,30 +439,6 @@ a:hover, a:focus { color: var(--accent-hover); }
 /* ============================================
    HERO
    ============================================ */
-@keyframes heroFadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes heroPhotoIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-.hero__name, .hero__bio > p, .hero__mentoring, .hero__links, .hero__photo {
-  opacity: 0;
-  animation: heroFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.hero__name { animation-delay: 0s; }
-.hero__bio > p:nth-child(1) { animation-delay: 0.08s; }
-.hero__bio > p:nth-child(2) { animation-delay: 0.16s; }
-.hero__bio > p:nth-child(3) { animation-delay: 0.24s; }
-.hero__bio > p:nth-child(4) { animation-delay: 0.32s; }
-.hero__mentoring { animation-delay: 0.38s; }
-.hero__links { animation-delay: 0.44s; }
-.hero__photo { animation-name: heroPhotoIn; animation-delay: 0.15s; animation-duration: 0.7s; }
-
 .hero { padding: 3.5rem 0 1rem; }
 
 .hero__inner {
@@ -2599,7 +2571,7 @@ a:hover, a:focus { color: var(--accent-hover); }
 /* ============================================
    SYSTEMS IN THE FIELD
    Post-it style field-note cards: flat, hard offset shadow, lift + folded
-   corner on hover, staggered fade-in on load.
+   corner on hover.
    ============================================ */
 .systems__intro {
   font-size: 15px;
@@ -2626,8 +2598,6 @@ a:hover, a:focus { color: var(--accent-hover); }
   border-radius: 3px;
   box-shadow: 6px 6px 0 var(--frame-shadow);
   transition: transform 0.28s cubic-bezier(.2, .8, .2, 1), box-shadow 0.28s ease, border-color 0.28s ease;
-  animation: systemIn 0.55s cubic-bezier(.2, .8, .2, 1) both;
-  animation-delay: calc(var(--i, 0) * 80ms);
 }
 .system::after {
   content: '';
@@ -2647,7 +2617,6 @@ a:hover, a:focus { color: var(--accent-hover); }
   border-color: var(--border-medium);
 }
 .system:hover::after { transform: scale(1); }
-@keyframes systemIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 
 .system__top {
   display: flex;
@@ -3446,7 +3415,6 @@ body { font-size: 16px; line-height: 1.6; font-feature-settings: normal; }
 
 @media (prefers-reduced-motion: reduce) {
   .viewfinder__corner, .viewfinder__stamp, .viewfinder__frame img, .system, .system::after, .paper__thumb, .paper__thumb::after { transition: none !important; }
-  .system { animation: none !important; }
 }
 
 /* ---------- Research log ----------
@@ -3463,6 +3431,15 @@ body { font-size: 16px; line-height: 1.6; font-feature-settings: normal; }
   max-height: 1400px;
 }
 .paper-list .paper:last-child { border-bottom: 1px dashed var(--border-subtle); }
+/* Filtered-out papers collapse completely (this has to outrank the row rules above). */
+.paper-list .paper.paper--hidden {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  row-gap: 0;
+  border-top-width: 0;
+  border-color: transparent;
+}
 .paper__meta { gap: 10px; }
 .paper__venue-acronym { font-size: 12px; line-height: 1.35; margin-bottom: 4px; }
 .paper__year { font-size: 12px; }
