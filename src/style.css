@@ -3463,6 +3463,15 @@ body { font-size: 16px; line-height: 1.6; font-feature-settings: normal; }
   max-height: 1400px;
 }
 .paper-list .paper:last-child { border-bottom: 1px dashed var(--border-subtle); }
+/* Filtered-out papers collapse completely (this has to outrank the row rules above). */
+.paper-list .paper.paper--hidden {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  row-gap: 0;
+  border-top-width: 0;
+  border-color: transparent;
+}
 .paper__meta { gap: 10px; }
 .paper__venue-acronym { font-size: 12px; line-height: 1.35; margin-bottom: 4px; }
 .paper__year { font-size: 12px; }
