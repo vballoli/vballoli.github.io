@@ -4,7 +4,7 @@ featured: true
 title: "PATHFinder Agent for Tailored Prenatal Care"
 oneliner: "LLM agents that talk with pregnant people to plan personalised prenatal care and resources, and to assist clinicians."
 topics: [llms, evals, healthcare, social-impact]
-thumb: /tn/images/facct.png
+thumb: /tn/images/pathfinder.png
 authors:
   - { name: "Vaibhav Balloli", me: true }
   - { name: "Carissa Samuel" }
