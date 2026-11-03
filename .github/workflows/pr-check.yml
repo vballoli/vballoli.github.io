@@ -26,14 +26,3 @@ jobs:
           path: _site
           retention-days: 3
 
-  # Temporary: fetch the Fraunces and IBM Plex Mono font files to self-host.
-  # Removed again before the PR is ready.
-  fonts:
-    runs-on: ubuntu-latest
-    steps:
-      - run: npm pack @fontsource-variable/fraunces @fontsource/ibm-plex-mono
-      - uses: actions/upload-artifact@v4
-        with:
-          name: fonts
-          path: "*.tgz"
-          retention-days: 1

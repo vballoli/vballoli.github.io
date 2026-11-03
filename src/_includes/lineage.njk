@@ -1,99 +1,139 @@
-{#- Research lineage.
+{#- Research trails.
 
-    Rendered entirely at build time: every node is a real <a> to a real page, so
-    the diagram stays navigable and legible with no JavaScript.
+    Each thread is one left-to-right trail: the people it serves, then its
+    papers oldest-first, then where the work is headed (only when the thread
+    has a `deployment`). Every paper stop is a real <a> to its page, so the
+    section works with no JavaScript; JS only adds the filter on the paper list.
 
-    Each thread's DOM order runs roots -> oldest -> newest -> deployment; CSS
-    reverses the column so the tree reads bottom-up on screen. -#}
+    The looping clip beside each trail and the footprints are decoration:
+    aria-hidden, transform/opacity only, paused off-screen and frozen under
+    prefers-reduced-motion. -#}
 
-<section class="section lineage-section" id="lineage">
-  <h2 class="section-title">Research lineage <a class="anchor-link" href="#lineage" aria-label="Copy link to the Research lineage section">#</a></h2>
-  <p class="lineage__intro">{{ lineage.intro }}</p>
+<section class="section trails-section" id="lineage">
+  <h2 class="section-title">Research trails <a class="anchor-link" href="#lineage" aria-label="Copy link to the Research trails section">#</a></h2>
+  <p class="trails__intro">{{ lineage.intro }}</p>
 
-  {%- set layout = lineage.threads | threadSpans %}
-  <div class="lineage" style="--lineage-cols: {{ layout.total }}">
+  <div class="trails" id="trails">
     {%- for thread in lineage.threads %}
-    <article class="lineage__thread" style="--lineage-span: {{ layout.spans[loop.index0] }}" aria-labelledby="lineage-{{ thread.id }}">
-      <h3 class="lineage__question" id="lineage-{{ thread.id }}">{{ thread.theme }}</h3>
+    {%- set ti = loop.index0 %}
+    {%- set stops = thread.levels | trailStops %}
+    {%- set stopCount = stops.length + 1 + (1 if thread.deployment else 0) %}
+    <article class="trail trail--{{ thread.id }}" data-thread="{{ thread.id }}" aria-labelledby="trail-{{ thread.id }}">
 
-      <ol class="lineage__stem">
-        {#- Roots come first in the DOM (so the spoken order is "for these
-            people, first this, then this, and here is where it runs") and CSS
-            flips the column so they render at the bottom of the diagram. -#}
-        <li class="lineage__roots">
-          <span class="lineage__roots-label">{{ thread.roots }}</span>
-        </li>
+      <div class="trail__clip trail__clip--{{ thread.clip }}" role="img" aria-label="
+        {%- if thread.clip == 'retrieval' %}Looping illustration: the model misreads one ear notch, an expert corrects that concept, and retrieval switches from the wrong elephant to the right one.
+        {%- elif thread.clip == 'health' %}Looping illustration: a patient asks, the AI agent drafts a reply, a safety check flags a risky line, the agent corrects it, and the scores rise.
+        {%- else %}Looping illustration: video frames and multilingual queries stream past a router that picks a resolution or model for each one.{% endif %}">
+        <div class="clip__bar" aria-hidden="true">
+          <span class="clip__rec"><span class="clip__dot"></span>{{ thread.cam }}</span>
+          <span>{{ thread.place }}</span>
+        </div>
 
-        {%- for level in thread.levels %}
+        {%- if thread.clip == 'retrieval' %}
+        <div class="clip__body" aria-hidden="true">
+          <svg class="kr-ear" viewBox="0 0 60 70" width="56" height="66" focusable="false"><path d="M10 4 C34 2 54 12 56 32 C57 46 50 58 38 64 L33 59 L29 66 C20 68 12 62 10 54 C8 46 14 40 12 32 L19 28 L12 23 C8 18 6 10 10 4 Z"/></svg>
+          <span class="kr-flag kr-flag--ear"></span>
+          <span class="kr-caption">query ear</span>
+          <div class="kr-concepts">
+            <div class="kr-row"><span>notch 1</span><span class="kr-track"><span class="kr-fill" style="--w: 80%"></span></span></div>
+            <div class="kr-row"><span>notch 2</span><span class="kr-track"><span class="kr-fill kr-fill--wrong" style="--w: 22%"></span><span class="kr-fill kr-fill--right" style="--w: 86%"></span></span></div>
+            <div class="kr-row"><span>tear</span><span class="kr-track"><span class="kr-fill" style="--w: 58%"></span></span></div>
+            <span class="kr-flag kr-flag--row"></span>
+          </div>
+          <div class="kr-result">
+            <span class="kr-id kr-id--wrong">match → ID 117 ✗</span>
+            <span class="kr-id kr-id--right">match → ID 042 ✓</span>
+          </div>
+        </div>
 
-        {#- Connector below this level: forked when the level has two papers. -#}
-        <li class="lineage__connector" aria-hidden="true">
-          {%- if level.length > 1 %}
-          <svg viewBox="0 0 100 44" preserveAspectRatio="none" focusable="false">
-            <path d="M50 44 C50 20 25 24 25 0" vector-effect="non-scaling-stroke" />
-            <path d="M50 44 C50 20 75 24 75 0" vector-effect="non-scaling-stroke" />
-          </svg>
-          {%- else %}
-          <svg viewBox="0 0 100 44" preserveAspectRatio="none" focusable="false">
-            <path d="M50 44 L50 0" vector-effect="non-scaling-stroke" />
-          </svg>
-          {%- endif %}
-        </li>
-
-        <li class="lineage__level{% if level.length > 1 %} lineage__level--split{% endif %}">
-          {%- for node in level %}
-          {%- set paper = collections.papers | findPaper(node.slug) %}
-          {%- if paper %}
-          <a class="lineage__node" href="{{ paper.url }}">
-            <span class="lineage__node-meta">
-              <span class="lineage__node-venue">{{ paper.data.venues[0].acronym }}</span>
-              <span class="lineage__node-year">{{ paper.data.venues[0].year }}</span>
+        {%- elif thread.clip == 'health' %}
+        <div class="clip__body ha" aria-hidden="true">
+          <div class="ha-chat">
+            <div class="ha-q"><i style="--w: 100%"></i><i style="--w: 55%"></i></div>
+            <span class="ha-typing"><b></b><b></b><b></b></span>
+            <div class="ha-msg">
+              <i style="--w: 100%"></i>
+              <span class="ha-line"><span class="ha-risk"></span><span class="ha-safe"></span></span>
+              <i style="--w: 60%"></i>
+              <span class="ha-flag"></span>
+            </div>
+            <span class="clip__label ha-who">patient · agent</span>
+          </div>
+          <div class="ha-side">
+            <span class="ha-shield">
+              <svg viewBox="0 0 22 26" focusable="false"><path class="ha-shield__base" d="M11 1 L20 5 V12 C20 18 16 22.5 11 25 C6 22.5 2 18 2 12 V5 Z"/></svg>
+              <svg class="ha-shield__alert" viewBox="0 0 22 26" focusable="false"><path d="M11 1 L20 5 V12 C20 18 16 22.5 11 25 C6 22.5 2 18 2 12 V5 Z"/><path class="ha-mark" d="M11 7 V14 M11 17.5 V18"/></svg>
+              <svg class="ha-shield__ok" viewBox="0 0 22 26" focusable="false"><path d="M11 1 L20 5 V12 C20 18 16 22.5 11 25 C6 22.5 2 18 2 12 V5 Z"/><path class="ha-mark" d="M6.5 13 L9.8 16.2 L15.5 9.5"/></svg>
             </span>
-            <span class="lineage__node-title">{{ paper.data.title | truncate(58) }}</span>
-            {%- if node.note %}<span class="lineage__node-note">{{ node.note }}</span>{% endif %}
-          </a>
-          {%- endif %}
-          {%- endfor %}
-        </li>
-        {%- endfor %}
+            <span class="clip__label">safety</span>
+            <span class="ha-bars"><b style="--h: 10px"></b><b style="--h: 15px"></b><b style="--h: 20px"></b><b style="--h: 26px"></b></span>
+            <span class="clip__label">scores</span>
+          </div>
+        </div>
 
-        {%- if thread.stage %}
-        {#- Last in the DOM, so the reversed column puts it at the crown.
-            Branches merge back into one. -#}
-        {%- set top = thread.levels | last %}
-        <li class="lineage__connector lineage__connector--crown" aria-hidden="true">
-          {%- if top.length > 1 %}
-          <svg viewBox="0 0 100 44" preserveAspectRatio="none" focusable="false">
-            <path d="M25 44 C25 20 50 24 50 0" vector-effect="non-scaling-stroke" />
-            <path d="M75 44 C75 20 50 24 50 0" vector-effect="non-scaling-stroke" />
-          </svg>
-          {%- else %}
-          <svg viewBox="0 0 100 44" preserveAspectRatio="none" focusable="false">
-            <path d="M50 44 L50 0" vector-effect="non-scaling-stroke" />
-          </svg>
-          {%- endif %}
-        </li>
-
-        <li class="lineage__crown{% if not thread.deployment %} lineage__crown--bare{% endif %}">
-          <span class="lineage__crown-eyebrow">{{ thread.stage }}</span>
-          {%- if thread.deployment %}
-          <span class="lineage__crown-label">{{ thread.deployment }}</span>
-          {%- endif %}
-        </li>
+        {%- else %}
+        <div class="clip__body rt" aria-hidden="true">
+          <div class="rt-belt">
+            {%- for pass in [1, 2] %}
+            <div class="rt-card"><span class="rt-frame"><i style="--l: 4px; --t: 6px; --w: 9px; --h: 12px"></i><i style="--l: 15px; --t: 9px; --w: 8px; --h: 10px"></i><i style="--l: 26px; --t: 4px; --w: 9px; --h: 14px"></i></span><span class="rt-tag">720p · L</span></div>
+            <div class="rt-card"><span class="rt-frame rt-frame--text" lang="hi">नमस्ते?</span><span class="rt-tag">LLM-B</span></div>
+            <div class="rt-card"><span class="rt-frame"><i style="--l: 22px; --t: 9px; --w: 9px; --h: 10px"></i></span><span class="rt-tag">360p · S</span></div>
+            <div class="rt-card"><span class="rt-frame rt-frame--text" lang="ta">வணக்கம்?</span><span class="rt-tag">LLM-A</span></div>
+            {%- endfor %}
+          </div>
+          <span class="rt-veil"></span>
+          <span class="rt-gate"></span>
+          <span class="clip__label rt-gate-label">router</span>
+          <span class="clip__label rt-caption">frames · queries</span>
+        </div>
         {%- endif %}
-      </ol>
+      </div>
+
+      <div class="trail__main">
+        <h3 class="trail__head" id="trail-{{ thread.id }}">
+          <button class="trail__pick" type="button" data-thread-filter="{{ thread.id }}" aria-pressed="false" aria-controls="paper-list">
+            <span class="trail__swatch" aria-hidden="true"></span>
+            <span class="trail__name">{{ thread.theme }}</span>
+            <span class="trail__count">{{ stops.length }} papers</span>
+          </button>
+        </h3>
+
+        <div class="trail__scroll">
+          <div class="trail__inner" style="--stops: {{ stopCount }}">
+          <ol class="trail__track">
+            <li class="trail__stop trail__stop--for">
+              <span class="trail__marker" aria-hidden="true"></span>
+              <span class="trail__kicker">for</span>
+              <span class="trail__title">{{ thread.roots }}</span>
+            </li>
+            {%- for node in stops %}
+            {%- set paper = collections.papers | findPaper(node.slug) %}
+            {%- if paper %}
+            <li class="trail__stop trail__stop--paper">
+              <a href="{{ paper.url }}" title="{{ paper.data.title }}">
+                <span class="trail__marker" aria-hidden="true"></span>
+                <span class="trail__kicker">{{ paper.data.venues[0].acronym }} {{ paper.data.venues[0].year }}</span>
+                <span class="trail__title">{{ node.short or (paper.data.title | truncate(40)) }}</span>
+                {%- if node.note %}<span class="trail__note">{{ node.note }}</span>{% endif %}
+              </a>
+            </li>
+            {%- endif %}
+            {%- endfor %}
+            {%- if thread.deployment %}
+            <li class="trail__stop trail__stop--headed">
+              <span class="trail__marker" aria-hidden="true"></span>
+              <span class="trail__kicker">headed</span>
+              <span class="trail__title">{{ thread.deployment }}</span>
+            </li>
+            {%- endif %}
+          </ol>
+          <div class="trail__prints" aria-hidden="true">
+            {%- for i in range(0, 18) %}<i style="--x: {{ (2.5 + i * 5.6) | round(1) }}%; --d: {{ (ti * 0.6 + i * 0.2) | round(2) }}s"></i>{%- endfor %}
+          </div>
+          </div>
+        </div>
+      </div>
     </article>
     {%- endfor %}
   </div>
-
-  <p class="lineage__legend">
-    <span class="lineage__legend-mark" aria-hidden="true"></span>
-    Read bottom-up: the people each thread serves sit at the root, the papers grow from there, and the top of each
-    thread is where the work is headed.
-  </p>
-  {%- if lineage.credit %}
-  <p class="lineage__credit">
-    Tree layout inspired by <a href="{{ lineage.credit.href }}" target="_blank" rel="noopener">{{ lineage.credit.name }}</a>.
-  </p>
-  {%- endif %}
 </section>

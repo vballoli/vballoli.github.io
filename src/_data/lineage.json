@@ -1,29 +1,29 @@
 {
-  "_comment": "The research lineage diagram. `levels` are ordered oldest-first; the layout renders them bottom-up so each paper sits above the work it grew out of. `roots` is what each thread serves and renders at the bottom; `stage` and the optional `deployment` render at the top. A thread with no `deployment` shows its stage alone. Slugs must match filenames in src/papers/.",
-  "intro": "Seven papers, three threads. Each thread starts with the people it is for, grows upward through the work, and ends where that work is headed.",
-  "credit": {
-    "text": "Tree layout inspired by Philippe Laban's paper garden.",
-    "name": "Philippe Laban",
-    "href": "https://tingofurro.github.io/"
-  },
+  "_comment": "The research trails. Each thread runs left to right: `roots` (who it serves), then its papers (`levels` flattened oldest-first), then `deployment` if it has one; a thread with no `deployment` ends at its last paper. `stage` is kept for the agent/llms outputs. `clip` picks the looping illustration next to the trail (retrieval | health | router). `short` is the stop label on the trail. Slugs must match filenames in src/papers/.",
+  "intro": "Seven papers, three trails. Each starts with the people it is for, runs through the papers, and ends where the work is headed. Pick a trail to filter the papers below.",
   "threads": [
     {
       "id": "conservation",
       "theme": "Helping experts steer retrieval",
-      "roots": "Conservation biologists & rangers",
+      "clip": "retrieval",
+      "cam": "CAM-01",
+      "place": "Masai Mara",
+      "roots": "Rangers & ecologists",
       "stage": "Research + Deployment",
       "deployment": "To be deployed for the elephant work",
       "levels": [
         [
           {
             "slug": "chair",
-            "note": "Let experts intervene on concepts mid-search"
+            "note": "Let experts intervene on concepts mid-search",
+            "short": "CHAIR"
           }
         ],
         [
           {
             "slug": "seek-cbm",
-            "note": "Modern backbones, 497% better retrieval"
+            "note": "Modern backbones, 497% better retrieval",
+            "short": "SEEK-CBM"
           }
         ]
       ]
@@ -31,6 +31,9 @@
     {
       "id": "health",
       "theme": "Deploying trustworthy health AI systems",
+      "clip": "health",
+      "cam": "CAM-02",
+      "place": "Michigan",
       "roots": "Birthing people, clinicians & health workers",
       "stage": "Research + Deployment",
       "deployment": "TBD in Michigan",
@@ -38,17 +41,20 @@
         [
           {
             "slug": "sociotechnical-design",
-            "note": "Ask them first: four focus groups, three stakeholder groups"
+            "note": "Ask them first: four focus groups, three stakeholder groups",
+            "short": "Where is this coming from?"
           }
         ],
         [
           {
             "slug": "pathfinder",
-            "note": "Build to that spec: a care-planning agent"
+            "note": "Build to that spec: a care-planning agent",
+            "short": "PATHFinder"
           },
           {
             "slug": "reliance",
-            "note": "Then measure the ecosystem it lives in"
+            "note": "Then measure the ecosystem it lives in",
+            "short": "RELIANCE"
           }
         ]
       ]
@@ -56,19 +62,24 @@
     {
       "id": "adaptive",
       "theme": "Selecting best system configuration",
+      "clip": "router",
+      "cam": "CAM-03",
+      "place": "Runtime",
       "roots": "Adaptive systems",
       "stage": "Research",
       "levels": [
         [
           {
             "slug": "chanakya",
-            "note": "Trade accuracy for latency as the scene changes"
+            "note": "Trade accuracy for latency as the scene changes",
+            "short": "Chanakya"
           }
         ],
         [
           {
             "slug": "leap",
-            "note": "Same idea, now choosing prompts and models per query"
+            "note": "Same idea, now choosing prompts and models per query",
+            "short": "Bridging the Gap"
           }
         ]
       ]
