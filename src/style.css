@@ -3258,14 +3258,15 @@ a.cv__paper-title:hover { color: var(--accent); }
 
 /* ============================================
    FIELD NOTEBOOK LAYER
-   Typography, viewfinder photo, field-note cards and venue stamps. Builds on
+   Typography (Bricolage Grotesque / Instrument Sans / JetBrains Mono), viewfinder photo, field-note cards and venue stamps. Builds on
    the theme tokens above, so sepia, dark and system all keep working.
    ============================================ */
 :root,
 :root[data-theme] {
-  --font-heading: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --font-heading: 'Bricolage Grotesque', 'Arial Black', system-ui, sans-serif;
+  --font-serif: 'Bricolage Grotesque', 'Arial Black', system-ui, sans-serif;
+  --font-body: 'Instrument Sans', 'Helvetica Neue', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
 }
 
 /* Trail colours: distinct in lightness as well as hue. */
@@ -3297,13 +3298,12 @@ a.cv__paper-title:hover { color: var(--accent); }
 /* ---------- Fixed type scale (px, so every section matches) ----------
    Display 46 · section 28 · card 20 · log title 18 · trail 18/15
    body 16 · secondary 14.5 · labels (mono) 12–13 · micro 11 */
-body { font-size: 16px; line-height: 1.6; }
+body { font-size: 16px; line-height: 1.6; font-feature-settings: normal; }
 .hero__name {
   font-size: 46px;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.04;
   letter-spacing: -0.02em;
-  font-variation-settings: "opsz" 144;
 }
 .hero__tagline {
   font-family: var(--font-mono);
@@ -3321,7 +3321,7 @@ body { font-size: 16px; line-height: 1.6; }
 }
 .section-title {
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.015em;
 }
